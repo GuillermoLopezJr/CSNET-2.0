@@ -1,11 +1,22 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
+  get 'instructor/new'
+
+  get 'instructor/create'
+
+  devise_for :instructors
+
+  devise_scope :instructor do
+    authenticated :instructor do
+      root 'instructor#index', as: :authenticated_root
+    end
   
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root 'sessions#new'
-  
-  get    '/login',   to: 'sessions#new'
-  post   '/login',   to: 'sessions#create'
-  delete '/logout',  to: 'sessions#destroy'
+  root 'instructor#index'
+
 end
