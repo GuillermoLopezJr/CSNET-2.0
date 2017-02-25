@@ -16,6 +16,19 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.find(params[:id])
   end
 
+  def edit
+    @assignment = Assignment.find(params[:id])
+  end
+  
+  def update
+    @assignment = Assignment.find(params[:id])
+    if @assignment.update(assignment_params)
+       redirect_to @assignment
+    else
+       render 'edit'
+    end
+  end
+
   private
     def assignment_params
       params.require(:assignment).permit(:name, :due_date, :course)
