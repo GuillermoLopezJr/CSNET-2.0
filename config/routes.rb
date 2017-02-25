@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+
+
+  get 'course/new'
+
+  get 'course/create'
+
   get 'instructor/new'
 
   get 'instructor/create'
@@ -18,5 +24,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root 'instructor#index'
-
+  
+  resources :courses
+  get 'courses/new'
+  
 end

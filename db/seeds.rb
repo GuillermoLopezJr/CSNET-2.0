@@ -6,11 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-students = [{:email => 'john@tamu.edu', :password => '1234'},
-    	  {:email => 'doe@tamu.edu', :password => 'password'},
+courses = [{:name => 'Software Engineering', :number => '431' },
     ]
     	  
     	  
-students.each do |student|
-  Student.create!(student)
+courses.each do |course|
+  Course.create!(course)
+  
 end

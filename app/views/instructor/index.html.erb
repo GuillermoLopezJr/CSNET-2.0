@@ -1,2 +1,22 @@
 <p>You are signed in</p>
 <%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %>   
+
+
+<h2>Courses</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Number</th>
+  </tr>
+ 
+  <% @courses.each do |course| %>
+    <tr>
+      <td><%= course.name %></td>
+      <td><%= course.number %></td>
+      <td><%= link_to 'Show', course_path(course) %></td>
+    </tr>
+  <% end %>
+</table>
+
+
+<%= link_to('Add new course', courses_new_path) %>

@@ -1,0 +1,18 @@
+<h1> WELCOME TO COURSES <h1>
+
+<h1>Listing Courses</h1>
+ 
+<table>
+  <tr>
+    <th>Course Name</th>
+    <th>Course Number</th>
+  </tr>
+ 
+  <% @course.each do |course| %>
+    <tr>
+      <td><%= course.name %></td>
+      <td><%= course.number %></td>
+      <td><%= link_to 'Show', course_path(course) %></td>
+    </tr>
+  <% end %>
+</table>
