@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   get 'instructor/new'
-
   get 'instructor/create'
+
+
+  resources :assignments
+  get 'assignments/new'
 
   devise_for :instructors
 
