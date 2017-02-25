@@ -1,0 +1,20 @@
+<h1> WELCOME TO COURSES <h1>
+
+<h1>Listing Assignments</h1>
+ 
+<table>
+  <tr>
+    <th>Assignment</th>
+    <th>Course</th>
+    <th>Due Date</th>
+  </tr>
+ 
+  <% @assignments.each do |assignment| %>
+    <tr>
+      <td><%= assignment.name %></td>
+      <td><%= assignment.course %></td>
+      <td><%= assignment.due_date %></td>
+      <td><%= link_to 'Show', assignment_path(assignment) %></td>
+    </tr>
+  <% end %>
+</table>

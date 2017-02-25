@@ -6,8 +6,11 @@ Rails.application.routes.draw do
   get 'course/create'
 
   get 'instructor/new'
-
   get 'instructor/create'
+
+
+  resources :assignments
+  get 'assignments/new'
 
   devise_for :instructors
 

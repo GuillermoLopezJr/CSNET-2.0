@@ -1,6 +1,4 @@
 <p>You are signed in</p>
-<%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %>   
-
 
 <h2>Courses</h2>
 <table>
@@ -19,4 +17,11 @@
 </table>
 
 
-<%= link_to('Add new course', courses_new_path) %>
+<div id="content">
+    <!--, path-->
+    <li><%= link_to "Create a course", courses_new_path %></li> 
+    <li><%= link_to "Create an assigment", assignments_new_path %></li>
+    <li><%= link_to "Edit an assignment" %></li>
+</div>
+
+<%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %>  

@@ -1,0 +1,34 @@
+<h1> NEW ASSIGNMENT </h1>
+
+<%= form_for :assignment, url: assignments_path do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :course %><br>
+    <%= f.text_field :course %>
+  </p>
+
+  <p>
+    <%= f.label :due_date %><br>
+    <%= f.text_field :due_date %>
+  </p>
+
+<% if false %>
+  we can add a description that the 
+  professor wants to specify late.
+
+  <p>
+    <%= f.label :text %><br>
+    <%= f.text_area :text %>
+  </p>
+<% end %> 
+
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
