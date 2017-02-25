@@ -8,6 +8,6 @@ It allows students to submit homework assignments easily and quickly (a replacem
 
 ##Iteration 1
 * [Heroku app](https://fast-shore-41666.herokuapp.com/)
-* Test User Accout:
+* Test User Account:
 * email:    user@gmail.com
 * password: password
