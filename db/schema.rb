@@ -29,5 +29,4 @@ ActiveRecord::Schema.define(version: 20170223155902) do
     t.index ["reset_password_token"], name: "index_instructors_on_reset_password_token", unique: true
   end
 
-
 end
