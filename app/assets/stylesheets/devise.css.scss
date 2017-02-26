@@ -1,0 +1,23 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+
+.panel.panel-default.devise-bs {
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    color: #3366cc;
+    // background-color: grey;
+}
+
+h4 {
+    text-align: center;
+    color: black;
+    font-size: 24px;
+}
+.links {
+    margin-left: 25.5%;
+    margin-right: 25%;
+    display: inline-block;
+}

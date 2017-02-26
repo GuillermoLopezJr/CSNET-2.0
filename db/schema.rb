@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20170226042657) do
   create_table "assignments", force: :cascade do |t|
     t.string   "name"
     t.string   "due_date"
-    t.integer  "course_num"
+    t.string   "course"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "course_id"
@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(version: 20170226042657) do
   create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.integer  "number"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "instructor_integer"
     t.integer  "instructor_id"
   end
 
