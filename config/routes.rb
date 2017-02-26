@@ -12,6 +12,12 @@ Rails.application.routes.draw do
   resources :assignments
   get 'assignments/new'
 
+  resources :courses
+  get 'courses/new'
+  
+  resources :instructor
+  get 'instructor/new'
+  
   devise_for :instructors
 
   devise_scope :instructor do
@@ -28,7 +34,6 @@ Rails.application.routes.draw do
 
   root 'instructor#index'
   
-  resources :courses
-  get 'courses/new'
+
   
 end

@@ -3,9 +3,15 @@ class AssignmentsController < ApplicationController
   end
 
   def create
-    @assignment = Assignment.new(assignment_params)
-    @assignment.save
-    redirect_to @assignment
+    #@instructor.courses.create
+    @course = Course.find_by number: (params[:assignment][:course_num].to_i)
+    
+    if (@course != nil)
+      @assignment = @course.assignments.create(assignment_params)
+      redirect_to @assignment
+    else
+      redirect_to assignments_path
+    end
   end
 
   def index
@@ -31,6 +37,6 @@ class AssignmentsController < ApplicationController
 
   private
     def assignment_params
-      params.require(:assignment).permit(:name, :due_date, :course)
+      params.require(:assignment).permit(:name, :due_date, :course_num)
     end
 end
