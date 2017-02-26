@@ -7,15 +7,20 @@
     margin-left: 25%;
     margin-right: 25%;
     width: 50%;
-    color: #3366cc;
-    // background-color: grey;
+    color: #0000ff;
+    //background-color: grey;
 }
 
+.panel.panel-default.devise-bs > .panel-heading {
+    background-color: maroon;
+    color: white;
+}
+
+
 h4 {
-    text-align: center;
-    color: black;
     font-size: 24px;
 }
+
 .links {
     margin-left: 25.5%;
     margin-right: 25%;

@@ -3,20 +3,25 @@
 <h1>Listing Assignments</h1>
  
 <table>
-  <tr>
-    <th>Assignment</th>
-    <th>Course</th>
-    <th>Due Date</th>
-  </tr>
- 
+  <thead>
+    <tr>
+      <th>Assignment</th>
+      <th>Course</th>
+      <th>Due Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
   <% @assignments.each do |assignment| %>
     <tr>
       <td><%= assignment.name %></td>
       <td><%= assignment.course_num %></td>
       <td><%= assignment.due_date %></td>
-      <td><%= link_to 'Show', assignment_path(assignment) %></td>
-      <td><%= link_to 'Edit', assignment_path(assignment) %></td>
+      <td><%= link_to 'Show', assignment_path(assignment) %> | <%= link_to 'Edit', assignment_path(assignment) %></td>
     </tr>
   <% end %>
+  
+  
+  
 </table>
 

@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+
 
 
 #content {
@@ -9,8 +14,85 @@
     font-size: 36px;
 }
 
+#main-content {
+    padding: 20px;
+}
+
 li {
     list-style-type: none;
     padding: 10px;
     text-align: center; 
+}
+
+/* 
+   Table style, imported from: http://codepen.io/anon/pen/ZeGbyO
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+}
+
+table {
+  text-align: left;
+  line-height: 40px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 2px solid maroon;
+  width: 500px;
+  margin: 50px auto;
+  border-radius: .25rem;
+}
+
+thead tr:first-child {
+  background: maroon;
+  color: #fff;
+  border: none;
+}
+
+th:first-child,
+td:first-child {
+  padding: 0 15px 0 20px;
+}
+
+thead tr:last-child th {
+  border-bottom: 3px solid #ddd;
+}
+
+tbody tr:hover {
+  background-color: rgba(237, 28, 64, .1);
+  cursor: default;
+}
+
+tbody tr:last-child td {
+  border: none;
+}
+
+tbody td {
+  border-bottom: 1px solid #ddd;
+}
+
+td:last-child {
+  text-align: right;
+  padding-right: 10px;
+}
+
+.button {
+  color: #aaa;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.edit:hover {
+  color: #0a79df;
+}
+
+.delete:hover {
+  color: #dc2a2a;
 }

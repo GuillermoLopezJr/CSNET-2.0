@@ -1,11 +1,15 @@
+<div id="main-content">
 <p>You are signed in</p>
 
 <h2>Courses</h2>
 <table>
-  <tr>
-    <th>Name</th>
-    <th>Number</th>
-  </tr>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Number</th>
+      <th></th>
+    </tr>
+  </thead>
  
   <% @courses.each do |course| %>
     <tr>
@@ -34,3 +38,4 @@
 </div>
 
 <%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
+</div>
