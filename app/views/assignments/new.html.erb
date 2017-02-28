@@ -8,12 +8,12 @@
 
   <p>
     <%= f.label :course_num %><br>
-    <%= f.number_field :course_num %>
+    <%= f.collection_select :course_num, @courses, :number, :number, prompt: true, include_blank: false %>
   </p>
 
   <p>
     <%= f.label :due_date %><br>
-    <%= f.text_field :due_date %>
+    <%= date_field(:assignment, :due_date) %>
   </p>
 
 <% if false %>
