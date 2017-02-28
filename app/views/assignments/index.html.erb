@@ -16,8 +16,9 @@
         <td><%= assignment.name %></td>
         <td><%= assignment.course_num %></td>
         <td><%= assignment.due_date %></td>
-        <td><%= link_to 'Show', assignment_path(assignment) %> | <%= link_to 'Edit', assignment_path(assignment) %></td>
+        <td style="text-align:center"><%= link_to 'Show', assignment_path(assignment) %> | <%= link_to 'Edit', assignment_path(assignment) %></td>
       </tr>
     <% end %>
 </table>
+ <p>  <%= link_to 'Home', instructor_path(:index) %> </p>
 </div>

@@ -23,8 +23,9 @@
   <tr>
   <% @courses.each do |course| %>
       <td><%= course.name %></td>
-      <td><%= course.number %></td>
-      <td><%= link_to 'Show', course_path(course) %></td>
+      <td><%= link_to course.number , course_path(course) %></td>
+      <td></td>
+      <td></td>
     <tr>
     </tr>
     <tr>
