@@ -1,30 +1,5 @@
 <p>You are signed in</p>
-
-<h2>Courses</h2>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Number</th>
-  </tr>
- 
-  <% @courses.each do |course| %>
-    <tr>
-      <td><%= course.name %></td>
-      <td><%= course.number %></td>
-      <td><%= link_to 'Show', course_path(course) %></td>
-    </tr>
-    
-    <tr>
-      <% course.assignments.each do |assignment| %>
-        <tr>
-          <td>---</td>
-          <td><%= assignment.name %></td>
-        </tr>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
-
+<%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
 
 <div id="content">
     <!--, path-->
@@ -33,4 +8,36 @@
     <li><%= link_to "View Lists of Assignments", assignments_path %></li>
 </div>
 
-<%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
+
+<h2>Courses</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Number</th>
+  </tr>
+ 
+  <tr>
+  <% @courses.each do |course| %>
+      <td><%= course.name %></td>
+      <td><%= course.number %></td>
+      <td><%= link_to 'Show', course_path(course) %></td>
+    <tr>
+    </tr>
+    <tr>
+      <% course.assignments.each do |assignment| %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= assignment.name %></td>
+          <td><%= assignment.due_date %></td>
+        </tr>
+      <% end %>
+      
+    </tr>
+    
+  <% end %>
+  </tr>
+</table>
+
+
+

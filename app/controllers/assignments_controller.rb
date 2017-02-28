@@ -1,5 +1,7 @@
 class AssignmentsController < ApplicationController
   def new
+    @instructor = current_instructor
+    @courses = Course.where( instructor_id: @instructor)
   end
 
   def create

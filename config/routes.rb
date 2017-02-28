@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   devise_scope :instructor do
     authenticated :instructor do
-      root 'instructor#index', as: :authenticated_root
+      root 'instructor#show', as: :authenticated_root
     end
   
     unauthenticated do
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root 'instructor#index'
+  root 'instructor#show'
   
 
   
