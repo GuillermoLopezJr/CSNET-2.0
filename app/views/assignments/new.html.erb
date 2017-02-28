@@ -1,34 +1,35 @@
-<h1> NEW ASSIGNMENT </h1>
-
-<%= form_for :assignment, url: assignments_path do |f| %>
-  <p>
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </p>
-
-  <p>
-    <%= f.label :course_num %><br>
-    <%= f.collection_select :course_num, @courses, :number, :number, prompt: true, include_blank: false %>
-  </p>
-
-  <p>
-    <%= f.label :due_date %><br>
-    <%= date_field(:assignment, :due_date) %>
-  </p>
-
-<% if false %>
-  we can add a description that the 
-  professor wants to specify late.
-
-  <p>
-    <%= f.label :text %><br>
-    <%= f.text_area :text %>
-  </p>
-<% end %> 
-
-
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
-
+<div id="assign-create-content">
+  <h1> NEW ASSIGNMENT </h1>
+  
+  <%= form_for :assignment, url: assignments_path do |f| %>
+    <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </p>
+  
+    <p>
+      <%= f.label :course_num %><br>
+      <%= f.collection_select :course_num, @courses, :number, :number, prompt: true, include_blank: false %>
+    </p>
+  
+    <p>
+      <%= f.label :due_date %><br>
+      <%= date_field(:assignment, :due_date) %>
+    </p>
+  
+  <% if false %>
+    we can add a description that the 
+    professor wants to specify late.
+  
+    <p>
+      <%= f.label :text %><br>
+      <%= f.text_area :text %>
+    </p>
+  <% end %> 
+  
+  
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+</div>

@@ -1,20 +1,19 @@
-
-
-<h1> NEW COURSE </h1>
-
-<%= form_for :course, url: courses_path do |f| %>
-  <p>
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </p>
-
-  <p>
-    <%= f.label :number %><br>
-    <%= f.number_field :number %>
-  </p>
-
-
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
+<div id="course-create-content">
+  <h1> NEW COURSE </h1>
+  
+  <%= form_for :course, url: courses_path do |f| %>
+    <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </p>
+  
+    <p>
+      <%= f.label :number %><br>
+      <%= f.number_field :number %>
+    </p>
+  
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+</div>

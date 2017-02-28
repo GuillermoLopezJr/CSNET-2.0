@@ -1,18 +1,25 @@
 <div id="main-content">
-<p>You are signed in</p>
+<p>You are signed in </p> 
 
-<h2>Courses</h2>
+
+<div id="instructor-content">
+    <!--, path-->
+    <li><%= link_to "Create a Course", courses_new_path %></li> 
+    <li><%= link_to "Create an Assigment", assignments_new_path %></li>
+    <li><%= link_to "View Lists of Assignments", assignments_path %></li>
+</div>
+
+<h2 align="center">Courses</h2>
 <table>
-  
-  
-  
   <thead>
     <tr>
       <th>Name</th>
       <th>Number</th>
-      <th>Action</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
+ 
  
   <% @courses.each do |course| %>
     <tr>
@@ -33,12 +40,11 @@
 </table>
 
 
-<div id="content">
-    <!--, path-->
-    <li><%= link_to "Create a Course", courses_new_path %></li> 
-    <li><%= link_to "Create an Assigment", assignments_new_path %></li>
-    <li><%= link_to "View Lists of Assignments", assignments_path %></li>
-</div>
 
-<%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
+
+  <div id="logout-button">
+   <%= button_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
+  </div>
+
+
 </div>

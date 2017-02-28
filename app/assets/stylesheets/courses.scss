@@ -5,10 +5,14 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+#course-content {
+    margin-left: 25px;
+}
 
-* {
- font-size: 100%;
- font-family: Arial;
- margin: 0;
- padding: 0;
+#course-create-content {
+    margin-left: 25px;
+}
+
+#course-list-content {
+    margin-left: 25px;
 }

@@ -1,41 +1,42 @@
-
-<h1>Editing assignment</h1>
- 
-<%= form_for :assignment, url: assignment_path(@assignment), method: :patch do |f| %>
- 
-  <% if @assignment.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@assignment.errors.count, "error") %> prohibited
-        this assignment from being saved:
-      </h2>
-      <ul>
-        <% @assignment.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
+<div id="assign-edit-content">
+  <h1>Editing assignment</h1>
+   
+  <%= form_for :assignment, url: assignment_path(@assignment), method: :patch do |f| %>
+   
+    <% if @assignment.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@assignment.errors.count, "error") %> prohibited
+          this assignment from being saved:
+        </h2>
+        <ul>
+          <% @assignment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+   
+    <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </p>
+   
+    <p>
+      <%= f.label :due_date %><br>
+      <%= date_field(:assignment, :due_date) %>
+    </p>
+    
+    <p>
+      <%= f.label :course %><br>
+      <%= f.text_area :course %>
+    </p>
+   
+    <p>
+      <%= f.submit %>
+    </p>
+   
   <% end %>
- 
-  <p>
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </p>
- 
-  <p>
-    <%= f.label :due_date %><br>
-    <%= f.text_area :due_date %>
-  </p>
-  
-  <p>
-    <%= f.label :course %><br>
-    <%= f.text_area :course %>
-  </p>
- 
-  <p>
-    <%= f.submit %>
-  </p>
- 
-<% end %>
- 
-<%= link_to 'Back', assignments_path %>
+   
+  <%= link_to 'Back', assignments_path %>
+</div>
