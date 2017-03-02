@@ -2,12 +2,10 @@ Rails.application.routes.draw do
 
 
   get 'course/new'
-
   get 'course/create'
-
   get 'instructor/new'
   get 'instructor/create'
-
+  
 
   resources :assignments
   get 'assignments/new'

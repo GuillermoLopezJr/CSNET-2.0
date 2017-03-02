@@ -1,8 +1,7 @@
 <div id="main-content">
 <p>You are signed in</p>
-<%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
 
-<div id="content">
+<div id="instructor-content">
     <!--, path-->
     <li><%= link_to "Create a Course", courses_new_path %></li> 
     <li><%= link_to "Create an Assigment", assignments_new_path %></li>
@@ -10,12 +9,13 @@
 </div>
 
 
-<h2>Courses</h2>
+<h2 align="center">Courses</h2>
 <table>
   <thead>
     <tr>
       <th>Name</th>
       <th>Number</th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -23,8 +23,9 @@
   <tr>
   <% @courses.each do |course| %>
       <td><%= course.name %></td>
-      <td><%= course.number %></td>
-      <td><%= link_to 'Show', course_path(course) %></td>
+      <td><%= link_to course.number , course_path(course) %></td>
+      <td></td>
+      <td></td>
     <tr>
     </tr>
     <tr>
@@ -44,6 +45,8 @@
 </table>
 
 
+  <div id="logout-button">
+   <%= button_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
+  </div>
 
-<%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
 </div>
