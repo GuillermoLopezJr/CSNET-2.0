@@ -15,7 +15,7 @@
 }
 
 #logout-button {
-   
+    color: maroon;
     position: absolute;
     top: 45px;
     right: 20px;
@@ -46,6 +46,10 @@ table {
   width: 500px;
   margin: 50px auto;
   border-radius: .25rem;
+}
+
+tr {
+  text-transform: uppercase;
 }
 
 thead tr:first-child {

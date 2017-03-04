@@ -15,7 +15,16 @@ class AssignmentsController < ApplicationController
       redirect_to assignments_path
     end
   end
-
+  
+  def delete
+    if (@course != nil)
+      @assignment = @course.assignments.delete(assignment_params)
+      redirect_to assignments_path
+    else
+      redirect_to assignments_path
+    end
+  end
+  
   def index
     @assignments = Assignment.all
   end
