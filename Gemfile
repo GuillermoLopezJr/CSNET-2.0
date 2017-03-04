@@ -49,6 +49,9 @@ group :development, :test do
   
 end
 
+#uploades  files
+gem 'carrierwave', '~> 0.9'
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
@@ -58,9 +61,9 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-group :production do
-  gem 'pg'
-end
+#group :production do
+ # gem 'pg'
+#end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

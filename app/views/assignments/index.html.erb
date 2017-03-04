@@ -1,13 +1,15 @@
 <div id="assign-list-content">
   <h1>Listing Assignments</h1>
    
-  <table>
-    <thead>
+  <table class = "w">
+    <thead >
       <tr>
         <th>Assignment</th>
         <th>Course</th>
         <th>Due Date</th>
         <th>Actions</th>
+        <th>Download Assignment</th>
+        <th> </th>
       </tr>
     </thead>
   
@@ -17,8 +19,13 @@
         <td><%= assignment.course_num %></td>
         <td><%= assignment.due_date %></td>
         <td style="text-align:center"><%= link_to 'Show', assignment_path(assignment) %> | <%= link_to 'Edit', assignment_path(assignment) %></td>
+        <td><%= link_to "Download", assignment.attachment_url %></td>
+        <td><%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{assignment.name}?" %></td>
+          
       </tr>
     <% end %>
 </table>
  <p>  <%= link_to 'Home', instructor_path(:index) %> </p>
 </div>
+
+
