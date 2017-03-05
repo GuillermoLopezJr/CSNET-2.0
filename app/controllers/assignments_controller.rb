@@ -1,12 +1,12 @@
 class AssignmentsController < ApplicationController
   def new
     @instructor = current_instructor
-    @courses = Course.where( instructor_id: @instructor)
+    @courses = @instructor.courses#where( instructor_id: @instructor)
   end
 
   def create
     #@instructor.courses.create
-    @course = Course.find_by number: (params[:assignment][:course_num].to_i)
+    @course = current_instructor.courses.find_by number: (params[:assignment][:course_num].to_i)#Course.find_by number: (params[:assignment][:course_num].to_i)
       
     
     if (@course != nil)
@@ -43,6 +43,8 @@ class AssignmentsController < ApplicationController
   end
   
   def update
+    @instructor = current_instructor
+    @courses = Course.where( instructor_id: @instructor)
     @assignment = Assignment.find(params[:id])
     if @assignment.update(assignment_params)
        redirect_to @assignment
