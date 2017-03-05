@@ -21,6 +21,11 @@
       <%= f.label :name %><br>
       <%= f.text_field :name, id:"name" %>
     </p>
+    
+    <p>
+       <%= f.label :attachment %>
+      <%= f.file_field :attachment%>
+    </p>
    
     <p>
       <%= f.label :due_date %><br>
@@ -39,4 +44,6 @@
   <% end %>
    
   <%= link_to 'Back', assignments_path %>
+  <%= link_to 'Delete' %>
+
 </div>

@@ -7,6 +7,7 @@ class AssignmentsController < ApplicationController
   def create
     #@instructor.courses.create
     @course = Course.find_by number: (params[:assignment][:course_num].to_i)
+      
     
     if (@course != nil)
       @assignment = @course.assignments.create(assignment_params)
@@ -14,8 +15,19 @@ class AssignmentsController < ApplicationController
     else
       redirect_to assignments_path
     end
+      
+      
   end
-
+  
+  def delete
+    if (@course != nil)
+      @assignment = @course.assignments.delete(assignment_params)
+      redirect_to assignments_path
+    else
+      redirect_to assignments_path
+    end
+  end
+  
   def index
     @assignments = Assignment.all
   end
@@ -38,9 +50,16 @@ class AssignmentsController < ApplicationController
        render 'edit'
     end
   end
-
+    
+  def destroy
+      @assignment = Assignment.find(params[:id])
+      @assignment.destroy
+      redirect_to assignments_path, notice:  "The assignment #{@assignment.name} has been deleted."
+   end
+    
+    
   private
     def assignment_params
-      params.require(:assignment).permit(:name, :due_date, :course_num)
+      params.require(:assignment).permit(:name, :due_date, :course_num,:attachment)
     end
 end

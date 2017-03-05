@@ -1,5 +1,5 @@
 <div id="main-content">
-<p>You are signed in</p>
+<p>You are signed in,  <font size="3"><%= @instructor.email %></font>  </p>
 
 <div id="instructor-content">
     <!--, path-->
@@ -15,8 +15,8 @@
     <tr>
       <th>Name</th>
       <th>Number</th>
-      <th></th>
-      <th></th>
+      <th>Assignment</th>
+      <th>Due Date</th>
     </tr>
   </thead>
  
@@ -33,7 +33,7 @@
         <tr>
           <td></td>
           <td></td>
-          <td><%= assignment.name %></td>
+          <td><%= link_to assignment.name , assignment_path(assignment) %></td>
           <td><%= assignment.due_date %></td>
         </tr>
       <% end %>
