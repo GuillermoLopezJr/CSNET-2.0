@@ -25,6 +25,8 @@ class AssignmentsController < ApplicationController
   end
 
   def edit
+    @instructor = current_instructor
+    @courses = Course.where( instructor_id: @instructor)
     @assignment = Assignment.find(params[:id])
   end
   

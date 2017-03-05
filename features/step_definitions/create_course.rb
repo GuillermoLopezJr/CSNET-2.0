@@ -1,7 +1,20 @@
-When(/^I submit new course form$/) do
-	
+
+Given(/^I am an instructor logged in as "(.*?)" with password "(.*?)"$/) do |email, pass|
+  visit new_instructor_registration_path
+  fill_in "email", :with => email
+  fill_in "password", :with => pass
+  fill_in "password2", :with => pass
+  click_button "signup"
+end
+
+When(/^I submit a new course form$/) do
+ visit courses_new_path
+ fill_in "name", :with => "Software Eng"
+ fill_in "number", :with => 431
+ click_button "submit"
 end
 
 Then(/^I should add a course to the database$/) do
-	expect(Course).to have_content("You are signed in")
+    @c = Course.find_by( name: 'Software Eng', number: 431 )
+    expect( @c ).to be_truthy
 end

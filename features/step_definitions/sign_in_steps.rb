@@ -1,7 +1,24 @@
-When(/^I enter credentials and click login$/) do
-	visit after_sign_in_path_for_instructor
+#World(Devise::TestHelpers)
+
+Given(/^I am an instructor registered as "(.*?)" with password "(.*?)"$/) do |email, pass|
+  visit new_instructor_registration_path
+  fill_in "email", :with => email
+  fill_in "password", :with => pass
+  fill_in "password2", :with => pass
+  click_button "signup"
+  click_button "Logout"
 end
 
-Then(/^I should be signed in and brought to home page$/) do
+When (/^I enter credentials "(.*?)" and "(.*?)" at sign in page$/) do |email, password|
+  visit new_instructor_session_path
+  fill_in "email", :with => email
+  fill_in "password", :with => password
+  click_button "Sign in"
+end
+
+Then (/^I should be signed in and brought to home page$/) do
 	expect(page).to have_content("You are signed in")
 end
+
+
+

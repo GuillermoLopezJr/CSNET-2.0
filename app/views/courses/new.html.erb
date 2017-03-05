@@ -4,16 +4,16 @@
   <%= form_for :course, url: courses_path do |f| %>
     <p>
       <%= f.label :name %><br>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, id:"name" %>
     </p>
   
     <p>
       <%= f.label :number %><br>
-      <%= f.number_field :number %>
+      <%= f.number_field :number, id:"number" %>
     </p>
   
     <p>
-      <%= f.submit %>
+      <%= f.submit 'submit', :id=>"submit" %>
     </p>
     
     <p>  <%= link_to 'Home', instructor_path(:index) %> </p>

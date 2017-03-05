@@ -4,17 +4,17 @@
   <%= form_for :assignment, url: assignments_path do |f| %>
     <p>
       <%= f.label :name %><br>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, id:"name" %>
     </p>
   
     <p>
       <%= f.label :course_num %><br>
-      <%= f.collection_select :course_num, @courses, :number, :number, prompt: true, include_blank: false %>
+      <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
     </p>
   
     <p>
       <%= f.label :due_date %><br>
-      <%= date_field(:assignment, :due_date) %>
+      <%= date_field(:assignment, :due_date, id:"due_date") %>
     </p>
   
   <% if false %>
@@ -29,7 +29,7 @@
   
   
     <p>
-      <%= f.submit %>
+      <%= f.submit 'submit', id:"submit" %>
     </p>
     <p>  <%= link_to 'Home', instructor_path(:index) %> </p>
   <% end %>
