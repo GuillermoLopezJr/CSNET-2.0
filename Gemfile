@@ -54,13 +54,13 @@ end
 #uploades  files
 gem 'carrierwave', '~> 0.9'
 
-group :test do
-  gem 'capybara'
-  gem 'shoulda-matchers', '~> 3.1'
-  gem 'factory_girl_rails'
-  gem 'guard-rspec'
-  gem 'launchy'
-end
+#group :test do
+  #gem 'capybara'
+  #gem 'shoulda-matchers', '~> 3.1'
+  #gem 'factory_girl_rails'
+  #gem 'guard-rspec'
+  #gem 'launchy'
+#end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
