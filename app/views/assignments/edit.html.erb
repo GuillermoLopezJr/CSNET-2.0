@@ -23,14 +23,15 @@
     </p>
     
     <p>
-      <%= f.label :attachment %>
-      <%= f.file_field :attachment %>
+      <%= f.label :attachment %> 
+      <p> >> Current Attachment: <b><%= @assignment.attachment_url.split('/').last %></b></p>
+      <%= f.file_field :attachment %> 
     </p>
    
     <p>
       <%= f.label :due_date %> <br>
       <!-- Populate the field with the current due date -->
-      <%= f.date_field :due_date, value: @assignment.due_date %> 
+      <%= f.date_field :due_date, value: @assignment.due_date, id:"due_date" %> 
     
     </p>
     
