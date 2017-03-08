@@ -24,7 +24,9 @@
     
     <p>
       <%= f.label :attachment %> 
-      <!--<p> >> Current Attachment: <b><%= @assignment.attachment_url.split('/').last %></b></p>-->
+      <% if @assignment.attachment_url != nil %>
+        <p> >> Current Attachment: <b><%= @assignment.attachment_url.split('/').last %></b></p>
+      <% end %>
       <%= f.file_field :attachment %> 
     </p>
    
