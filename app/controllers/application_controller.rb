@@ -4,4 +4,9 @@ class ApplicationController < ActionController::Base
   def hello
     render html: "hello, world!"
   end
+  
+  def index
+    render "home/index.html.erb"
+  end
+  
 end

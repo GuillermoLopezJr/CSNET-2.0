@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  factory :student do
+    
+  end
   factory :instructor do
     email "user@gmail.com"
     password "password"

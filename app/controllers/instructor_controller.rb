@@ -17,7 +17,8 @@ class InstructorController < ApplicationController
       @instructor = current_instructor
       @courses = Course.where( instructor_id: @instructor)
     else  
-      redirect_to sign_in_path
+      render html: "user not signed in"
+      #redirect_to sign_in_path
     end
   end
 
