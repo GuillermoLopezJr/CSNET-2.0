@@ -1,7 +1,7 @@
 <div id="main-content">
 <p>You are signed in,  <font size="3"><%= @student.email %></font>  </p>
   <div id="logout-button">
-   <%= button_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
+   <%= button_to('Logout', destroy_student_session_path, :method => :delete) %>  
   </div>
 </div>
 
@@ -10,8 +10,8 @@
 
 <div id="instructor-content">
     <!--, path-->
-    <li><%= link_to "View Courses", courses_path %></li> 
-    <li><%= link_to "View Assignments", assignments_path %></li>
+    <li><%= link_to "See my courses", courses_path %></li> 
+    <li><%= link_to "See my assignments", assignments_path %></li>
 </div>
 
 

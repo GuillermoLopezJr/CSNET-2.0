@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
 
 
-
   get 'course/new'
   get 'course/create'
   get 'instructor/new'
   get 'instructor/create'
-  
 
   resources :assignments
   get 'assignments/new'
@@ -17,13 +15,13 @@ Rails.application.routes.draw do
   resources :instructor
   get 'instructor/new'
   
-  resources :student
-  get 'student/new'
+  resources :students
+  get 'students/new'
   
-  devise_for :students
+  devise_for :student
   devise_scope :student do
     authenticated :student do
-      root 'student#show', as: :authenticated_student_root
+      root 'students#show', as: :authenticated_students_root
     end
     
     authenticated :instructor do
