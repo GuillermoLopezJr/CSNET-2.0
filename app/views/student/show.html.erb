@@ -1,11 +1,54 @@
 <div id="main-content">
 <p>You are signed in,  <font size="3"><%= @student.email %></font>  </p>
-
-
-
-
   <div id="logout-button">
    <%= button_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
   </div>
-
 </div>
+
+
+<h1> HOME </h1>
+
+<div id="instructor-content">
+    <!--, path-->
+    <li><%= link_to "View Courses", courses_path %></li> 
+    <li><%= link_to "View Assignments", assignments_path %></li>
+</div>
+
+
+<% if false %>
+<h2 align="center">Courses</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Number</th>
+      <th>Assignment</th>
+      <th>Due Date</th>
+    </tr>
+  </thead>
+ 
+  <tr>
+  <% @courses.each do |course| %>
+      <td><%= course.name %></td>
+      <td><%= link_to course.number , course_path(course) %></td>
+      <td></td>
+      <td></td>
+    <tr>
+    </tr>
+    <tr>
+      <% course.assignments.each do |assignment| %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= link_to assignment.name , assignment_path(assignment) %></td>
+          <td><%= assignment.due_date %></td>
+        </tr>
+      <% end %>
+      
+    </tr>
+    
+  <% end %>
+  </tr>
+</table>
+<% end %>
+
