@@ -2,6 +2,7 @@ class Course < ApplicationRecord
     belongs_to :instructor
     
     has_many :assignments, dependent: :destroy
+    has_many :students, dependent: :destroy
     
     validates :name, presence: true,
                     length: { minimum: 1 }
