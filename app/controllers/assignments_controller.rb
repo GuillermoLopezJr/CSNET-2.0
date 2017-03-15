@@ -15,14 +15,6 @@ class AssignmentsController < ApplicationController
     end
   end
   
-  def delete
-    if (@course != nil)
-      @assignment = @course.assignments.delete(assignment_params)
-      redirect_to assignments_path
-    else
-      redirect_to assignments_path
-    end
-  end
   
   def index
     #need to distinguish between student and instructor
@@ -64,7 +56,7 @@ class AssignmentsController < ApplicationController
       @assignment = Assignment.find(params[:id])
       @assignment.destroy
       redirect_to assignments_path, notice:  "The assignment #{@assignment.name} has been deleted."
-   end
+  end
     
     
   private

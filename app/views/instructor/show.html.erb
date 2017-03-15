@@ -1,15 +1,15 @@
 <div id="main-content">
 <p>You are signed in,  <font size="3"><%= @instructor.email %></font>  </p>
 
-<div id="instructor-content">
+<div id="instructor-content" >
     <!--, path-->
-    <li><%= link_to "Create a Course", courses_new_path %></li> 
+    <li><%= link_to "Create a Course", courses_new_path %> | <%= link_to "View Courses List", courses_path %> </li> 
     <li><%= link_to "Create an Assigment", assignments_new_path %></li>
     <li><%= link_to "View Lists of Assignments", assignments_path %></li>
     <li><%= link_to "Add a student to a course", students_new_path %></li> 
-    <li><%= link_to "Upload a file to add multiple students to a course", "#" %></li> 
+    <li><%= link_to "Upload a file to add multiple students to a course" %></li>
 </div>
-
+    <%= file_field :attachment, class:"form-control"%>
 
 <h2 align="center">Courses</h2>
 <table>

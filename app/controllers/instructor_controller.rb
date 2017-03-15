@@ -1,3 +1,4 @@
+require 'roo'
 class InstructorController < ApplicationController
 
   def new
@@ -21,5 +22,12 @@ class InstructorController < ApplicationController
       #redirect_to sign_in_path
     end
   end
+  
+  def parseXLSX 
+    return 'f'
+  end
+  helper_method :parseXLSX
+  
+  
 
 end

@@ -9,15 +9,22 @@
         <th>Assignment</th>
         <th>Course</th>
         <th>Due Date</th>
+      
         <% if @isInstructor %>
           <th>Actions</th>
         <% end %>
+        
         <th>Download Assignment</th>
+        
         <% if @isInstructor %>
           <th></th>
         <% end %>
-
-        <th> Submit assignment </th>
+        
+        <% if @isStudent %>
+          <th> Submit assignment </th>
+        <% end %>
+        
+        
       </tr>
     </thead>
   
@@ -29,15 +36,14 @@
         <% if @isInstructor %>
           <td style="text-align:left"><%= link_to 'Show', assignment_path(assignment) %> | <%= link_to 'Edit', assignment_path(assignment) %></td>
         <% end %>
+        
         <td><%= link_to "Download", assignment.attachment_url %></td>
+        
         <% if @isInstructor %>
           <td>
             <%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{assignment.name}?" %>
           </td>
         <% end %>
-
-        <td><%= %></td>
-          
       </tr>
     <% end %>
 </table>

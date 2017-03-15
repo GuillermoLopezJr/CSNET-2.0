@@ -14,3 +14,7 @@
  *= require_self
  */
  
+ #home-content {
+    text-align: center;
+    font-size: 48px;
+ }

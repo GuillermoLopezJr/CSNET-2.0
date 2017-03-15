@@ -6,6 +6,13 @@ class CoursesController < ApplicationController
     @course = @instructor.courses.create(course_params)
     redirect_to @course
   end
+  
+  def destroy
+      @course = Course.find(params[:id])
+      @course.destroy
+      flash[:notice] = 'The course #{@course.name} #{@course.number} has been deleted.'
+      redirect_to courses_path
+  end
 
   def index
     #need to distinguish between student and instructor

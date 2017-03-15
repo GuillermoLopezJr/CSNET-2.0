@@ -17,8 +17,12 @@
         <td><%= course.name %></td>
         <td><%= course.number %></td>
         <td><%= link_to 'Show', course_path(course) %></td>
-        <td></td>
+        <td><%= button_to "Delete",  course, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{course.name}?" %> </td>
       </tr>
     <% end %>
   </table>
+  <p>  
+    <%= link_to 'Home', @user %>
+  </p>
 <div>
+
