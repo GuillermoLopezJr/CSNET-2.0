@@ -1,20 +1,23 @@
 class CoursesController < ApplicationController
 
-
-  #def create
-  #  @instructor = current_instructor
-  #  @course = @instructor.courses.create(name: params[:name], number: params[:number])
-  #end
-
-
   def create
+    #only instructors can create courses
     @instructor = current_instructor
     @course = @instructor.courses.create(course_params)
     redirect_to @course
   end
 
   def index
-    @course = Course.all
+    #need to distinguish between student and instructor
+    @user = current_instructor
+    if @user == nil
+      #a student is signed in
+      @user = current_student
+      @course = Course.where( number: @user.course.number)
+    else
+      #an instructor is singed in
+      @course = Course.all
+    end
   end
 
   def show

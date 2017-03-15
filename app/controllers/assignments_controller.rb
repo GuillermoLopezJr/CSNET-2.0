@@ -5,18 +5,14 @@ class AssignmentsController < ApplicationController
   end
 
   def create
-    #@instructor.courses.create
-    @course = current_instructor.courses.find_by number: (params[:assignment][:course_num].to_i)#Course.find_by number: (params[:assignment][:course_num].to_i)
+    @course = current_instructor.courses.find_by number: (params[:assignment][:course_num].to_i)
       
-    
     if (@course != nil)
       @assignment = @course.assignments.create(assignment_params)
       redirect_to @assignment
     else
       redirect_to assignments_path
     end
-      
-      
   end
   
   def delete
@@ -29,7 +25,18 @@ class AssignmentsController < ApplicationController
   end
   
   def index
-    @assignments = Assignment.all
+    #need to distinguish between student and instructor
+    @user = current_instructor
+    @isInstructor = true
+    if @user == nil
+      #a student is signed in
+      @user = current_student
+      @assignments = Assignment.where(course_id: @user.course_id)
+      @isInstructor = false
+    else
+      #an instructor is singed in
+      @assignments = Assignment.all
+    end
   end
 
   def show

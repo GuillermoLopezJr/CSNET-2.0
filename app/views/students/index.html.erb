@@ -1,0 +1,20 @@
+
+<table>
+  <thead>
+    <tr>
+      <th>Course Name</th>
+      <th>studnet Email</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+ 
+  <% @students.each do |student| %>
+    <tr>
+      <% if student.course != nil %>
+      <td><%= student.course.number%></td>
+      <td><%= student.email %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

@@ -1,27 +1,24 @@
-<div id="course-list-content">
+<div class="container">
+  <h2>Listing Courses</h2>
 
-<h1> WELCOME TO COURSES <h1>
-
-<h1>Listing Courses</h1>
-</div>
-
-<table>
-  <thead>
-    <tr>
-      <th>Course Name</th>
-      <th>Course Number</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
- 
- 
-  <% @course.each do |course| %>
-    <tr>
-      <td><%= course.name %></td>
-      <td><%= course.number %></td>
-      <td><%= link_to 'Show', course_path(course) %></td>
-      <td></td>
-    </tr>
-  <% end %>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th>Course Name</th>
+        <th>Course Number</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+   
+   
+    <% @course.each do |course| %>
+      <tr>
+        <td><%= course.name %></td>
+        <td><%= course.number %></td>
+        <td><%= link_to 'Show', course_path(course) %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </table>
+<div>

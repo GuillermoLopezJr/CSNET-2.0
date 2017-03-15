@@ -1,3 +1,5 @@
+
+
 <div id="assign-list-content">
   <h1>Listing Assignments</h1>
    
@@ -7,9 +9,15 @@
         <th>Assignment</th>
         <th>Course</th>
         <th>Due Date</th>
-        <th>Actions</th>
+        <% if @isInstructor %>
+          <th>Actions</th>
+        <% end %>
         <th>Download Assignment</th>
-        <th> </th>
+        <% if @isInstructor %>
+          <th></th>
+        <% end %>
+
+        <th> Submit assignment </th>
       </tr>
     </thead>
   
@@ -18,14 +26,23 @@
         <td><%= assignment.name %></td>
         <td><%= assignment.course_num %></td>
         <td><%= assignment.due_date %></td>
-        <td style="text-align:left"><%= link_to 'Show', assignment_path(assignment) %> | <%= link_to 'Edit', assignment_path(assignment) %></td>
+        <% if @isInstructor %>
+          <td style="text-align:left"><%= link_to 'Show', assignment_path(assignment) %> | <%= link_to 'Edit', assignment_path(assignment) %></td>
+        <% end %>
         <td><%= link_to "Download", assignment.attachment_url %></td>
-        <td><%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{assignment.name}?" %></td>
+        <% if @isInstructor %>
+          <td>
+            <%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{assignment.name}?" %>
+          </td>
+        <% end %>
+
+        <td><%= %></td>
           
       </tr>
     <% end %>
 </table>
- <p>  <%= link_to 'Home', instructor_path(:index) %> </p>
+
+<p>  
+  <%= link_to 'Home', @user %>
+</p>
 </div>
-
-

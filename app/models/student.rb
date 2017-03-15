@@ -1,7 +1,6 @@
 class Student < ApplicationRecord
 
-  belongs_to :course
-
+  belongs_to :course, :autosave => true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
