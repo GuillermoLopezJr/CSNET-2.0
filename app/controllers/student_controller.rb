@@ -14,7 +14,7 @@ class StudentController < ApplicationController
   def show
     if student_signed_in?
       @student = current_student
-      #@courses = Course.where( instructor_id: @instructor)
+      @courses = @student.courses
     else  
       #redirect_to sign_in_path
     end
