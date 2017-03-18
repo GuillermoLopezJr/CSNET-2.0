@@ -11,8 +11,26 @@
     <%= @course.number %>
   </p>
   
+  <table>
+    <thead>
+      <tr>
+        <th>Assignment</th>
+        <th>Course</th>
+        <th>Due Date</th>
+      </tr>
+    </thead>
+    <tr>
+      <% @course.assignments.each do |assignment| %>
+        <tr>
+          <td><%= link_to assignment.name , assignment_path(assignment) %></td>
+          <td><%= assignment.course_num %></td>
+          <td><%= assignment.due_date %></td>
+        </tr>
+      <% end %>
+    </tr>
+  </table>
   
   <%= link_to 'Back', courses_path %>
   <% if false %> wrong must differnetiate between student and instructor <% end%>
-  <%= link_to 'Home', instructor_path %>
+  <%= link_to 'Home', root_path %>
 </div>

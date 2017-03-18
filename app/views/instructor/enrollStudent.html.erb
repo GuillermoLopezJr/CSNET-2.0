@@ -1,28 +1,21 @@
-<h2> NEW ASSIGNMENT </h1>
+<h2> ENROLL STUDENT </h1>
+
 <div class="container">
   <div id="assign-create-content">
-    <div class="row>
+    <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <%= form_for :assignment, url: assignments_path do |f| %>
-         <p>
-            <%= f.label :name %><br>
-            <%= f.text_field :name, id:"name", class: 'form-control' %>
-          </p>
-          
-          <p>
-             <%= f.label :attachment %>
-            <%= f.file_field :attachment, class:"form-control"%>
-          </p>
-        
+        <%= form_for :enrollStudent, url: instructor_path(:addEnrolledStudent), action: "enrollStudent" do |f| %>
+
           <p>
             <%= f.label :course_num %><br>
             <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
           </p>
-        
+          
           <p>
-            <%= f.label :due_date %><br>
-            <%= date_field(:assignment, :due_date, id:"due_date") %>
+            <%= f.label :student_email %><br>
+            <%= f.collection_select :student_email, Student.all, :email, :email, id:"student_email", prompt: true, include_blank: false %>
           </p>
+        
         
         <% if false %>
           we can add a description that the 

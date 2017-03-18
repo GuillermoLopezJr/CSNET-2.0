@@ -13,10 +13,10 @@ class CoursesController < ApplicationController
     if @user == nil
       #a student is signed in
       @user = current_student
-      @course = Course.where( number: @user.course.number)
+      @courses = @user.courses
     else
       #an instructor is singed in
-      @course = Course.all
+      @courses = @user.courses
     end
   end
 

@@ -28,14 +28,30 @@ class AssignmentsController < ApplicationController
     #need to distinguish between student and instructor
     @user = current_instructor
     @isInstructor = true
-    if @user == nil
+    
+    if (@user == nil)
       #a student is signed in
       @user = current_student
-      @assignments = Assignment.where(course_id: @user.course_id)
+      @courses = @user.courses
+      @courses.each do |course|
+        if (@assignments == nil)
+          @assignments = course.assignments.all
+        else
+          @assignments = @assignments + course.assignments.all
+        end
+      end
+      #@assignments = @user.courses.assignments #Assignment.where(course_id: @user.course_id)
       @isInstructor = false
     else
       #an instructor is singed in
-      @assignments = Assignment.all
+      @courses = @user.courses
+      @courses.each do |course|
+        if (@assignments == nil)
+          @assignments = course.assignments.all
+        else
+          @assignments = @assignments + course.assignments.all
+        end
+      end
     end
   end
 
@@ -61,10 +77,10 @@ class AssignmentsController < ApplicationController
   end
     
   def destroy
-      @assignment = Assignment.find(params[:id])
-      @assignment.destroy
-      redirect_to assignments_path, notice:  "The assignment #{@assignment.name} has been deleted."
-   end
+    @assignment = Assignment.find(params[:id])
+    @assignment.destroy
+    redirect_to assignments_path, notice:  "The assignment #{@assignment.name} has been deleted."
+  end
     
     
   private
