@@ -6,6 +6,7 @@
     <li><%= link_to "Create a Course", courses_new_path %></li> 
     <li><%= link_to "Create an Assigment", assignments_new_path %></li>
     <li><%= link_to "View Lists of Assignments", assignments_path %></li>
+    <li><%= link_to "Enroll a Student", 'enrollStudent' %></li>
 </div>
 
 
@@ -37,7 +38,13 @@
           <td><%= assignment.due_date %></td>
         </tr>
       <% end %>
-      
+      <% course.students.each do |student| %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= student.email %></td>
+        </tr>
+      <% end %>
     </tr>
     
   <% end %>
