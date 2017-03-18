@@ -9,7 +9,7 @@ class StudentsController < ApplicationController
     if student_signed_in?
       @student = current_student
       #render html: @student.course_id
-      @courses = Course.where( number: 0)
+      @courses = @student.courses
       #@courses = Course.where( student_id: @student.courses)
     else  
       render html: "user not signed in"
@@ -19,14 +19,31 @@ class StudentsController < ApplicationController
 
 
   def create
-    @course = Course.find_by number: (params[:student][:course_num].to_i)
+    #@course = Course.find_by number: (params[:student][:course_num].to_i)
+    @instructor = current_instructor
+    @course =  @instructor.courses.find_by( number: params[:student][:course_num] )
+    @student = Student.find_by( email: params[:student][:email] )
+    
+    # Should never happen
     if @course == nil
       redirect_to students_path
-    else
-      @student = @course.students.create!(student_params)
-      @student.save
-      redirect_to students_path
     end
+    
+    # A new student is being created
+    if @student == nil
+      #Ensure students arent enrolled twice
+      if @course.students.where( id: @student ).empty? 
+        @student = @course.students.create!(student_params)
+        @student.save
+      end
+    #The student already exists
+    else
+      #Ensure students arent enrolled twice
+      if @course.students.where( id: @student ).empty? 
+        @course.students << @student
+      end
+    end
+    redirect_to students_path
   end
 
 #    @student = @course.students.create(student_params)
@@ -57,6 +74,8 @@ class StudentsController < ApplicationController
     @students = Student.all
   end
 
+
+  
   private
     def student_params
       #change password to something random initally

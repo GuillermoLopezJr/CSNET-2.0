@@ -12,7 +12,7 @@
     </thead>
    
    
-    <% @course.each do |course| %>
+    <% @courses.each do |course| %>
       <tr>
         <td><%= course.name %></td>
         <td><%= course.number %></td>
@@ -21,4 +21,6 @@
       </tr>
     <% end %>
   </table>
+  
+  <%= link_to 'Home', root_path %>
 <div>
