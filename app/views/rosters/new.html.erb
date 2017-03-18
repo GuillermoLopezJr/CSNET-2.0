@@ -1,0 +1,11 @@
+<h2>ADD A NEW SET OF STUDENTS HERE</h2>
+<div class="well">
+  <%= form_for @roster, html: { multipart: true } do |f| %>
+    <%= f.label :course_num %>
+    <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
+    <%= f.label :attachment %>
+    <%= f.file_field :attachment %>
+    <%= f.submit "Import", :method=> "import", class: "btn btn-primary" %>
+    <%= link_to 'Home', instructor_path(:index) %>
+  <% end %>
+</div>
