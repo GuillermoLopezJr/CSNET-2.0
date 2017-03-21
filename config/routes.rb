@@ -12,11 +12,20 @@ Rails.application.routes.draw do
   resources :courses
   get 'courses/new'
   
+  get 'instructor/enrollStudent'
+  post 'instructor/addEnrolledStudent', to: 'instructor#addEnrolledStudent'
   resources :instructor
   get 'instructor/new'
+  get 'instructor/index'
+  #get 'instructor/enrollStudent', to: 'instructor#enrollStudent'
+  
+  resources :application
+
+  
   
   resources :students
   get 'students/new'
+  
   
   devise_for :student
   devise_scope :student do

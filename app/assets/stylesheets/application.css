@@ -18,3 +18,17 @@
     text-align: center;
     font-size: 48px;
  }
+
+#logout-button {
+    color: maroon;
+    position: absolute;
+    top: 45px;
+    right: 20px;
+}
+
+#home-button {
+    color: maroon;
+    position: absolute;
+    top: 45px;
+    right: 85px;
+}

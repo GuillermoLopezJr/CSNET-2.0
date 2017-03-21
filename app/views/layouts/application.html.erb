@@ -28,4 +28,10 @@
   <body>
       <%= yield %>
   </body>
+  <div id="logout-button">
+   <%= button_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
+  </div>
+  <div id="home-button">
+   <%= button_to('Home', root_path) %>  
+  </div>
 </html>
