@@ -21,7 +21,7 @@ class InstructorController < ApplicationController
       redirect_to sign_in_path
     end
   end
-
+  
   def enrollStudent
     @instructor = current_instructor
     @courses = @instructor.courses

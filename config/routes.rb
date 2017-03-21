@@ -18,8 +18,6 @@ Rails.application.routes.draw do
   get 'instructor/new'
   get 'instructor/index'
   #get 'instructor/enrollStudent', to: 'instructor#enrollStudent'
-  
-  resources :application
 
   
   
