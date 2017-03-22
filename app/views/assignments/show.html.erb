@@ -1,3 +1,10 @@
+<% if !flash[:notice].blank? %>
+  <div class = "alert alert-info">
+      <%= flash[:notice] %>
+  </div>
+<% end %>
+  
+
 <div id="assign-show-content">
   <h1> SHOW </h1>
   

@@ -14,21 +14,71 @@
  *= require_self
  */
  
- #home-content {
+#home-content {
     text-align: center;
     font-size: 48px;
  }
 
-#logout-button {
-    color: maroon;
-    position: absolute;
-    top: 45px;
-    right: 20px;
+
+
+/* CSS for the hamburger credit to this guy https://codepen.io/g13nn/pen/eHGEF */
+
+/*body {*/
+/*  font-family: 'Noto Sans', sans-serif;*/
+/*	margin:0;*/
+/*	width:100%;*/
+/*	height:100vh;*/
+/*  	background:#ffffff;*/
+/*	-webkit-font-smoothing: antialiased;*/
+/*	-moz-osx-font-smoothing: grayscale;*/
+/*}*/
+
+.hamburger {
+  background: none;
+  position:absolute;
+  line-height:45px;
+  top: 55px;
+  right: 20px;
+  color: white;
+  border:0;
+  font-size:1.4em;
+  font-weight:bold;
+  cursor:pointer;
+  outline:none;
+  z-index:10000000000000;
+}
+.cross {
+  background:none;
+  position:absolute;
+  top: 65px;
+  right: 10px;
+  line-height:45px;
+  padding:5px 15px 0px 15px;
+  color: white;
+  border:0;
+  font-size:3.4em;
+  font-weight:bold;
+  cursor:pointer;
+  outline:none;
+  z-index:10000000000000;
 }
 
-#home-button {
-    color: maroon;
-    position: absolute;
-    top: 45px;
-    right: 85px;
+/* Can add position attribute to indicate where it opens*/
+
+.menu {z-index:1000000; font-weight:bold; font-size:0.8em; width:10%; background:#ffffff;  text-align:center; position: fixed; right: 45px; top: 75px; border: groove;} 
+.menu ul {margin: 0; padding: 0; list-style-type: none; list-style-image: none;}
+.menu li {display: block;   padding:15px 0 15px 0; border-bottom:#dddddd 1px solid;}
+.menu li:hover{display: block;    background:#ffffff; padding:15px 0 15px 0; border-bottom:#dddddd 1px solid;}
+.menu ul li a { text-decoration:none;  margin: 0px; color:#666;}
+.menu ul li a:hover {  color: #666; text-decoration:none;}
+.menu a{text-decoration:none; color:#666;}
+.menu a:hover{text-decoration:none; color:#666;}
+
+.glyphicon-home{
+  color:white; 
+  font-size:1.5em; 
+  margin-top:5px; 
+  margin:0 auto;
 }
+header{display:inline-block; font-size:12px;}
+a{color:#336699;}

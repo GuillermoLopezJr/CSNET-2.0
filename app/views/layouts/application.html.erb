@@ -1,5 +1,17 @@
 <!DOCTYPE html>
 <html>
+  <header>
+  <button class="hamburger">&#9776;</button>
+  <button class="cross">&#735;</button>
+</header>
+
+<div class="menu">
+  <ul>
+    <li> <%= link_to('Home', root_path, :method => :get) %> </li> 
+    <li> --- </li></a>
+    <li> <%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %> </li>
+  </ul>
+</div> 
   <head>
     <title>AggiesOffTheRails</title>
     <%= csrf_meta_tags %>
@@ -25,13 +37,9 @@
     </div> 
 
   </head>
+  
   <body>
       <%= yield %>
   </body>
-  <div id="logout-button">
-   <%= button_to('Logout', destroy_instructor_session_path, :method => :delete) %>  
-  </div>
-  <div id="home-button">
-   <%= button_to('Home', root_path) %>  
   </div>
 </html>

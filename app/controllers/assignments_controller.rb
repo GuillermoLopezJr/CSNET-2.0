@@ -9,9 +9,9 @@ class AssignmentsController < ApplicationController
       
     if (@course != nil)
       @assignment = @course.assignments.create(assignment_params)
-      redirect_to @assignment
+      redirect_to @assignment, notice: "The assignment #{@assignment.name} has been created."
     else
-      redirect_to assignments_path
+      redirect_to assignments_path, notice: "Could not create #{@assignment.name}."
     end
   end
   
