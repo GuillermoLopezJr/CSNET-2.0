@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
 
 
+  
+
+  get 'rosters/index'
+
+  get 'rosters/new'
+
+  get 'rosters/create'
+
   get 'course/new'
   get 'course/create'
   get 'instructor/new'
@@ -24,6 +32,10 @@ Rails.application.routes.draw do
   resources :students
   get 'students/new'
   
+  resources :rosters
+  get 'courses/new'
+  get 'rosters/new'
+  get 'rosters/index'
   
   devise_for :student
   devise_scope :student do
