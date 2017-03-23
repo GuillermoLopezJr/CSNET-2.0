@@ -13,11 +13,14 @@
     <tr>
       <% if student.courses != nil %>
          <% student.courses.each do |course| %>
-          <td><%= course.number%>|</td>
+          <td><%= course.name %> <%= course.number %></td>
          <% end %>
-         <td><%= student.email %></td>
+          <td><%= student.email %></td>
       <% end %>
+          <td></td>
+          <td></td>
     </tr>
+    
   <% end %>
 </table>
 

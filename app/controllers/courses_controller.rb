@@ -17,9 +17,12 @@ class CoursesController < ApplicationController
   def index
     #need to distinguish between student and instructor
     @user = current_instructor
+    @isInstructor = true
     if @user == nil
       #a student is signed in
       @user = current_student
+      @isStudent = true
+      @isInstructor = false
       @courses = @user.courses
     else
       #an instructor is singed in
