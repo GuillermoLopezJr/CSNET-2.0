@@ -9,6 +9,10 @@ Given(/^I am an instructor registered as "(.*?)" with password "(.*?)"$/) do |em
   click_button "Logout"
 end
 
+Given(/^I am on the instructor login page$/) do
+  visit new_instructor_session_path
+end
+
 When (/^I enter credentials "(.*?)" and "(.*?)" at sign in page$/) do |email, password|
   visit new_instructor_session_path
   fill_in "email", :with => email
@@ -19,6 +23,4 @@ end
 Then (/^I should be signed in and brought to home page$/) do
 	expect(page).to have_content("You are signed in")
 end
-
-
 
