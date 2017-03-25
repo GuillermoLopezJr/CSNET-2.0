@@ -27,23 +27,25 @@
       </tr>
     </thead>
   
-    <% @assignments.each do |assignment| %>
-      <tr>
-        <td><%= assignment.name %></td>
-        <td><%= assignment.course_num %></td>
-        <td><%= assignment.due_date %></td>
-        <% if @isInstructor %>
-          <td style="text-align:left"><%= link_to 'Show', assignment_path(assignment) %> | <%= link_to 'Edit', assignment_path(assignment) %></td>
-        <% end %>
-        
-        <td><%= link_to "Download", assignment.attachment_url %></td>
-        
-        <% if @isInstructor %>
-          <td>
-            <%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{assignment.name}?" %>
-          </td>
-        <% end %>
-      </tr>
+    <% if (@assignmnets != nil) %>
+      <% @assignments.each do |assignment| %>
+        <tr>
+          <td><%= assignment.name %></td>
+          <td><%= assignment.course_num %></td>
+          <td><%= assignment.due_date %></td>
+          <% if @isInstructor %>
+            <td style="text-align:left"><%= link_to 'Show', assignment_path(assignment) %> | <%= link_to 'Edit', assignment_path(assignment) %></td>
+          <% end %>
+          
+          <td><%= link_to "Download", assignment.attachment_url %></td>
+          
+          <% if @isInstructor %>
+            <td>
+              <%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{assignment.name}?" %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
     <% end %>
 </table>
 <p>  
