@@ -1,2 +1,30 @@
 <h1>Instructor#new</h1>
-
+<div class="container">
+  <div id="assign-create-content">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <%= form_for :instructor, url: "/instructor" do |f| %>
+          <div class="form-group">
+            <%= f.label :email %><br>
+            <%= f.text_field :email, id:"email", class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password %>
+            <%= f.password_field :password, id:"password", class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, id:"password2", class: 'form-control' %>
+          </div> 
+        
+        
+          <p>
+            <%= f.submit 'submit', id:"submit", class: "btn btn-primary" %>
+          </p>
+          <p>  <%= link_to 'Home', root_path %> </p>
+        <% end %>
+        
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,35 @@
 class InstructorController < ApplicationController
 
   def new
+    @instructor = current_instructor
+  
+    if (!@instructor.is_admin)
+      redirect_to root_path
+    end 
+    #@courses = @instructor.courses#where( instructor_id: @instructor)
   end
+
+  def create
+    Instructor.create!(instructor_params)
+    redirect_to root_path
+    #@course = current_instructor.courses.find_by number: (params[:assignment][:course_num].to_i)
+      
+    #if (@course != nil)
+    #  @assignment = @course.assignments.create(assignment_params)
+    #  redirect_to @assignment
+    #else
+    #  redirect_to assignments_path
+    #end
+  end
+  
+  
   
   def index
     if instructor_signed_in?
       @instructor = current_instructor
       @courses = @instructor.courses
     else
-      redirect_to sign_in_path
+      redirect_to root_path
     end
   end
   
@@ -17,7 +38,7 @@ class InstructorController < ApplicationController
       @instructor = current_instructor
       @courses = @instructor.courses
     else  
-      redirect_to sign_in_path
+      redirect_to root_path
     end
   end
   
@@ -37,5 +58,11 @@ class InstructorController < ApplicationController
     
     redirect_to @instructor
   end
+  
+
+  private
+    def instructor_params
+      params.require(:instructor).permit(:email, :password, :password_confirmation)
+    end
  
 end
