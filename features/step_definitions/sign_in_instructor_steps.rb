@@ -1,12 +1,13 @@
 #World(Devise::TestHelpers)
 
 Given(/^I am an instructor registered as "(.*?)" with password "(.*?)"$/) do |email, pass|
-  visit new_instructor_registration_path
-  fill_in "email", :with => email
-  fill_in "password", :with => pass
-  fill_in "password2", :with => pass
-  click_button "signup"
-  click_button "Logout"
+  #visit new_instructor_registration_path
+  #fill_in "email", :with => email
+  #fill_in "password", :with => pass
+  #fill_in "password2", :with => pass
+  #click_button "signup"
+  #click_button "Logout"
+  Instructor.create!({:email => email, :password => pass, :password_confirmation => pass})
 end
 
 Given(/^I am on the instructor login page$/) do
