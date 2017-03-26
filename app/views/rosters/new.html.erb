@@ -4,7 +4,7 @@
     <%= f.label :course_num %>
     <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
     <%= f.label :attachment %>
-    <%= f.file_field :attachment %>
+    <%= f.file_field :attachment, id:"rooster" %>
     <%= f.submit "Import", class: "btn btn-primary" %>
     <%= link_to 'Home', root_path%>
   <% end %>
