@@ -1,4 +1,9 @@
 FactoryGirl.define do
+  factory :submission do
+    name "MyString"
+    assignment "MyString"
+    attachment "MyString"
+  end
   factory :student do
   end
 

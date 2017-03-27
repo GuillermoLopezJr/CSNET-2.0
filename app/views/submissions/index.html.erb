@@ -1,0 +1,34 @@
+<h1>Submissions#index</h1>
+
+<div id="subm-show-content">
+  <table class = "w">
+    <thead >
+      <tr>
+        <th>Submission</th>
+        <th>Course</th>
+        <th>Assignment</th>
+        <th>Due Date</th>
+        
+        
+      </tr>
+    </thead>
+  
+    <% if (@submissions != nil) %>
+      <% @submissions.each do |submission| %>
+        <% @assignment = Assignment.find_by(name: submission.assignment) %>
+        <tr>
+          <td><%= submission.name %></td>
+          <td><%= @assignment.course_num %></td>
+          <td><%= submission.assignment %></td>
+          <td><%= @assignment.due_date %></td>
+          
+          <td><%= link_to "Download", @submission.attachment_url %></td>
+          
+        </tr>
+      <% end %>
+    <% end %>
+</table>
+<p>  
+  <%= link_to 'Home', @user %>
+</p>
+</div>

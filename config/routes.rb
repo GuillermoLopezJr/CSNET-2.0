@@ -3,6 +3,14 @@ Rails.application.routes.draw do
 
   
 
+  get 'submissions/index'
+
+  get 'submissions/new'
+
+  get 'submissions/create'
+
+  get 'submissions/destroy'
+
   get 'rosters/index'
 
   get 'rosters/new'
@@ -37,6 +45,9 @@ Rails.application.routes.draw do
   get 'courses/new'
   get 'rosters/new'
   get 'rosters/index'
+  
+  resources :submissions
+  get 'submissions/new'
   
   devise_for :student
   devise_scope :student do
