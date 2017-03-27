@@ -46,7 +46,7 @@ class SubmissionsController < ApplicationController
    
    def create
       @student = current_student
-      @submission = Submission.create!(submission_params)
+      @submission = @student.submissions.create!(submission_params)
       
       if @submission.save
          redirect_to submissions_path, notice: "The submission #{@submission.name} has been uploaded."
