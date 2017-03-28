@@ -5,6 +5,6 @@ I want to add an assignment to the database and relate it to courses in the data
 
 Scenario: Instructor creates a new assignment
 Given I am an instructor logged in as "user@gmail.com" with password "password"
-Given A course with number 431 exists
+Given A course with number 431 exists for instructor "user@gmail.com"
 When I submit a new assignment form with number 431
 Then I should add an assignment to the database

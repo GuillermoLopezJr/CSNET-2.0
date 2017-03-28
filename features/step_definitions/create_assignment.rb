@@ -1,10 +1,17 @@
 
 
-Given(/^A course with number (\d+) exists$/) do |number|
- visit courses_new_path
- fill_in "name", :with => "Software Eng"
- fill_in "number", :with => number
- click_button "submit"
+Given(/^A course with number (\d+) exists for instructor "(.*?)"$/) do |number, instructor|
+ #visit courses_new_path
+ #fill_in "name", :with => "Software Eng"
+ #fill_in "number", :with => number
+ #click_button "submit"
+ @instructor = Instructor.find_by( email: instructor)
+ if (@instructor == nil) 
+  @instructor = Instructor.create(email: instructor, password: "password", password_confirmation: "password")
+ end
+ expect( @instructor ).to be_truthy
+ 
+ @instructor.courses.create(number: number, name: "Software Eng")
  expect( Course.find_by( number: number)).to be_truthy
 end
 

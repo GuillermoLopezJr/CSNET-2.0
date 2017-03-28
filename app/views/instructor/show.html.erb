@@ -8,7 +8,9 @@
     <li><%= link_to "View Lists of Assignments", assignments_path %></li>
     <li><%= link_to "Add a student to a course", students_new_path %></li> 
     <li><%= link_to "Upload a file to add multiple students to a course", rosters_new_path %></li> 
-
+    <% if (@instructor.is_admin) %>
+       <li><%= link_to "Add new Instructor", instructor_new_path %></li> 
+    <% end %>
 </div>
 
 <h2 align="center">Courses</h2>
