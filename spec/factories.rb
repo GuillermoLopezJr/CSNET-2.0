@@ -5,6 +5,8 @@ FactoryGirl.define do
     attachment "MyString"
   end
   factory :student do
+    email "student@gmail.com"
+    password "password"
   end
 
   factory :instructor do
