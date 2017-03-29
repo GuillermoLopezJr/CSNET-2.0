@@ -19,6 +19,7 @@ It allows students to submit homework assignments easily and quickly (a replacem
   * Test User Account:
     * <b>email</b> (ADMIN):     i1@gmail.com
     * <b>password</b>:  password
-    <br>
+ 
+ 
     * <b>email</b> (Instructor):     user@gmail.com
     * <b>password</b>:  password
