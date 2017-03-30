@@ -15,3 +15,11 @@ It allows students to submit homework assignments easily and quickly (a replacem
 
 ##Iteration 2
 * [Report (pdf)](https://drive.google.com/file/d/0B4hWLRudgeghWkxXZG9wMEllOHM/view?usp=sharing)
+* [Heroku app](https://fast-shore-41666.herokuapp.com/)
+  * Test User Account:
+    * <b>email</b> (ADMIN):     i1@gmail.com
+    * <b>password</b>:  password
+ 
+ 
+    * <b>email</b> (Instructor):     user@gmail.com
+    * <b>password</b>:  password
