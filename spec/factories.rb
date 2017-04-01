@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  factory :assistant do
+    
+  end
   factory :submission do
     name "MyString"
     assignment "MyString"

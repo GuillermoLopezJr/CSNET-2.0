@@ -18,31 +18,34 @@ class AssignmentsController < ApplicationController
   
   def index
     #need to distinguish between student and instructor
-    @user = current_instructor
+    
     @isInstructor = true
     
-    if (@user == nil)
+    if ( student_signed_in? )
       #a student is signed in
       @user = current_student
-      @courses = @user.courses
-      @courses.each do |course|
-        if (@assignments == nil)
-          @assignments = course.assignments.all
-        else
-          @assignments = @assignments + course.assignments.all
-        end
-      end
-      #@assignments = @user.courses.assignments #Assignment.where(course_id: @user.course_id)
       @isInstructor = false
-    else
+      
+    elsif( instructor_signed_in? )
       #an instructor is singed in
-      @courses = @user.courses
-      @courses.each do |course|
-        if (@assignments == nil)
-          @assignments = course.assignments.all
-        else
-          @assignments = @assignments + course.assignments.all
-        end
+      @user = current_instructor
+      @isInstructor = true 
+      
+    elsif( assistant_signed_in? )
+      #an assistant is signed in
+      @user = current_assistant
+      @isInstructor = false
+      
+    else 
+      redirect_to root_path
+    end
+    
+    @courses = @user.courses
+    @courses.each do |course|
+      if (@assignments == nil)
+        @assignments = course.assignments.all
+      else
+        @assignments = @assignments + course.assignments.all
       end
     end
   end

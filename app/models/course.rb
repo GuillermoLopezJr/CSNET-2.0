@@ -3,6 +3,7 @@ class Course < ApplicationRecord
     
     has_many :assignments, dependent: :destroy
     has_and_belongs_to_many :students
+    has_and_belongs_to_many :assistants
     
     validates :name, presence: true,
                     length: { minimum: 1 }

@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
 
-
-  
-
   get 'submissions/index'
 
   get 'submissions/new'
@@ -34,6 +31,9 @@ Rails.application.routes.draw do
   resources :instructor
   get 'instructor/new'
   get 'instructor/index'
+  
+  resources :assistant
+  get 'assistant/index'
   #get 'instructor/enrollStudent', to: 'instructor#enrollStudent'
 
   
@@ -59,6 +59,10 @@ Rails.application.routes.draw do
       root 'instructor#show', as: :authenticated_instructor_root
     end
     
+    authenticated :assistant do
+      root 'assistant#show', as: :authenticated_assistant_root
+    end
+    
     unauthenticated do
       root 'application#index'
     end
@@ -66,16 +70,19 @@ Rails.application.routes.draw do
   
   devise_for :instructors
   devise_scope :instructor do
-    #authenticated :instructor do
-      #root 'instructor#show', as: :authenticated_instructor_root
-   # end
-
+    
     unauthenticated do
       root 'application#index'
     end
   end
   
-
+  devise_for :assistants
+  devise_scope :assistant do
+    
+    unauthenticated do
+      root 'application#index'
+    end
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

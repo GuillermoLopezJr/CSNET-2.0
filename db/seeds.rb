@@ -3,3 +3,4 @@
 
 Instructor.create!({:email => "i1@gmail.com", :password => "password", :password_confirmation => "password", :is_admin => true})
 Student.create!({:email => "s1@gmail.com", :password => "password", :password_confirmation => "password"})
+Assistant.create!(email: "ta1@gmail.com", password: "password", password_confirmation: "password")

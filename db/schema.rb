@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327213555) do
+ActiveRecord::Schema.define(version: 20170401170902) do
 
   create_table "assignments", force: :cascade do |t|
     t.string   "name"
@@ -20,6 +20,30 @@ ActiveRecord::Schema.define(version: 20170327213555) do
     t.datetime "updated_at", null: false
     t.integer  "course_id"
     t.string   "attachment"
+  end
+
+  create_table "assistants", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_assistants_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_assistants_on_reset_password_token", unique: true
+  end
+
+  create_table "assistants_courses", force: :cascade do |t|
+    t.integer "course_id"
+    t.integer "assistant_id"
+    t.index ["assistant_id"], name: "index_assistants_courses_on_assistant_id"
+    t.index ["course_id"], name: "index_assistants_courses_on_course_id"
   end
 
   create_table "courses", force: :cascade do |t|
