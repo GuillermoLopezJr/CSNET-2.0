@@ -33,10 +33,9 @@ Rails.application.routes.draw do
   get 'instructor/index'
   
   resources :assistant
-  get 'assistant/index'
+  get 'assistant/new'
   #get 'instructor/enrollStudent', to: 'instructor#enrollStudent'
 
-  
   
   resources :students
   get 'students/new'

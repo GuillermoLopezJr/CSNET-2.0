@@ -45,30 +45,7 @@ class StudentsController < ApplicationController
     end
     redirect_to students_path
   end
-
-#    @student = @course.students.create(student_params)
-#    render html: @student.course.number
-#    @student.save
-#    @course.save
-    #redirect_to @student
-    #redirect_to student_path(@student)
-#    redirect_to students_path
-
-    #@instructor = current_instructor
-    #@courses = Course.where( instructor_id: @instructor)
-    #@course = @courses.find_by number: (params[:student][:course_num].to_i) 
-
-#    if (@course != nil)
-      #@course.students.create(students_params);
-      #@assignment = @course.assignments.create(assignment_params)
-      #@student = @course.students.create(student_params)
-    #  redirect_to students_path
-#    else
-#      #error course was not found?
-    #  redirect_to course_path(@course)
-#    end
-
-#  end
+  
   
   def index
     @students = Student.all
