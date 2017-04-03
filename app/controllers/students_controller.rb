@@ -19,7 +19,6 @@ class StudentsController < ApplicationController
 
 
   def create
-    #@course = Course.find_by number: (params[:student][:course_num].to_i)
     @instructor = current_instructor
     @course =  @instructor.courses.find_by( number: params[:student][:course_num] )
     @student = Student.find_by( email: params[:student][:email] )
@@ -51,8 +50,6 @@ class StudentsController < ApplicationController
     @students = Student.all
   end
 
-
-  
   private
     def student_params
       #change password to something random initally
@@ -61,6 +58,6 @@ class StudentsController < ApplicationController
       #puts "pass is "
       pass = "password"
       #puts pass
-      params.require(:student).permit(:email, :password, :password_confirmation).merge(:password => pass, :password_confirmation => pass)
+      params.require(:student).permit(:first_name, :last_name, :email, :password, :password_confirmation).merge(:password => pass, :password_confirmation => pass)
     end
 end

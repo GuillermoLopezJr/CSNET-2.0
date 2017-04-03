@@ -5,26 +5,25 @@
       <div class="col-md-6 col-md-offset-3">
         <%= form_for :student, url: students_path do |f| %>
           <p>
-            <%= f.label :name %>
-            <%= f.text_field :name, id:"name", class: 'form-control'%>
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name, id:"name", class: 'form-control'%>
           </p>
         
+          <p>
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name, id:"name", class: 'form-control'%>
+          </p>
+
           <p>
             <%= f.label :email %>
             <%= f.text_field :email, id:"email", class: 'form-control'%>
           </p>
 
           <p>
-            <%= f.label :t_number %>
-            <%= f.number_field :t_number, id:"number",class: 'form-control'  %>
-          </p>
-        
-          <p>
-            <%= f.label :course_num %><br>
+            <%= f.label :course_number %><br>
             <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
           </p>
  
-
           <p>
             <%= f.submit 'submit', :id=>"submit", class: "btn btn-primary" %>
           </p>
