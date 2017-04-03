@@ -5,5 +5,6 @@ class Instructor < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
          
   has_many :courses, dependent: :destroy
+  has_many :submissions, dependent: :destroy
   
 end
