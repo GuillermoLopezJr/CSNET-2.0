@@ -2,11 +2,13 @@ class SubmissionsController < ApplicationController
    def index
       @submissions = Submission.all
       @user = current_instructor
+      @is_instructor = @user #for view, to what sumbssions to render
       @isInstructor = true
     
       if (@user == nil)
         #a student is signed in
         @user = current_student
+        @is_student = @user #for view, to what sumbssions to render
         @courses = @user.courses
         @courses.each do |course|
           if (@assignments == nil)
