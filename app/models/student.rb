@@ -6,5 +6,6 @@ class Student < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
          
   has_and_belongs_to_many :courses
+
   has_many :submissions
 end

@@ -48,14 +48,15 @@ class SubmissionsController < ApplicationController
    
    def create
       @student = current_student
-      @submission = @student.submissions.create!(submission_params)
-      
+      @assignment = Assignment.find_by(name: params[:submission][:assignment])
+      @submission = @student.submissions.create!(name: params[:submission][:name], 
+                                            attachment: params[:submission][:attachment],
+                                            assignment: @assignment)
       if @submission.save
          redirect_to submissions_path, notice: "The submission #{@submission.name} has been uploaded."
       else
          render "index"
       end
-      
    end
    
    def destroy
