@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403162216) do
+ActiveRecord::Schema.define(version: 20170401170902) do
 
   create_table "assignments", force: :cascade do |t|
     t.string   "name"
@@ -107,13 +107,11 @@ ActiveRecord::Schema.define(version: 20170403162216) do
 
   create_table "submissions", force: :cascade do |t|
     t.string   "name"
-    t.string   "assignment"
     t.string   "attachment"
     t.integer  "student_id"
+    t.integer  "assignment_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.integer  "instructor_id"
-    t.index ["instructor_id"], name: "index_submissions_on_instructor_id"
   end
 
 end
