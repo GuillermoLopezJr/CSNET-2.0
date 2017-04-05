@@ -103,6 +103,5 @@ Rails.application.configure do
     :enable_starttls_auto => true
     #:ssl => true
   }
-end
 
 end
