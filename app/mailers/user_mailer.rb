@@ -2,7 +2,7 @@ class UserMailer < ApplicationMailer
 
   def welcome_email(user)
     @user = user
-    @url  = 'http://example.com/login'
-    mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+    @url  = 'https://fast-shore-41666.herokuapp.com'
+    mail(to: @user.email, subject: 'Welcome to CSNET 2.0')
   end
 end
