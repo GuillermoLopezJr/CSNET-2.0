@@ -4,6 +4,7 @@ class CoursesController < ApplicationController
     #only instructors can create courses
     @instructor = current_instructor
     @course = @instructor.courses.create(course_params)
+    @course.save
     redirect_to @course
   end
   
