@@ -33,7 +33,12 @@ class StudentsController < ApplicationController
       #Ensure students arent enrolled twice
       if @course.students.where( id: @student ).empty? 
         @student = @course.students.create!(student_params)
-        @student.save
+        if @student.save
+           UserMailer.welcome_email(@student).deliver_now
+        else
+          #could not send email
+        end
+        
       end
     #The student already exists
     else
