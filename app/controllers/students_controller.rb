@@ -34,7 +34,7 @@ class StudentsController < ApplicationController
       if @course.students.where( id: @student ).empty? 
         @student = @course.students.create!(student_params)
         if @student.save
-           UserMailer.welcome_email(@student).deliver_now
+           UserMailer.welcome_email(@student).deliver_later
         else
           #could not send email
         end
@@ -61,7 +61,7 @@ class StudentsController < ApplicationController
       password_length = 6
       pass = Devise.friendly_token.first(password_length)
       #puts "pass is "
-      pass = "password"
+      #pass = "password"
       #puts pass
       params.require(:student).permit(:first_name, :last_name, :email, :password, :password_confirmation).merge(:password => pass, :password_confirmation => pass)
     end
