@@ -6,8 +6,11 @@
       <tr>
         <th>Course Name</th>
         <th>Course Number</th>
-        <th></th>
-        <th></th>
+        <th>Semester</th>
+        <th>Year</th>
+        <% if @isInstructor %>
+          <th>Action</th>
+        <% end %>
       </tr>
     </thead>
    
@@ -16,7 +19,11 @@
       <tr>
         <td><%= course.name %></td>
         <td><%= course.number %></td>
+        <td><%= course.session %></td>
+        <td><%= course.year %></td>
+        <% if false %>
         <td><%= link_to 'Show', course_path(course) %></td>
+        <% end %>
         
         <% if @isInstructor %>
           <td><%= button_to "Delete",  course, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{course.name}?" %> </td>

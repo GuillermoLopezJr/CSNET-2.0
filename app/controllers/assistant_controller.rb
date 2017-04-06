@@ -62,6 +62,6 @@ class AssistantController < ApplicationController
       #puts "pass is "
       pass = "password"
       #puts pass
-      params.require(:assistant).permit(:email, :password, :password_confirmation).merge(:password => pass, :password_confirmation => pass)
+      params.require(:assistant).permit(:first_name, :last_name, :email, :password, :password_confirmation).merge(:password => pass, :password_confirmation => pass)
     end
 end

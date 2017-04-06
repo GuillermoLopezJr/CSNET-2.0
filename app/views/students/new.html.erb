@@ -23,7 +23,7 @@
             <%= f.label :course_number %><br>
             <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
           </p>
- 
+
           <p>
             <%= f.submit 'submit', :id=>"submit", class: "btn btn-primary" %>
           </p>

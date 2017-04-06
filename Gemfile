@@ -26,6 +26,9 @@ gem 'coffee-rails', '~> 4.2'
 # Use spreadsheet for reading instructor's roster.
 gem 'spreadsheet'
 
+# used to send emails
+gem 'sendgrid-rails'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

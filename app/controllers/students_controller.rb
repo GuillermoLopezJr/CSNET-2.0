@@ -33,7 +33,12 @@ class StudentsController < ApplicationController
       #Ensure students arent enrolled twice
       if @course.students.where( id: @student ).empty? 
         @student = @course.students.create!(student_params)
-        @student.save
+        if @student.save
+           UserMailer.welcome_email(@student, @student.password).deliver_later
+        else
+          #could not send email
+        end
+        
       end
     #The student already exists
     else
@@ -53,10 +58,10 @@ class StudentsController < ApplicationController
   private
     def student_params
       #change password to something random initally
-      password_length = 6
+      password_length = 8
       pass = Devise.friendly_token.first(password_length)
       #puts "pass is "
-      pass = "password"
+      #pass = "password"
       #puts pass
       params.require(:student).permit(:first_name, :last_name, :email, :password, :password_confirmation).merge(:password => pass, :password_confirmation => pass)
     end

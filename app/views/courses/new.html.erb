@@ -14,7 +14,17 @@
             <%= f.label :number %>
             <%= f.number_field :number, id:"number",class: 'form-control'  %>
           </p>
-        
+
+          <p>
+            <%= f.label :year %>
+            <%= f.text_field :year, id:"name", class: 'form-control'%>
+          </p>
+
+          <p>
+            <%= f.label :semester %><br>
+            <%= f.collection_select :session, Course.getSessions, :strip, :strip, id:"session", prompt: true, include_blank: false %>
+          </p>
+
           <p>
             <%= f.submit 'submit', :id=>"submit", class: "btn btn-primary" %>
           </p>
