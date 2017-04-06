@@ -20,9 +20,26 @@ class RostersController < ApplicationController
           # A new student is being created
           if @student == nil
             #Ensure students arent enrolled twice
-            if @course.students.where( id: @student ).empty? 
-              @student = @course.students.create!(:email => @sheet1.row(i)[2], :password => "password")
-              @student.save
+            if @course.students.where( id: @student ).empty?
+              @fullName = @sheet1.row(i)[0]
+              @name = @fullName.split(/\s*,\s*/)
+              @firstName = @name[1]
+              @lastName = @name[0]
+
+              password_length = 8
+              pass = Devise.friendly_token.first(password_length)
+
+              @student = @course.students.create!(:first_name => @firstName, :last_name => @lastName, :email => @sheet1.row(i)[2], :password => pass)
+
+              #puts "passworld"
+              #puts @student.password
+              if @student.save
+                 UserMailer.welcome_email(@student, @student.password).deliver_later
+              else
+                #could not send email
+              end
+
+
             end
             #The student already exists
           else
