@@ -5,6 +5,13 @@
     <div class="row>
       <div class="col-md-6 col-md-offset-3">
         <%= form_for :course, url: courses_path do |f| %>
+        
+        <% if false %>
+          <p>
+            <%= render 'shared/error_messages' %>
+          </p>
+        <% end %>
+
           <p>
             <%= f.label :name %>
             <%= f.text_field :name, id:"name", class: 'form-control'%>
@@ -22,7 +29,7 @@
 
           <p>
             <%= f.label :semester %><br>
-            <%= f.collection_select :session, Course.getSessions, :strip, :strip, id:"session", prompt: true, include_blank: false %>
+            <%= f.collection_select :session, Course.getSessions, :strip, :strip,{ id:"session", prompt: "Select a semester", :include_blank => false}, {class: "form-control"} %>
           </p>
 
           <p>
@@ -30,8 +37,9 @@
           </p>
           
           <p>  
-            <%= link_to 'Home', instructor_path(:show) %>
+            <%= link_to('Home', root_path, :method => :get) %>
           </p>
+
         <% end %>
       </div>
     </div>

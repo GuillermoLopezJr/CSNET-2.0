@@ -26,7 +26,7 @@
         <% end %>
         
         <% if @isInstructor %>
-          <td><%= button_to "Delete",  course, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{course.name}?" %> </td>
+          <td><%= button_to "Delete",  course, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure that you wish to delete #{course.name} #{course.number}?"} %> </td>
         <% end %>
         
         <% if @isStudent %>
@@ -38,7 +38,7 @@
   </table>
 
 
-  <%= link_to 'Home', root_path %>
+  <%= link_to('Home', root_path, :method => :get) %>
 
 <div>
 
