@@ -1,18 +1,32 @@
 class CoursesController < ApplicationController
 
+  def show
+    @course = Course.find(params[:id])
+  end
+
+  def new
+    @course = Course.new
+  end
+
   def create
     #only instructors can create courses
     @instructor = current_instructor
     @course = @instructor.courses.create(course_params)
-    @course.save
-    redirect_to @course
+    if @course.save
+      flash[:success] = "The course #{@course.name} #{@course.number} has been created successfully"
+      redirect_to root_path
+    else
+      flash.now[:danger] = "The Page contains errors"
+      render 'new'
+    end 
   end
   
   def destroy
       @course = Course.find(params[:id])
       @course.destroy
-      flash[:notice] = 'The course #{@course.name} #{@course.number} has been deleted.'
+      flash[:danger] = "The course #{@course.name} #{@course.number} has been deleted."
       redirect_to courses_path
+
   end
 
   def index

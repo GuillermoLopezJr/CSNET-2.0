@@ -16,3 +16,11 @@
     margin-left: 25px;
     text-align: center;
 }
+
+.sortable {
+    width: 1000px;
+}
+
+.sortable td {
+    cursor: pointer;
+}
