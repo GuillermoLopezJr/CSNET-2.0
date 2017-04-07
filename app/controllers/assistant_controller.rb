@@ -42,7 +42,18 @@ class AssistantController < ApplicationController
   end
   
   def index
-    redirect_to root_path
+    if assistant_signed_in?
+      @submissions = Submission.all
+      @assistant = current_assistant
+      @courses = @assistant.courses
+      @courses.each do |course|
+        if (@assignments == nil)
+          @assignments = course.assignments.all
+        else
+           @assignments = @assignments + course.assignments.all
+         end
+      end
+    end
   end
   
   def show
