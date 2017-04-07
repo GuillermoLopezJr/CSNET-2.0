@@ -53,6 +53,8 @@ class StudentsController < ApplicationController
   
   def index
     @students = Student.all
+    @instructor = current_instructor
+    @courses = @instructor.courses
   end
 
   private

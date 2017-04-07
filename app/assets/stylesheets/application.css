@@ -82,3 +82,10 @@ body {
 }
 header{display:inline-block; font-size:12px;}
 a{color:#336699;}
+th {text-align:center;}
+tr {text-align:center;}
+
+.form{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+}

@@ -1,8 +1,72 @@
+<div style="text-align:center;">
+    <h1>All Students</h1>
+</div>
 
-<table>
+<div class="container">
+  <button type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#student-create-content">Add a Student</button>
+  <div id="student-create-content", class= "collapse">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="form">
+          <%= form_for :student, url: students_path do |f| %>
+            <p>
+              <%= f.label :first_name %>
+              <%= f.text_field :first_name, id:"name", class: 'form-control'%>
+            </p>
+          
+            <p>
+              <%= f.label :last_name %>
+              <%= f.text_field :last_name, id:"name", class: 'form-control'%>
+            </p>
+  
+            <p>
+              <%= f.label :email %>
+              <%= f.text_field :email, id:"email", class: 'form-control'%>
+            </p>
+  
+            <p>
+              <%= f.label :course_number %><br>
+              <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
+            </p>
+  
+            <p>
+              <%= f.submit 'Submit', :id=>"submit", class: "btn btn-primary" %>
+            </p>
+            
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p></p>
+
+<div class="container">
+  <button type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#student-roster-content">Import a Roster</button>
+    <div id="student-roster-content", class= "collapse">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="form">
+          <%= form_for :roster, html: { multipart: true }, url: rosters_path do |f| %>
+              <%= f.label :course_num %>
+              <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
+              <%= f.label :attachment %>
+              <%= f.file_field :attachment, id:"roster" %>
+              <%= f.submit "Import Roster", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<table class = "w">
   <thead>
     <tr>
       <th>Course Name</th>
+      <th>Course Number</th>
+      <th>Student Name</th>
       <th>Student Email</th>
       <th></th>
       <th></th>
@@ -13,8 +77,10 @@
     <tr>
       <% if student.courses != nil %>
          <% student.courses.each do |course| %>
-          <td><%= course.name %> <%= course.number %></td>
+          <td><%= course.name %> </td>
+          <td><%= course.number %></td>
          <% end %>
+          <td><%= student.first_name %> <%= student.last_name %></td>
           <td><%= student.email %></td>
       <% end %>
           <td></td>
@@ -24,4 +90,6 @@
   <% end %>
 </table>
 
-<%= link_to 'Home', root_path %>
+<div style="text-align:center;">
+    <%= link_to 'Home', root_path %>
+</div>

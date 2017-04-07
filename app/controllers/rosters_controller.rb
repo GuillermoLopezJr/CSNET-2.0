@@ -2,7 +2,7 @@ require 'spreadsheet'
 class RostersController < ApplicationController
   def index
       @rosters = Roster.all
-      roster = Roster.first #Fix this hack later
+      roster = Roster.first #TODO: Fix this hack later
       Spreadsheet.client_encoding = 'UTF-8'
       book = Spreadsheet.open('public' + roster.attachment_url)
       @sheet1 = book.worksheet 0
@@ -28,7 +28,7 @@ class RostersController < ApplicationController
 
               password_length = 8
               pass = Devise.friendly_token.first(password_length)
-
+              
               @student = @course.students.create!(:first_name => @firstName, :last_name => @lastName, :email => @sheet1.row(i)[2], :password => pass)
 
               #puts "passworld"
