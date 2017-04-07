@@ -52,7 +52,18 @@ class StudentsController < ApplicationController
   
   
   def index
-    @students = Student.all
+    if student_signed_in?
+      @submissions = Submission.all
+      @student = current_student
+      @courses = @student.courses
+      @courses.each do |course|
+        if (@assignments == nil)
+          @assignments = course.assignments.all
+        else
+           @assignments = @assignments + course.assignments.all
+         end
+      end
+    end
   end
 
   private

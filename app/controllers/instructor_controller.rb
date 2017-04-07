@@ -24,15 +24,23 @@ class InstructorController < ApplicationController
   end
   
   
-  
   def index
-    if instructor_signed_in?
-      @instructor = current_instructor
-      @courses = @instructor.courses
-    else
-      redirect_to root_path
-    end
-  end
+    
+     if (assistant_signed_in?)
+        @submissions = Submission.all
+        @assistant = current_assistant
+        @courses = @assistant.courses
+        @courses.each do |course|
+        if (@assignments == nil)
+           @assignments = course.assignments.all
+        else
+           @assignments = @assignments + course.assignments.all
+        end
+      end
+     else
+        redirect_to root_path
+     end
+   end
   
   def show
     if instructor_signed_in?
