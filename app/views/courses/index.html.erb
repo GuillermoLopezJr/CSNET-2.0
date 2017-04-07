@@ -43,7 +43,7 @@
   <% end %>
   
   
-  <table class = "w">
+  <table class = "w" data-link="row">
     <thead>
       <tr>
         <th>Course Name</th>
@@ -58,7 +58,7 @@
    
    
     <% @courses.each do |course| %>
-      <tr>
+      <tr onclick="location.href='<%= course_path(course) %>'">
         <td><%= course.name %></td>
         <td><%= course.number %></td>
         <td><%= course.session %></td>

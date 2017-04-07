@@ -33,6 +33,11 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    if current_instructor != nil
+      @isInstructor = true
+    else
+      @isInstructor = false
+    end
   end
 
   private

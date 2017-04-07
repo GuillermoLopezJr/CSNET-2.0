@@ -29,9 +29,10 @@
       <% end %>
     <% end %>
 </table>
-<p>  
-  <%= link_to 'Home', @user %>
-</p>
+<div style="text-align:center;">  
+            <%= link_to 'Back', :back %> &emsp;
+            <%= link_to 'Home', root_path %> 
+          </div>
 </div>
 <% end %>
 
@@ -72,8 +73,9 @@
     <% end %>
 </table>
 
-<p>  
-  <%= link_to 'Home', @user %>
-</p>
+<div style="text-align:center;">  
+  <%= link_to 'Back', :back %> &emsp;
+  <%= link_to 'Home', root_path %> 
+</div>
 </div>
 <% end %>

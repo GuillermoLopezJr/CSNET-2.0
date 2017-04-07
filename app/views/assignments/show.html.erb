@@ -6,7 +6,6 @@
   
 
 <div id="assign-show-content">
-  <h1> SHOW </h1>
   
   <p>
     <strong>NAME:</strong>
@@ -23,8 +22,36 @@
     <%= @assignment.due_date %>
   </p>
   
-  <%= link_to 'Back', assignments_path %>
-  <%= link_to 'Home', root_path %>
-  <%= link_to 'Edit', edit_assignment_path(@assignment) %>
+  <table class = "w">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Student Email</th>
+          <th>Due Date</th>
+          <th>Status</th>
+          <th>Download Submission</th>
+        </tr>
+      </thead>
+     
+     <% if @assignment.submissions.size > 0 %>
+      <% @assignment.submissions.each do |submission| %>
+        <tr>
+          <% if student.courses != nil %>
+              <td><%= student.first_name %> <%= student.last_name %></td>
+              <td><%= student.email %></td>
+          <% end %>
+              <td></td>
+              <td></td>
+        </tr>
+        
+      <% end %>
+    <% end %>
+    </table>
+  
+  <div style="text-align:center;">
+    <%= link_to 'Back', assignments_path %> &emsp;
+    <%= link_to 'Home', root_path %> &emsp;
+    <%= link_to 'Edit', edit_assignment_path(@assignment) %>
+  </div>
 </div>
 

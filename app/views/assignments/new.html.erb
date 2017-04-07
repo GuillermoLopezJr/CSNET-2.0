@@ -3,49 +3,53 @@
 
 
 <div class="container">
-  <button type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#assign-create-content">Add an Assignment</button>
-  <div id="assign-create-content", class= "collapse">
+  <div id="assign-create-content">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <div class="form">
-          <%= form_for :assignment, url: assignments_path do |f| %>
-           <p>
-              <%= f.label :name %><br>
-              <%= f.text_field :name, id:"name", class: 'form-control' %>
-            </p>
-            
-            <p>
-              <%= f.label :attachment %>
-              <%= f.file_field :attachment, class:"form-control"%>
-            </p>
+        <%= form_for :assignment, url: assignments_path do |f| %>
+         <p>
+            <%= f.label :name %><br>
+            <%= f.text_field :name, id:"name", class: 'form-control' %>
+          </p>
           
-            <p>
-              <%= f.label :course_num %><br>
+          <p>
+            <%= f.label :attachment %>
+            <%= f.file_field :attachment, class:"form-control"%>
+          </p>
+        
+          <p>
+            <%= f.label :course_num %><br>
+            <% if params[:course_num] != nil %>
+              <%= f.text_field :course_num, value: params[:course_num], id:"course_num", class: 'form-control', disabled: true%>
+            <% else %>
               <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
-            </p>
-          
-            <p>
-              <%= f.label :due_date %><br>
-              <%= date_field(:assignment, :due_date, id:"due_date") %>
-            </p>
-          
-          <% if false %>
-            we can add a description that the 
-            professor wants to specify late.
-          
-            <p>
-              <%= f.label :text %><br>
-              <%= f.text_area :text %>
-            </p>
-          <% end %> 
-          
-          
-            <p>
-              <%= f.submit 'submit', id:"submit",class: "btn btn-primary" %>
-            </p>
-            <p>  <%= link_to 'Home', instructor_path(:show) %> </p>
-          <% end %>
-        </div>
+            <% end %>
+          </p>
+        
+          <p>
+            <%= f.label :due_date %><br>
+            <%= date_field(:assignment, :due_date, id:"due_date") %>
+          </p>
+        
+        <% if false %>
+          we can add a description that the 
+          professor wants to specify late.
+        
+          <p>
+            <%= f.label :text %><br>
+            <%= f.text_area :text %>
+          </p>
+        <% end %> 
+        
+        
+          <p>
+            <%= f.submit 'submit', id:"submit",class: "btn btn-primary" %>
+          </p>
+          <div style="text-align:center;">  
+          <%= link_to 'Back', :back %> &emsp;
+          <%= link_to 'Home', root_path %> 
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

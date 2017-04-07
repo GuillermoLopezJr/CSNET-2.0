@@ -77,7 +77,7 @@
   
     <% if (@assignments != nil) %>
       <% @assignments.each do |assignment| %>
-        <tr>
+        <tr onclick="location.href='<%= assignment_path(assignment) %>'">
           <td><%= assignment.name %></td>
           <td><%= assignment.course_num %></td>
           <td><%= assignment.due_date %></td>
@@ -97,6 +97,6 @@
     <% end %>
   </table>
 <p>  
-  <%= link_to 'Home', @user %>
+  <%= link_to 'Home', root_path %>
 </p>
 </div>
