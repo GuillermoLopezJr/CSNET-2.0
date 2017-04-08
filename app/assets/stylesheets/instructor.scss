@@ -14,12 +14,8 @@
     padding: 20px;
 }
 
-
-
-
 li {
     list-style-type: none;
-    padding: 10px;
     text-align: center; 
 }
 
@@ -51,7 +47,7 @@ table {
   border-spacing: 0;
   border: 2px solid maroon;
   width: 500px;
-  margin: 50px auto;
+  margin: 0px auto;
   border-radius: .25rem;
 }
 
@@ -104,4 +100,27 @@ td:last-child {
 
 .delete:hover {
   color: #dc2a2a;
+}
+
+#grid {
+  width: 1040px;
+  margin: auto;
+  justify-content: space-between;
+}
+.grid-element {
+  display: inline;
+  width: 340px;
+  height: 200px;
+  padding: 20px;
+  margin: auto;
+  float: left;
+}
+
+.grid-element:last-child {
+  margin-bottom: 2cm;
+}
+
+.clear {
+  margin-bottom: 2cm;
+  clear: both;
 }

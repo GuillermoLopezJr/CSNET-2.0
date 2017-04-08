@@ -3,44 +3,51 @@
 
 <div id="instructor-content" >
     <!--, path-->
-    <li><%=link_to courses_path do %>
+  <div id="grid">
+    <div class="grid-element"><%=link_to courses_path do %>
       <%= image_tag("Courses.png", class: "png", size: "314x172") %>
     <% end %>
-    </li>
-    <li><%=link_to assignments_path do %>
+    </div>
+    <div class="grid-element"><%=link_to assignments_path do %>
       <%= image_tag("Assignments.png", class: "png", size: "314x172") %>
     <% end %>
-    </li>
-    <li><%=link_to students_path do %>
+    </div>
+    <div class="grid-element"><%=link_to students_path do %>
       <%= image_tag("Students.png", class: "png", size: "314x172") %>
     <% end %>
-    </li>
-    <li><%=link_to courses_path do %>
+    </div>
+  
+    <div class="grid-element"><%=link_to courses_path do %>
       <%= image_tag("QuickLinks.png", class: "png", size: "314x172") %>
     <% end %>
-    </li>
-    <li><%=link_to submissions_path do %>
+    </div>
+    <div class="grid-element"><%=link_to submissions_path do %>
       <%= image_tag("Submissions.png", class: "png", size: "314x172") %>
     <% end %>
-    </li>
-    <li><%=link_to courses_path do %>
+    </div>
+    <div class="grid-element"><%=link_to courses_path do %>
       <%= image_tag("DueSoon.png", class: "png", size: "314x172") %>
     <% end %>
-    </li>
-    <li><%= link_to "Create a Course", courses_new_path %> | <%= link_to "View Courses List", courses_path %> </li> 
-    <li><%= link_to "Create an Assigment", assignments_new_path %></li>
-    <li><%= link_to "View Lists of Assignments", assignments_path %></li>
-    <li><%= link_to "View Students Submissions", submissions_path %></li>
-    <li><%= link_to "Add a student to a course", students_new_path %></li>
-    <li><%= link_to "View All Students", students_path %></li>
-    <li><%= link_to "Add a TA to a course", assistant_new_path %></li> 
-    <li><%= link_to "Upload a file to add multiple students to a course", rosters_new_path %></li> 
-    <% if (@instructor.is_admin) %>
-       <li><%= link_to "Add new Instructor", instructor_new_path %></li> 
-    <% end %>
+    </div>
+  </div>
+
+    <!--<li><%= link_to "Create a Course", courses_new_path %> | <%= link_to "View Courses List", courses_path %> </li> -->
+    <!--<li><%= link_to "Create an Assigment", assignments_new_path %></li>-->
+    <!--<li><%= link_to "View Lists of Assignments", assignments_path %></li>-->
+    <!--<li><%= link_to "View Students Submissions", submissions_path %></li>-->
+    <!--<li><%= link_to "Add a student to a course", students_new_path %></li>-->
+    <!--<li><%= link_to "View All Students", students_path %></li>-->
+    <!--<li><%= link_to "Add a TA to a course", assistant_new_path %></li> -->
+    <!--<li><%= link_to "Upload a file to add multiple students to a course", rosters_new_path %></li> -->
+    <div class="clear">
+      <li><%= link_to "Add a TA to a course", assistant_new_path %></li>
+      <% if (@instructor.is_admin) %>
+         <li><%= link_to "Add new Instructor", instructor_new_path %></li> 
+      <% end %>
+    </div>
 </div>
 
-<h2 align="center">Courses</h2>
+<h2 align="center">Assignments by Course</h2>
 <table>
   <thead>
     <tr>
@@ -74,8 +81,5 @@
   <% end %>
   </tr>
 </table>
-
-
-
 
 </div>
