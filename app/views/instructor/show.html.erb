@@ -3,6 +3,30 @@
 
 <div id="instructor-content" >
     <!--, path-->
+    <li><%=link_to courses_path do %>
+      <%= image_tag("Courses.png", class: "png", size: "314x172") %>
+    <% end %>
+    </li>
+    <li><%=link_to assignments_path do %>
+      <%= image_tag("Assignments.png", class: "png", size: "314x172") %>
+    <% end %>
+    </li>
+    <li><%=link_to students_path do %>
+      <%= image_tag("Students.png", class: "png", size: "314x172") %>
+    <% end %>
+    </li>
+    <li><%=link_to courses_path do %>
+      <%= image_tag("QuickLinks.png", class: "png", size: "314x172") %>
+    <% end %>
+    </li>
+    <li><%=link_to submissions_path do %>
+      <%= image_tag("Submissions.png", class: "png", size: "314x172") %>
+    <% end %>
+    </li>
+    <li><%=link_to courses_path do %>
+      <%= image_tag("DueSoon.png", class: "png", size: "314x172") %>
+    <% end %>
+    </li>
     <li><%= link_to "Create a Course", courses_new_path %> | <%= link_to "View Courses List", courses_path %> </li> 
     <li><%= link_to "Create an Assigment", assignments_new_path %></li>
     <li><%= link_to "View Lists of Assignments", assignments_path %></li>
