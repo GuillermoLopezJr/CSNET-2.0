@@ -75,9 +75,8 @@ class StudentsController < ApplicationController
       #change password to something random initally
       password_length = 8
       pass = Devise.friendly_token.first(password_length)
-      #puts "pass is "
-      #pass = "password"
-      #puts pass
+      puts "pass is "
+      puts pass
       params.require(:student).permit(:first_name, :last_name, :email, :password, :password_confirmation).merge(:password => pass, :password_confirmation => pass)
     end
 end
