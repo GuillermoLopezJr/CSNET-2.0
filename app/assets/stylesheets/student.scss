@@ -1,6 +1,25 @@
 // Place all the styles related to the Student controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#student-content {
+    background-color: white;
+    font-size: 36px;
+}
+
+#student-grid {
+  width: 1400px;
+  margin: auto;
+  justify-content: space-between;
+}
+.grid-element {
+  display: inline;
+  width: 340px;
+  height: 200px;
+  padding: 20px;
+  margin: auto;
+  float: left;
+}
+
 #student-create-content {
     margin-left: 25px;
 }
