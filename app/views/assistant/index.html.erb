@@ -22,7 +22,7 @@
              <% assignment.submissions.each do |submission| %>
                 <tr>
                   <td id="remove_border_line"></td>
-                  <td>Jose Ramos</td>
+                  <td><%= Student.find_by(id: submission.student_id).first_name %> <%= Student.find_by(id: submission.student_id).last_name %></td>
                   <td><%= assignment.name %></td>
                   <td><%= assignment.due_date %></td>
                   <td id="ontime">Ontime</td>
