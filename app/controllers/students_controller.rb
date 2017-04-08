@@ -35,6 +35,7 @@ class StudentsController < ApplicationController
         @student = @course.students.create!(student_params)
         if @student.save
            UserMailer.welcome_email(@student, @student.password).deliver_later
+           puts '------'+  @student.first_name + ' Password ' +  @student.password.to_s
         else
           #could not send email
         end
