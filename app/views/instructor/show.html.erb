@@ -1,5 +1,5 @@
 <div id="main-content">
-<p>You are signed in,  <font size="3"><%= @instructor.email %></font>  </p>
+<p> <font size="12">Welcome,  <%= @instructor.first_name %> <%= @instructor.last_name %></font>  </p>
 
 <div id="instructor-content" >
     <!--, path-->
@@ -50,39 +50,5 @@
     </div>
 </div>
 
-<h2 align="center">Assignments by Course</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Number</th>
-      <th>Assignment</th>
-      <th>Due Date</th>
-    </tr>
-  </thead>
- 
-  <tr>
-  <% @courses.each do |course| %>
-      <td><%= course.name %></td>
-      <td><%= link_to course.number , course_path(course) %></td>
-      <td></td>
-      <td></td>
-    <tr>
-    </tr>
-    <tr>
-      <% course.assignments.each do |assignment| %>
-        <tr>
-          <td></td>
-          <td></td>
-          <td><%= link_to assignment.name , assignment_path(assignment) %></td>
-          <td><%=DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
-        </tr>
-      <% end %>
-
-    </tr>
-    
-  <% end %>
-  </tr>
-</table>
 
 </div>

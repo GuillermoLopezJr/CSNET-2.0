@@ -3,7 +3,7 @@
 <% if @is_student%>
   <div id="subm-show-content">
     <table class = "w">
-      <thead >
+      <thead>
         <tr>
           <th>Course</th>
           <th>Assignment</th>
@@ -21,21 +21,25 @@
           </tr>
               <% @assignments.each do |assignment| %>
                <% assignment.submissions.each do |submission| %>
+                 <% if (submission.student.email == @is_student.email  )%>
                   <tr>
                     <td id="remove_border_line"></td>
                     <td><%= assignment.name %></td>
-                    <td><%= Time.parse(assignment.due_date)%></td>
-                    <td><%= submission.created_at.localtime %></td>
+              
+                    <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
+                    <td><%= (submission.created_at).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
                     
-                     <% if ( submission.created_at.localtime > Time.parse(assignment.due_date) ) %>
+                     <% if ( submission.created_at > Time.parse(assignment.due_date) ) %>
                         <td id="not_on_time">Late</td>
                      <% else %>
                         <td id="on_time">On time</td>
                     <% end %>
-                  
                     <td><%= link_to submission.name , submission.attachment_url %></td>
                   </tr>
+                  <% end %>
                 <% end %>
+                
+                
               <% end %>
           <% end %>
       <% end %>
@@ -78,11 +82,15 @@
            <td id="remove_border_line"></td>
            <td id="remove_border_line"></td>
         </tr>
+     
             <% @assignments.each do |assignment| %>
              <% assignment.submissions.each do |submission| %>
+            
                 <tr>
                   <td id="remove_border_line"></td>
+
                   <td><%= submission.student.first_name %> <%= submission.student.last_name %> </td>
+                 
                   <td><%= submission.student.email %></td>
                   <td><%= assignment.name %></td>
                   <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p")%></td>

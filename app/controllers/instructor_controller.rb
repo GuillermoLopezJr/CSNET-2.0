@@ -12,6 +12,7 @@ class InstructorController < ApplicationController
 
   def create
     Instructor.create!(instructor_params)
+    puts "got here"
     redirect_to root_path
     #@course = current_instructor.courses.find_by number: (params[:assignment][:course_num].to_i)
       
