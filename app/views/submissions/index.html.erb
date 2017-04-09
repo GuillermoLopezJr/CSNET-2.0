@@ -1,8 +1,8 @@
-<h1>View My Submissions</h1>
 
 <% if @is_student%>
+  <h1 style="text-align:center">View My Submissions</h1>
   <div id="subm-show-content">
-    <table class = "w">
+  <table style = "width: 80%">
       <thead>
         <tr>
           <th>Course</th>
@@ -18,8 +18,13 @@
           <tr>
              <% @courses.each do |course| %>
              <td id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
+             <td id="remove_border_line"></td>
+             <td id="remove_border_line"></td>
+             <td id="remove_border_line"></td>
+             <td id="remove_border_line"></td>
+             <td id="remove_border_line"></td>
           </tr>
-              <% @assignments.each do |assignment| %>
+              <% course.assignments.each do |assignment| %>
                <% assignment.submissions.each do |submission| %>
                  <% if (submission.student.email == @is_student.email  )%>
                   <tr>
@@ -34,7 +39,7 @@
                      <% else %>
                         <td id="on_time">On time</td>
                     <% end %>
-                    <td><%= link_to submission.name , submission.attachment_url %></td>
+                  <td style="text-align:center"><%= link_to submission.name , submission.attachment_url %></td>
                   </tr>
                   <% end %>
                 <% end %>
@@ -54,8 +59,9 @@
 <% end %>
 
 <% if @is_instructor or @is_assistant%>
+  <h1 style="text-align:center">View Student Submissions</h1>
 <div id="subm-show-content">
-  <table class = "w">
+  <table style = "width: 80%">
     <thead >
       <tr>
         <th>Course</th>
@@ -74,7 +80,7 @@
            <% @courses.each do |course| %>
            
            <td id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
-           
+           <td id="remove_border_line"></td>
            <td id="remove_border_line"></td>
            <td id="remove_border_line"></td>
            <td id="remove_border_line"></td>
@@ -100,7 +106,7 @@
                       <td id="on_time">On time</td>
                    <% end %>
     
-                  <td><%= link_to submission.name , submission.attachment_url %></td>
+                  <td style="text-align:center"><%= link_to submission.name , submission.attachment_url %></td>
                  
                 </tr>
               <% end %>

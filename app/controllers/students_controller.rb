@@ -55,8 +55,15 @@ class StudentsController < ApplicationController
     @students = Student.all
     @instructor = current_instructor
     @courses = @instructor.courses
+
+    @isStudent = true
+    @isInstructor = true
+    @isAssistant = true
     
     if student_signed_in?
+      @isInstructor = false
+      @isAssistant = false
+
       @submissions = Submission.all
       @student = current_student
       @courses = @student.courses
@@ -67,7 +74,16 @@ class StudentsController < ApplicationController
            @assignments = @assignments + course.assignments.all
          end
       end
-    end
+  elsif (@isInstructor == true)
+    @isStudent = false
+    @isAssistant = false
+  elsif (@isAssistant)
+    @isStudent = false
+    @isInstructor = false
+  end
+
+
+    
   end
 
   private

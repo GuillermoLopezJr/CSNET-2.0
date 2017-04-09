@@ -5,43 +5,30 @@ class SubmissionsController < ApplicationController
       @is_assistant   = current_assistant
       @is_student     = current_student
 
+      @isInstructor  = true
+      @isAssistant   = true
+      @isStudent     = true
       if(@is_instructor)
         @courses = @is_instructor.courses
-        @courses.each do |course|
-            @assignments = course.assignments
-
-            if (@assignments == nil)
-            else
-                @assignments = @assignments + course.assignments.all
-            end
-        end
-       elsif(@is_assistant)
-            @courses = @is_assistant.courses
-            puts @assignments
-            @courses.each do |course|
-                if (@assignments == nil)
-                    @assignments = course.assignments.all
-                else
-                    @assignments = @assignments + course.assignments.all
-                end
-              end
-        else
-            @courses = @is_student.courses
-            puts @assignments
-            @courses.each do |course|
-                if(@assignments == nil)
-                    @assignments = course.assignments.all
-                else
-                @assignments = @assignments + course.assignments.all
-                end
-          end
-        end
+        @isAssistant   = false
+        @isStudent     = false
+      elsif (@is_assistant)
+        @courses = @is_assistant.courses
+        @isInstructor  = false
+        @isStudent     = false
+      else
+        @courses = @is_student.courses
+        @isInstructor  = false
+        @isAssistant   = false
+      end
     end
-
-  
    
    def new
       @student = current_student
+      @isInstructor  = false
+      @isAssistant   = false
+      @isStudent     = true
+
       @submission = Submission.new
       @courses = @student.courses
       @assignments = nil

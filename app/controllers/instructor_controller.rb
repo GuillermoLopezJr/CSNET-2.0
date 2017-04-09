@@ -2,12 +2,6 @@
 class InstructorController < ApplicationController
 
   def new
-    @instructor = current_instructor
-  
-    if (!@instructor.is_admin)
-      redirect_to root_path
-    end 
-    #@courses = @instructor.courses#where( instructor_id: @instructor)
   end
 
   def create

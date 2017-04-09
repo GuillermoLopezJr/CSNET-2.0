@@ -27,26 +27,26 @@
   <body>
       <%= render 'layouts/flash_messages' %>
 </div>
-
       <%= yield %>
         <button class="hamburger">&#9776;</button>
         <button class="cross">&#735;</button>
         <div class="menu">
           <ul>
             <li> <%= link_to('Home', root_path, :method => :get) %> </li> 
-            <% if @instructor %>
+
+            <% if @isInstructor %>
               <li><%= link_to "Change Password", edit_instructor_registration_path %></li>
             <% end %>
 
-            <% if @student %>
+            <% if @isStudent %>
               <li><%= link_to "Change Password", edit_student_registration_path %></li>
           <% end %>
 
-            <% if @assistant %>
+            <% if @isAssistant %>
               <li><%= link_to "Change Password", edit_assistant_registration_path %></li>
           <% end %>
           
-            <li> <%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %> </li>
+            <li><%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %> </li>
           </ul>
         </div> 
    </body>
