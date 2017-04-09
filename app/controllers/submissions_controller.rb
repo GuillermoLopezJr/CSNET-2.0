@@ -1,36 +1,42 @@
 class SubmissionsController < ApplicationController
    def index
+       
       @submissions = Submission.all
-      @user = current_instructor
-      @is_instructor = @user #for view, to what sumbssions to render
-      @isInstructor = true
-    
-      if (@user == nil)
-        #a student is signed in
-        @user = current_student
-        @is_student = @user #for view, to what sumbssions to render
-        @courses = @user.courses
+      @is_instructor  = current_instructor
+      @is_assistant   = current_assistant
+      @is_student     = current_student
+       
+      if(@is_instructor)
+        @courses = @is_instructor.courses
         @courses.each do |course|
-          if (@assignments == nil)
-            @assignments = course.assignments.all
-          else
-            @assignments = @assignments + course.assignments.all
-          end
-      end
-      #@assignments = @user.courses.assignments #Assignment.where(course_id: @user.course_id)
-      @isInstructor = false
-      else
-        #an instructor is singed in
-        @courses = @user.courses
-        @courses.each do |course|
-          if (@assignments == nil)
-            @assignments = course.assignments.all
-          else
-            @assignments = @assignments + course.assignments.all
-          end
+            if (@assignments == nil)
+                @assignments = course.assignments.all
+            else
+                @assignments = @assignments + course.assignments.all
+            end
         end
-      end
-   end
+       elsif(@is_assistant)
+            @courses = @is_assistant.courses
+            @courses.each do |course|
+                if (@assignments == nil)
+                    @assignments = course.assignments.all
+                else
+                    @assignments = @assignments + course.assignments.all
+                end
+              end
+        else
+            @courses = @is_student.courses
+            @courses.each do |course|
+                if(@assignments == nil)
+                    @assignments = course.assignments.all
+                else
+                @assignments = @assignments + course.assignments.all
+                end
+            end
+        end
+    end
+
+  
    
    def new
       @student = current_student
