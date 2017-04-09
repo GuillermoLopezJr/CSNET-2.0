@@ -8,5 +8,5 @@
 @c = Course.create!(instructor_id: @i.id, name: "Software Engineering", number: 431, year: "2017", session: "SPRING")
 @a = Assignment.create!(course_id: @c.id, name: "Reading 1", course_num: @c.number, due_date: "2017-01-01")
 
-
+@c.assistants << @ta
 @c.students << @s
