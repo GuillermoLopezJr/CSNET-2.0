@@ -11,7 +11,7 @@ class AssignmentsController < ApplicationController
       @assignment = @course.assignments.create(assignment_params)
       redirect_to @assignment, notice: "The assignment #{@assignment.name} has been created."
     else
-      redirect_to assignments_path, notice: "Could not create #{params[:assignment][:name]}."
+      redirect_to assignments_path, danger: "Could not create #{params[:assignment][:name]}."
       #redirect_to assignments_path, notice: "Could not create #{@assignment.name}."
     end
   end
