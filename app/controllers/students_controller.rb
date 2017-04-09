@@ -47,7 +47,7 @@ class StudentsController < ApplicationController
         @course.students << @student
       end
     end
-    redirect_to students_path
+    redirect_to students_path, notice: "Student created"
   end
   
   
