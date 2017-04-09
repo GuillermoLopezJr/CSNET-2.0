@@ -81,7 +81,7 @@
         <tr onclick="location.href='<%= assignment_path(assignment) %>'">
           <td><%= assignment.name %></td>
           <td><%= assignment.course_num %></td>
-          <td><%= assignment.due_date %></td>
+          <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
           <% if @isInstructor %>
             <td style="text-align:center"><%= link_to 'Show', assignment_path(assignment) %> | <%= link_to 'Edit', assignment_path(assignment) %></td>
           <% end %>

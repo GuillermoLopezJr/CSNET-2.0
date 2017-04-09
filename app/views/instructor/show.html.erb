@@ -75,7 +75,7 @@
           <td></td>
           <td></td>
           <td><%= link_to assignment.name , assignment_path(assignment) %></td>
-          <td><%= assignment.due_date %></td>
+          <td><%=DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
         </tr>
       <% end %>
 
