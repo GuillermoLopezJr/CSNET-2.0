@@ -28,7 +28,7 @@
   
             <p>
               <%= f.label :course_number %><br>
-              <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
+              <%= f.collection_select :course_num, @courses, :number, :number,{ id:"course_num", prompt: "Select a Course Number", :include_blank => false}, {class: "form-control"} %>
             </p>
   
             <p>
@@ -53,9 +53,9 @@
         <div class="form">
           <%= form_for :roster, html: { multipart: true }, url: rosters_path do |f| %>
               <%= f.label :course_num %>
-              <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
+              <%= f.collection_select :course_num, @courses, :number, :number,{ id:"course_num", prompt: "Select a Course Number", :include_blank => false}, {class: "form-control"} %>
               <%= f.label :attachment %>
-              <%= f.file_field :attachment, id:"roster" %>
+              <%= f.file_field :attachment, id:"roster", class: 'form-control' %>
               <%= f.submit "Import Roster", class: "btn btn-primary" %>
           <% end %>
         </div>

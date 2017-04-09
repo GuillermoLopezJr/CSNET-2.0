@@ -11,7 +11,7 @@
           
           <p>
             <%= f.label :assignment %><br>
-            <%= f.collection_select :assignment, @assignments, :name, :name, id:"assignment_name", prompt: true, include_blank: false %>
+            <%= f.collection_select :assignment, @assignments, :name, :name,{ id:"assignment_name", prompt: true, include_blank: false}, {class: 'form-control' } %>
           </p>
           
           <p>

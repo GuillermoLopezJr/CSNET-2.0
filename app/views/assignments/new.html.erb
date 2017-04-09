@@ -19,13 +19,13 @@
         
           <p>
             <%= f.label :course_num %><br>
-            <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
+            <%= f.collection_select :course_num, @courses, :number, :number,{ id:"course_num", prompt: "Select a Course Number", :include_blank => false}, {class: "form-control"} %>
             
             <% if false %> Get course number straight from course page
               <% if params[:course_num] != nil %>
                 <%= f.text_field :course_num, value: params[:course_num], id:"course_num", class: 'form-control', disabled: true%>
               <% else %>
-                <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
+                <%= f.collection_select :course_num, @courses, :number, :number,{ id:"course_num", prompt: "Select a Course Number", :include_blank => false}, {class: "form-control"} %>
               <% end %>
             <% end %>
             
@@ -33,7 +33,7 @@
         
           <p>
             <%= f.label :due_date %><br>
-            <%= date_field(:assignment, :due_date, id:"due_date") %>
+            <%= date_field(:assignment, :due_date, id:"due_date", class: 'form-control') %>
           </p>
         
         
