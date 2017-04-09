@@ -2,7 +2,7 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
 
-@i = Instructor.create!({:email => "i1@gmail.com", :password => "password", :password_confirmation => "password", :is_admin => true})
+@i = Instructor.create!({:first_name => "Jeff", :last_name => "Huang", :email => "i1@gmail.com", :password => "password", :password_confirmation => "password", :is_admin => true})
 @s = Student.create!({:email => "s1@gmail.com", :password => "password", :password_confirmation => "password"})
 @ta = Assistant.create!(email: "ta1@gmail.com", password: "password", password_confirmation: "password")
 @c = Course.create!(instructor_id: @i.id, name: "Software Engineering", number: 431, year: "2017", session: "SPRING")
