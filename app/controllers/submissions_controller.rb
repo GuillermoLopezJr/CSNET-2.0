@@ -32,7 +32,7 @@ class SubmissionsController < ApplicationController
                 else
                 @assignments = @assignments + course.assignments.all
                 end
-            end
+          end
         end
     end
 
