@@ -41,6 +41,9 @@ class InstructorController < ApplicationController
     if instructor_signed_in?
       @instructor = current_instructor
       @courses = @instructor.courses
+      @isInstructor = true
+      @isStudent = false
+      @isAssistant = false
     else  
       redirect_to root_path
     end
