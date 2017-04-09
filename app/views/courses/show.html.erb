@@ -1,5 +1,4 @@
 <div id="course-content">
-  <h1> SHOW Course </h1>
   
   <p>
     <strong>NAME:</strong>
@@ -30,24 +29,29 @@
   <% end %>
   
   <table class = "sortable">
-    <thead>
+    <thead >
       <tr>
         <th>Assignment</th>
         <th>Due Date</th>
-      
-        <% if @isInstructor %>
-          <th>Actions</th>
-        <% end %>
         
         <th>Download Assignment</th>
         
         <% if @isInstructor %>
           <th></th>
         <% end %>
+        <% if @isInstructor %>
+          <th></th>
+        <% end %>
+        
+        <!--<% if @isInstructor %>-->
+        <!--  <th>Actions</th>-->
+        <!--<% end %>-->
         
         <% if @isStudent %>
           <th> Submit assignment </th>
         <% end %>
+        
+        
       </tr>
     </thead>
     <tr>
@@ -57,17 +61,13 @@
           <tr onclick="location.href='<%= assignment_path(assignment) %>'">
             <td><%= assignment.name %></td>
             <td><%= assignment.due_date %></td>
-            <% if @isInstructor %>
-              <td style="text-align:center"> <%= link_to 'Edit', assignment_path(assignment) %></td>
-            <% end %>
             
             <td><%= link_to "Download", assignment.attachment_url %></td>
             
-            <% if @isInstructor %>
-              <td>
-                <%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{assignment.name}?" %>
-              </td>
-            <% end %>
+          <% if @isInstructor %>
+            <td><%= button_to "Edit", edit_assignment_path(assignment), method: :get, class: "btn btn-info", data: {confirm: "Are you sure that you wish to edit #{assignment.name}?"} %></td>
+            <td><%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure that you wish to delete #{assignment.name}?"} %></td> 
+          <% end %>
           </tr>
         <% end %>
       <% end %>
