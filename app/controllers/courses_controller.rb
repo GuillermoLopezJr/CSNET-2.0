@@ -26,7 +26,6 @@ class CoursesController < ApplicationController
       @course.destroy
       flash[:danger] = "The course #{@course.name} #{@course.number} has been deleted."
       redirect_to courses_path
-
   end
 
   def index

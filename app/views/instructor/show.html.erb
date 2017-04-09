@@ -42,9 +42,11 @@
     
     <div class="clear">
       <li><%= link_to "Add a TA to a course", assistant_new_path %></li>
+
       <% if (@instructor.is_admin) %>
          <li><%= link_to "Add new Instructor", instructor_new_path %></li> 
       <% end %>
+
     </div>
 </div>
 
