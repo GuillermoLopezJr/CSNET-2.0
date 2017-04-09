@@ -34,7 +34,18 @@
         <div class="menu">
           <ul>
             <li> <%= link_to('Home', root_path, :method => :get) %> </li> 
-            <li> --- </li></a>
+            <% if @instructor %>
+              <li><%= link_to "Change Password", edit_instructor_registration_path %></li>
+            <% end %>
+
+            <% if @student %>
+              <li><%= link_to "Change Password", edit_student_registration_path %></li>
+          <% end %>
+
+            <% if @assistant %>
+              <li><%= link_to "Change Password", edit_assistant_registration_path %></li>
+          <% end %>
+          
             <li> <%= link_to('Logout', destroy_instructor_session_path, :method => :delete) %> </li>
           </ul>
         </div> 
