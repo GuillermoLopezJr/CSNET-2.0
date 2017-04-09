@@ -63,7 +63,7 @@ class RostersController < ApplicationController
       
       if @roster.save
         session[:roster] = @roster
-        redirect_to rosters_path, notice: "The roster #{@roster.course_num} has been uploaded."
+        redirect_to rosters_path, notice: "The roster for #{@roster.course_num} has been uploaded."
       else
         render "new"
       end

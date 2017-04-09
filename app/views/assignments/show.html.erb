@@ -1,10 +1,3 @@
-<% if !flash[:notice].blank? %>
-  <div class = "alert alert-info">
-      <%= flash[:notice] %>
-  </div>
-<% end %>
-  
-
 <div id="assign-show-content">
   
   <p>
@@ -36,10 +29,11 @@
      <% if @assignment.submissions.size > 0 %>
       <% @assignment.submissions.each do |submission| %>
         <tr>
-          <% if student.courses != nil %>
+          <% if student.course != nil %>
               <td><%= student.first_name %> <%= student.last_name %></td>
               <td><%= student.email %></td>
           <% end %>
+              <td></td>
               <td></td>
               <td></td>
         </tr>
