@@ -39,7 +39,7 @@
                      <% else %>
                         <td id="on_time">On time</td>
                     <% end %>
-                  <td style="text-align:center"><%= link_to submission.name , submission.attachment_url %></td>
+                  <td style="text-align:center"><%= link_to truncate(submission.name, :length => 20, :ommission => true), submission.attachment_url -%></td>
                   </tr>
                   <% end %>
                 <% end %>
@@ -106,7 +106,7 @@
                       <td id="on_time">On time</td>
                    <% end %>
     
-                  <td style="text-align:center"><%= link_to submission.name , submission.attachment_url %></td>
+                  <td style="text-align:center"><%= link_to truncate(submission.name, :length => 20, :ommission => true), submission.attachment_url -%></td>
                  
                 </tr>
               <% end %>
