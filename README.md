@@ -23,3 +23,24 @@ It allows students to submit homework assignments easily and quickly (a replacem
  
     * <b>email</b> (Instructor):     user@gmail.com
     * <b>password</b>:  password
+
+##Iteration 3
+* [Report (pdf)](https://drive.google.com/file/d/0BwYOz-7AH9VNQllobnV2Sk9UVEE/view?usp=sharing)
+* [Heroku app](https://fast-shore-41666.herokuapp.com/)
+  * Test User Account:
+    * <b>email</b> (ADMIN):     i1@gmail.com
+    * <b>password</b>:  password
+ 
+ 
+    * <b>email</b> (Instructor):     user@gmail.com
+    * <b>password</b>:  password
+
+
+    * <b>email</b> (Student):        s1@gmail.com
+    * <b>password</b>:  password
+    
+    
+    * <b>email</b> (Teaching Assistant):     ta1@gmail.com
+    * <b>password</b>:  password
+    
+    

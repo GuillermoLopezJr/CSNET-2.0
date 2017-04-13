@@ -52,7 +52,7 @@ table {
 }
 
 tr {
-  text-transform: uppercase;
+  // text-transform: uppercase;
 }
 
 thead tr:first-child {
@@ -63,7 +63,7 @@ thead tr:first-child {
 
 th:first-child,
 td:first-child {
-  padding: 0 15px 0 20px;
+  padding: 0 25px 0 25px;
 }
 
 thead tr:last-child th {

@@ -2,16 +2,20 @@
 class InstructorController < ApplicationController
 
   def new
-    @instructor = current_instructor
-  
-    if (!@instructor.is_admin)
+    if instructor_signed_in?
+      @instructor = current_instructor
+      @courses = @instructor.courses
+      @isInstructor = true
+      @isStudent = false
+      @isAssistant = false
+    else 
       redirect_to root_path
-    end 
-    #@courses = @instructor.courses#where( instructor_id: @instructor)
+    end
   end
 
   def create
     Instructor.create!(instructor_params)
+    puts "got here"
     redirect_to root_path
     #@course = current_instructor.courses.find_by number: (params[:assignment][:course_num].to_i)
       
@@ -46,6 +50,9 @@ class InstructorController < ApplicationController
     if instructor_signed_in?
       @instructor = current_instructor
       @courses = @instructor.courses
+      @isInstructor = true
+      @isStudent = false
+      @isAssistant = false
     else  
       redirect_to root_path
     end

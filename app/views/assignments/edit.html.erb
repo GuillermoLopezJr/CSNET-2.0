@@ -1,53 +1,59 @@
 <div id="assign-edit-content">
-  <h1>Editing assignment</h1>
-   
-  <%= form_for :assignment, url: assignment_path(@assignment), method: :patch do |f| %>
-   
-    <% if @assignment.errors.any? %>
-      <div id="error_explanation">
-        <h2>
-          <%= pluralize(@assignment.errors.count, "error") %> prohibited
-          this assignment from being saved:
-        </h2>
-        <ul>
-          <% @assignment.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
+  <div style="text-align:center;">
+    <h1>Edit assignment</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for :assignment, url: assignment_path(@assignment), method: :patch do |f| %>
+       
+        <% if @assignment.errors.any? %>
+          <div id="error_explanation">
+            <h2>
+              <%= pluralize(@assignment.errors.count, "error") %> prohibited
+              this assignment from being saved:
+            </h2>
+            <ul>
+              <% @assignment.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+       
+        <p>
+          <%= f.label :name %><br>
+          <%= f.text_field :name, id:"name", class: 'form-control' %>
+        </p>
+        
+        <p>
+          <%= f.label :attachment %> 
+          <% if @assignment.attachment_url != nil %>
+            <p> >> Current Attachment: <b><%= @assignment.attachment_url.split('/').last %></b></p>
           <% end %>
-        </ul>
-      </div>
-    <% end %>
-   
-    <p>
-      <%= f.label :name %><br>
-      <%= f.text_field :name, id:"name" %>
-    </p>
-    
-    <p>
-      <%= f.label :attachment %> 
-      <% if @assignment.attachment_url != nil %>
-        <p> >> Current Attachment: <b><%= @assignment.attachment_url.split('/').last %></b></p>
+          <%= f.file_field :attachment, class: 'form-control' %> 
+        </p>
+       
+        <p>
+          <%= f.label :due_date %> <br>
+          <!-- Populate the field with the current due date -->
+          <%= f.date_field :due_date, value: @assignment.due_date, id:"due_date", class: 'form-control'  %> 
+        </p>
+        
+        <p>
+          <%= f.label :course_num %><br>
+          <%= f.collection_select :course_num, @courses, :number, :number,{ id:"course_num", prompt: "Select a Course Number", :include_blank => false}, {class: "form-control"} %>
+        </p>
+       
+        <p>
+          <%= f.submit 'submit', id:"submit", class: "btn btn-primary" %>
+        </p>
+       
       <% end %>
-      <%= f.file_field :attachment %> 
-    </p>
-   
-    <p>
-      <%= f.label :due_date %> <br>
-      <!-- Populate the field with the current due date -->
-      <%= f.date_field :due_date, value: @assignment.due_date, id:"due_date"  %> 
-    </p>
-    
-    <p>
-      <%= f.label :course_num %><br>
-      <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
-    </p>
-   
-    <p>
-      <%= f.submit 'submit', id:"submit" %>
-    </p>
-   
-  <% end %>
-   
-  <%= link_to 'Back', :back %> &emsp;
-  <%= link_to 'Delete' %>
-
+    </div>
+  </div>
+  
+  <div style="text-align:center;">
+    <%= link_to 'Back', :back %> &emsp;
+    <%= link_to 'Delete' %>
+  </div>
 </div>

@@ -1,9 +1,13 @@
 <div id="assign-list-content">
-  <h1>Listing Assignments</h1>
+  <div style="text-align:center;">
+    <h1>Listing Assignments</h1>
+  </div>
   
   <% if @isInstructor %>
     <div class="container">
-      <button type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#assign-create-content">Add an Assignment</button>
+      <div class="row">
+        <button type="button" class="btn btn-primary col-md-6 col-md-offset-3" data-toggle="collapse" data-target="#assign-create-content">Add an Assignment</button>
+      </div>
       <div id="assign-create-content", class= "collapse">
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
@@ -21,13 +25,14 @@
               
                 <p>
                   <%= f.label :course_num %><br>
-                  <%= f.collection_select :course_num, @courses, :number, :number, id:"course_num", prompt: true, include_blank: false %>
+                  <%= f.collection_select :course_num, @courses, :number, :number,{ id:"course_num", prompt: "Select a Course Number", :include_blank => false}, {class: "form-control"} %>
                 </p>
               
                 <p>
                   <%= f.label :due_date %><br>
-                  <%= date_field(:assignment, :due_date, id:"due_date") %>
+                  <%= datetime_local_field(:assignment, :due_date, id:"due_date", class: 'form-control') %>
                 </p>
+                
               
               <% if false %>
                 we can add a description that the 
@@ -56,16 +61,19 @@
         <th>Assignment</th>
         <th>Course</th>
         <th>Due Date</th>
-      
-        <% if @isInstructor %>
-          <th>Actions</th>
-        <% end %>
         
         <th>Download Assignment</th>
         
         <% if @isInstructor %>
           <th></th>
         <% end %>
+        <% if @isInstructor %>
+          <th></th>
+        <% end %>
+        
+        <!--<% if @isInstructor %>-->
+        <!--  <th>Actions</th>-->
+        <!--<% end %>-->
         
         <% if @isStudent %>
           <th> Submit assignment </th>
@@ -80,23 +88,25 @@
         <tr onclick="location.href='<%= assignment_path(assignment) %>'">
           <td><%= assignment.name %></td>
           <td><%= assignment.course_num %></td>
-          <td><%= assignment.due_date %></td>
-          <% if @isInstructor %>
-            <td style="text-align:center"><%= link_to 'Show', assignment_path(assignment) %> | <%= link_to 'Edit', assignment_path(assignment) %></td>
-          <% end %>
+          <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
           
-          <td><%= link_to "Download", assignment.attachment_url %></td>
+          <td style="text-align:center"><%= link_to "Download", assignment.attachment_url %></td>
           
           <% if @isInstructor %>
-            <td>
-              <%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{assignment.name}?" %>
-            </td>
+          <td><%= button_to "Edit", edit_assignment_path(assignment), method: :get, class: "btn btn-info", data: {confirm: "Are you sure that you wish to edit #{assignment.name}?"} %></td>
+          <td><%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure that you wish to delete #{assignment.name}?"} %></td> 
           <% end %>
         </tr>
       <% end %>
+    <% else %>
+     <% puts 'no assignments' %>
     <% end %>
   </table>
-<p>  
-  <%= link_to 'Home', root_path %>
-</p>
+  
+  <div style="text-align:center">
+    <p>  
+    <%= link_to 'Home', root_path %>
+  </p>
+  </div>
+
 </div>

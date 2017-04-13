@@ -1,39 +1,34 @@
 class SubmissionsController < ApplicationController
    def index
       @submissions = Submission.all
-      @user = current_instructor
-      @is_instructor = @user #for view, to what sumbssions to render
-      @isInstructor = true
-    
-      if (@user == nil)
-        #a student is signed in
-        @user = current_student
-        @is_student = @user #for view, to what sumbssions to render
-        @courses = @user.courses
-        @courses.each do |course|
-          if (@assignments == nil)
-            @assignments = course.assignments.all
-          else
-            @assignments = @assignments + course.assignments.all
-          end
-      end
-      #@assignments = @user.courses.assignments #Assignment.where(course_id: @user.course_id)
-      @isInstructor = false
+      @is_instructor  = current_instructor
+      @is_assistant   = current_assistant
+      @is_student     = current_student
+
+      @isInstructor  = true
+      @isAssistant   = true
+      @isStudent     = true
+      if(@is_instructor)
+        @courses = @is_instructor.courses
+        @isAssistant   = false
+        @isStudent     = false
+      elsif (@is_assistant)
+        @courses = @is_assistant.courses
+        @isInstructor  = false
+        @isStudent     = false
       else
-        #an instructor is singed in
-        @courses = @user.courses
-        @courses.each do |course|
-          if (@assignments == nil)
-            @assignments = course.assignments.all
-          else
-            @assignments = @assignments + course.assignments.all
-          end
-        end
+        @courses = @is_student.courses
+        @isInstructor  = false
+        @isAssistant   = false
       end
-   end
+    end
    
    def new
       @student = current_student
+      @isInstructor  = false
+      @isAssistant   = false
+      @isStudent     = true
+
       @submission = Submission.new
       @courses = @student.courses
       @assignments = nil

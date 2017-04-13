@@ -8,6 +8,7 @@ class StudentsController < ApplicationController
   def show
     if student_signed_in?
       @student = current_student
+      @isStudent = true
       #render html: @student.course_id
       @courses = @student.courses
       #@courses = Course.where( student_id: @student.courses)
@@ -48,7 +49,7 @@ class StudentsController < ApplicationController
         @course.students << @student
       end
     end
-    redirect_to students_path
+    redirect_to students_path, notice: "Student created"
   end
   
   
@@ -56,8 +57,15 @@ class StudentsController < ApplicationController
     @students = Student.all
     @instructor = current_instructor
     @courses = @instructor.courses
+
+    @isStudent = true
+    @isInstructor = true
+    @isAssistant = true
     
     if student_signed_in?
+      @isInstructor = false
+      @isAssistant = false
+
       @submissions = Submission.all
       @student = current_student
       @courses = @student.courses
@@ -68,7 +76,16 @@ class StudentsController < ApplicationController
            @assignments = @assignments + course.assignments.all
          end
       end
-    end
+  elsif (@isInstructor == true)
+    @isStudent = false
+    @isAssistant = false
+  elsif (@isAssistant)
+    @isStudent = false
+    @isInstructor = false
+  end
+
+
+    
   end
 
   private
@@ -76,9 +93,8 @@ class StudentsController < ApplicationController
       #change password to something random initally
       password_length = 8
       pass = Devise.friendly_token.first(password_length)
-      #puts "pass is "
-      #pass = "password"
-      #puts pass
+      puts "pass is "
+      puts pass
       params.require(:student).permit(:first_name, :last_name, :email, :password, :password_confirmation).merge(:password => pass, :password_confirmation => pass)
     end
 end

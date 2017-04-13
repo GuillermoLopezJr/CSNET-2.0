@@ -16,8 +16,8 @@ class CoursesController < ApplicationController
       flash[:success] = "The course #{@course.name} #{@course.number} has been created successfully"
       redirect_to root_path
     else
-      flash.now[:danger] = "The Page contains errors"
-      render 'new'
+      flash[:danger] = "The Form was filled out incorrectly."
+      redirect_to courses_path
     end 
   end
   
@@ -26,7 +26,6 @@ class CoursesController < ApplicationController
       @course.destroy
       flash[:danger] = "The course #{@course.name} #{@course.number} has been deleted."
       redirect_to courses_path
-
   end
 
   def index

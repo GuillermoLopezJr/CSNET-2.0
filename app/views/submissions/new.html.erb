@@ -1,4 +1,4 @@
-<h1>Submissions#new</h1>
+<h1 style="text-align:center">Submit Assignment</h1>
 <div class="container">
   <div id="subm-create-content">
     <div class="row">
@@ -12,7 +12,7 @@
           <p>
             <%= f.label :assignment %><br>
             <% if @assignments != nil %>
-              <%= f.collection_select :assignment, @assignments, :name, :name, id:"assignment_name", prompt: true, include_blank: false %>
+            <%= f.collection_select :assignment, @assignments, :name, :name,{ id:"assignment_name", prompt: true, include_blank: false}, {class: 'form-control' } 
             <% else %>
               <p> Assignment not available for submission, check with your instructor.  </p>
             <% end %>
@@ -26,7 +26,7 @@
           <p>
             <%= f.submit 'submit', id:"submit",class: "btn btn-primary" %>
           </p>
-          <div style="text-align:center;">  
+          <div style="text-align:center">  
             <%= link_to 'Back', :back %> &emsp;
             <%= link_to 'Home', root_path %> 
           </div>

@@ -4,6 +4,9 @@ class AssistantController < ApplicationController
     if instructor_signed_in?
       @instructor = current_instructor
       @courses = @instructor.courses
+      @isInstructor = true
+      @isStudent = false
+      @isAssistant = false
     else 
       redirect_to root_path
     end
@@ -20,7 +23,7 @@ class AssistantController < ApplicationController
       # Should never happen
       if @course == nil
         # add instructor failed
-        redirect_to root
+        redirect_to root_path, error: "Teaching assistant has been added for #{@course.name} #{@course.number} already exists"
       end
       
       # A new assistant is being created
@@ -37,6 +40,7 @@ class AssistantController < ApplicationController
           @course.assistants << @assistant
         end
       end
+      flash[:success] = "Teaching assistant #{@assistant.email} has been added for #{@course.name} #{@course.number}"
       redirect_to root_path
     end
   end

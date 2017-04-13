@@ -4,6 +4,10 @@ Rails.application.configure do
 
 config.web_console.whitelisted_ips = '10.240.0.0/16'
 
+  
+  
+  
+  
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -35,6 +39,7 @@ config.web_console.whitelisted_ips = '10.240.0.0/16'
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = { :host => 'localhost' }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -49,6 +54,8 @@ config.web_console.whitelisted_ips = '10.240.0.0/16'
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
+  
+  
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
@@ -56,4 +63,10 @@ config.web_console.whitelisted_ips = '10.240.0.0/16'
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  
+  
+  
+  #   config.time_zone = 'Central Time (US & Canada)'
+  # config.active_record.default_timezone = :local # Or :utc
+  
 end
