@@ -1,11 +1,6 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
-<<<<<<< HEAD
-Instructor.create!({:email => "i1@gmail.com", :password => "password", :password_confirmation => "password", :is_admin => true})
-Student.create!({:first_name => "First", :last_name => "Last", :email => "s1@gmail.com", :password => "password", :password_confirmation => "password"})
-Assistant.create!(email: "ta1@gmail.com", password: "password", password_confirmation: "password")
-=======
 
 @i = Instructor.create!({:first_name => "Jeff", :last_name => "Huang", :email => "i1@gmail.com", :password => "password", :password_confirmation => "password", :is_admin => true})
 @s = Student.create!({:first_name =>"Jane", :last_name => "Doe", :email => "s1@gmail.com", :password => "password", :password_confirmation => "password"})
@@ -15,4 +10,4 @@ Assistant.create!(email: "ta1@gmail.com", password: "password", password_confirm
 
 @c.assistants << @ta
 @c.students << @s
->>>>>>> bc25326f78611721b85f452914e028087fc1c6f9
+
