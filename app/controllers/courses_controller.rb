@@ -30,16 +30,41 @@ class CoursesController < ApplicationController
 
   def index
     #need to distinguish between student and instructor
-    @user = current_instructor
-    @isInstructor = true
-    if @user == nil
+    # @user = current_instructor
+    # @isInstructor = true
+    # if @user == nil
+    #   #a student is signed in
+    #   @user = current_student
+    #   @isStudent = true
+    #   @isInstructor = false
+    #   @courses = @user.courses
+    # else
+    #   #an instructor is singed in
+    #   @courses = @user.courses
+    # end
+    
+    if ( student_signed_in? )
       #a student is signed in
       @user = current_student
       @isStudent = true
       @isInstructor = false
       @courses = @user.courses
-    else
+      @isAssistant  = false
+      
+    elsif( instructor_signed_in? )
       #an instructor is singed in
+      @user = current_instructor
+      @isInstructor = true
+      @isStudent    = false
+      @isAssistant  = false
+      @courses = @user.courses
+      
+    elsif( assistant_signed_in? )
+      #an assistant is signed in
+      @user = current_assistant
+      @isAssistant  = true
+      @isInstructor = false
+      @isStudent    = false
       @courses = @user.courses
     end
   end
