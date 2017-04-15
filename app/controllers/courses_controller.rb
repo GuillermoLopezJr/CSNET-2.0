@@ -11,14 +11,18 @@ class CoursesController < ApplicationController
   def create
     #only instructors can create courses
     @instructor = current_instructor
-    @course = @instructor.courses.create(course_params)
-    if @course.save
-      flash[:success] = "The course #{@course.name} #{@course.number} has been created successfully"
-      redirect_to root_path
-    else
-      flash[:danger] = "The Form was filled out incorrectly."
-      redirect_to courses_path
-    end 
+    @course = Course.new(course_params)
+    
+    if @course.new_record?  
+       @course = @instructor.courses.create(course_params)
+        if @course.save
+         flash[:success] = "The course #{@course.name} #{@course.number} has been created successfully"
+         redirect_to courses_path
+        else
+          flash[:danger] = "The Form was filled out incorrectly or course already exist"
+          redirect_to courses_path
+        end
+    end
   end
   
   def destroy

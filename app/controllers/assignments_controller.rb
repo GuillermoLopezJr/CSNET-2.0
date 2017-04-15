@@ -58,6 +58,16 @@ class AssignmentsController < ApplicationController
 
   def show
     @assignment = Assignment.find(params[:id])
+     if student_signed_in?
+      @student = current_student
+      @isStudent = true
+      #render html: @student.course_id
+      @courses = @student.courses
+      #@courses = Course.where( student_id: @student.courses)
+    else  
+      render html: "user not signed in"
+      #redirect_to sign_in_path
+    end
   end
 
   def edit

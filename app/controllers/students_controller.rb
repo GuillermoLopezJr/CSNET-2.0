@@ -76,7 +76,6 @@ class StudentsController < ApplicationController
          end
       end
   elsif (@isInstructor == true)
-    puts "TESTING"
     @courses = @instructor.courses
     @isStudent = false
     @isAssistant = false
