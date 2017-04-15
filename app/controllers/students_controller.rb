@@ -55,7 +55,7 @@ class StudentsController < ApplicationController
   def index
     @students = Student.all
     @instructor = current_instructor
-    @courses = @instructor.courses
+
 
     @isStudent = true
     @isInstructor = true
@@ -76,6 +76,8 @@ class StudentsController < ApplicationController
          end
       end
   elsif (@isInstructor == true)
+    puts "TESTING"
+    @courses = @instructor.courses
     @isStudent = false
     @isAssistant = false
   elsif (@isAssistant)
