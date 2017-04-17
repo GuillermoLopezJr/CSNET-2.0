@@ -11,6 +11,9 @@ When(/^I submit a new course form$/) do
  visit courses_new_path
  fill_in "name", :with => "Software Eng"
  fill_in "number", :with => 431
+ fill_in "year", :with => "2017"
+ #fill_in "session", :with => "SPRING"
+ select "SPRING", from: "course_session"
  click_button "submit"
 end
 

@@ -1,12 +1,12 @@
 class AssistantController < ApplicationController
     
   def new
-    if instructor_signed_in?
-      @instructor = current_instructor
-      @courses = @instructor.courses
-    else 
+    if not instructor_signed_in?
       redirect_to root_path
     end
+
+    @instructor = current_instructor
+    @courses = @instructor.courses
   end
 
   def create
@@ -54,6 +54,8 @@ class AssistantController < ApplicationController
            @assignments = @assignments + course.assignments.all
          end
       end
+    else
+      redirect_to root_path
     end
   end
   

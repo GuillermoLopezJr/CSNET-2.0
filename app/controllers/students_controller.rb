@@ -1,6 +1,9 @@
 class StudentsController < ApplicationController
 
   def new
+    if not instructor_signed_in?
+      redirect_to root_path
+    end
     @instructor = current_instructor
     @courses = @instructor.courses
   end
@@ -8,17 +11,18 @@ class StudentsController < ApplicationController
   def show
     if student_signed_in?
       @student = current_student
-      #render html: @student.course_id
       @courses = @student.courses
-      #@courses = Course.where( student_id: @student.courses)
     else  
-      render html: "user not signed in"
-      #redirect_to sign_in_path
+      redirect_to sign_in_path
     end
   end
 
 
   def create
+    if not instructor_signed_in?
+      redirect_to root_path
+    end
+    
     @instructor = current_instructor
     @course =  @instructor.courses.find_by( number: params[:student][:course_num] )
     @student = Student.find_by( email: params[:student][:email] )

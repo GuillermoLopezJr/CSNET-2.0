@@ -1,10 +1,17 @@
 class AssignmentsController < ApplicationController
   def new
+    if not instructor_signed_in?
+      redirect_to root_path
+    end
     @instructor = current_instructor
-    @courses = @instructor.courses#where( instructor_id: @instructor)
+    @courses = @instructor.courses
   end
 
   def create
+    if not instructor_signed_in?
+      redirect_to root_path
+    end
+    
     @course = current_instructor.courses.find_by number: (params[:assignment][:course_num].to_i)
       
     if (@course != nil)
@@ -12,7 +19,6 @@ class AssignmentsController < ApplicationController
       redirect_to @assignment, notice: "The assignment #{@assignment.name} has been created."
     else
       redirect_to assignments_path, danger: "Could not create #{params[:assignment][:name]}."
-      #redirect_to assignments_path, notice: "Could not create #{@assignment.name}."
     end
   end
   
@@ -20,28 +26,24 @@ class AssignmentsController < ApplicationController
   def index
     #need to distinguish between student and instructor
     
-    @isInstructor = true
-    @isStudent    = true
-    @isAssistant  = true
+    @isInstructor = false
+    @isStudent    = false
+    @isAssistant  = false
    
     if ( student_signed_in? )
       #a student is signed in
       @user = current_student
-      @isInstructor = false
-      @isAssistant  = false
+      @isStudent    = true
       
     elsif( instructor_signed_in? )
       #an instructor is singed in
       @user = current_instructor
-      @isStudent    = false
-      @isAssistant  = false
+      @isInstructor = true
       
     elsif( assistant_signed_in? )
       #an assistant is signed in
       @user = current_assistant
-      @isInstructor = false
-      @isStudent    = false
-        
+      @isAssistant = true
     else 
       redirect_to root_path
     end
@@ -61,23 +63,32 @@ class AssignmentsController < ApplicationController
   end
 
   def edit
+    if not instructor_signed_in?
+      redirect_to root_path
+    end
     @instructor = current_instructor
-    @courses = Course.where( instructor_id: @instructor)
+    @courses = @instructor.courses
     @assignment = Assignment.find(params[:id])
   end
   
   def update
+    if not instructor_signed_in?
+      redirect_to root_path
+    end
     @instructor = current_instructor
-    @courses = Course.where( instructor_id: @instructor)
+    @courses = @instructor.courses
     @assignment = Assignment.find(params[:id])
     if @assignment.update(assignment_params)
-       redirect_to @assignment
+       redirect_to @assignment, notice: "The assignment #{@assignment.name} has been edited."
     else
-       render 'edit'
+       render 'edit', danger: "Could not edit #{params[:assignment][:name]}."
     end
   end
     
   def destroy
+    if not instructor_signed_in?
+      redirect_to root_path
+    end
     @assignment = Assignment.find(params[:id])
     @assignment.destroy
     redirect_to assignments_path, notice:  "The assignment #{@assignment.name} has been deleted."

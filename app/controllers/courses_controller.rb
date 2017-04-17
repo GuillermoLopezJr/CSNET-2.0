@@ -5,11 +5,18 @@ class CoursesController < ApplicationController
   end
 
   def new
+    if not instructor_signed_in?
+      redirect_to root_path
+    end
     @course = Course.new
   end
 
   def create
     #only instructors can create courses
+    if not instructor_signed_in?
+      redirect_to root_path
+    end
+    
     @instructor = current_instructor
     @course = @instructor.courses.create(course_params)
     if @course.save
@@ -22,31 +29,44 @@ class CoursesController < ApplicationController
   end
   
   def destroy
-      @course = Course.find(params[:id])
-      @course.destroy
-      flash[:danger] = "The course #{@course.name} #{@course.number} has been deleted."
-      redirect_to courses_path
+    if not instructor_signed_in?
+      redirect_to root_path
+    end
+    @course = Course.find(params[:id])
+    @course.destroy
+    flash[:danger] = "The course #{@course.name} #{@course.number} has been deleted."
+    redirect_to courses_path
   end
 
   def index
     #need to distinguish between student and instructor
-    @user = current_instructor
-    @isInstructor = true
-    if @user == nil
-      #a student is signed in
+    @isInstructor = false
+    @isStudent = false
+    @isAssistant = false
+      
+    if instructor_signed_in?
+      @user = current_instructor
+      @isInstructor = true
+      
+    elsif student_signed_in?
       @user = current_student
       @isStudent = true
-      @isInstructor = false
-      @courses = @user.courses
+      
+    elsif assistant_signed_in?
+      @user = current_assistant
+      @isAssistant = true
+      
     else
-      #an instructor is singed in
-      @courses = @user.courses
+      redirect_to root_path
     end
+    
+    @courses = @user.courses
   end
+
 
   def show
     @course = Course.find(params[:id])
-    if current_instructor != nil
+    if instructor_signed_in?
       @isInstructor = true
     else
       @isInstructor = false

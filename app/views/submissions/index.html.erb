@@ -1,5 +1,5 @@
 
-<% if @is_student%>
+<% if student_signed_in?%>
   <h1 style="text-align:center">View My Submissions</h1>
   <div id="subm-show-content">
   <table style = "width: 80%">
@@ -26,7 +26,7 @@
           </tr>
               <% course.assignments.each do |assignment| %>
                <% assignment.submissions.each do |submission| %>
-                 <% if (submission.student.email == @is_student.email  )%>
+                 <% if (submission.student.email == current_student.email  )%>
                   <tr>
                     <td id="remove_border_line"></td>
                     <td><%= assignment.name %></td>
@@ -58,7 +58,10 @@
   </div>
 <% end %>
 
-<% if @is_instructor or @is_assistant%>
+
+
+
+<% if instructor_signed_in? or assistant_signed_in? %>
   <h1 style="text-align:center">View Student Submissions</h1>
 <div id="subm-show-content">
   <table style = "width: 80%">
