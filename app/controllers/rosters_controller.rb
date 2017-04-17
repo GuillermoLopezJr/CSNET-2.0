@@ -1,6 +1,11 @@
 require 'spreadsheet'
 class RostersController < ApplicationController
   def index
+      if not instructor_signed_in?
+        redirect_to root_path
+        return
+      end
+      
       @rosters = Roster.all
       @roster = session[:roster]
       Spreadsheet.client_encoding = 'UTF-8'
@@ -9,11 +14,13 @@ class RostersController < ApplicationController
       #render :inline => "<%= @sheet1.row(3)[0] %> <br></br> <%= @sheet1.row(3)[2] %>"
       #newStudent = Student.create!(:email => @sheet1.row(1)[2], :password => "password")
       #newStudent.save!
+      @instructor = current_instructor
+      @course =  @instructor.courses.find_by( id: @roster["course_id"])
       
       for i in 1..(@sheet1.row_count-1) do
-          @instructor = current_instructor
+          
           # find course to add student to 
-          @course =  @instructor.courses.find_by( number: @roster["course_num"] )
+          
           # student with this email ( if they exist already ) 
           @student = Student.find_by( email: @sheet1.row(i)[2] )
           
@@ -52,14 +59,27 @@ class RostersController < ApplicationController
       redirect_to students_path
   end
   
-    def new
-      @instructor = current_instructor
-      @courses = @instructor.courses
-      @roster = Roster.new
+  def new
+    @instructor = current_instructor
+    @courses = @instructor.courses
+    @roster = Roster.new
+  end
+
+  def create
+    if not instructor_signed_in?
+      redirect_to root_path
+      return
     end
-  
-    def create
-      @roster = Roster.new(roster_params)
+    
+    # Check if that course exists
+    @course = current_instructor.courses.where( number: params[:roster][:course_num], year: params[:roster][:course_year], session: params[:roster][:course_session] ).first#find_by number: (params[:assignment][:course_num].to_i)
+    if (@course == nil) 
+      flash[:danger] = "Could not upload roster because the corresponding course was not found."
+      redirect_to students_path
+      return
+      
+    else
+      @roster = Roster.new(course_num: params[:roster][:course_num], attachment: params[:roster][:attachment], course_id: @course.id)
       
       if @roster.save
         session[:roster] = @roster
@@ -68,6 +88,7 @@ class RostersController < ApplicationController
         render "new"
       end
     end
+  end
   
   private
     def roster_params

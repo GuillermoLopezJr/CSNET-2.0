@@ -1,6 +1,10 @@
 class StudentsController < ApplicationController
 
   def new
+    if not instructor_signed_in?
+      redirect_to root_path
+      return
+    end
     @instructor = current_instructor
     @courses = @instructor.courses
   end
@@ -11,15 +15,18 @@ class StudentsController < ApplicationController
       @isStudent = true
       #render html: @student.course_id
       @courses = @student.courses
-      #@courses = Course.where( student_id: @student.courses)
     else  
-      render html: "user not signed in"
-      #redirect_to sign_in_path
+      redirect_to sign_in_path
     end
   end
 
 
   def create
+    if not instructor_signed_in?
+      redirect_to root_path
+      return
+    end
+    
     @instructor = current_instructor
     @course =  @instructor.courses.find_by( number: params[:student][:course_num] )
     @student = Student.find_by( email: params[:student][:email] )
@@ -27,6 +34,7 @@ class StudentsController < ApplicationController
     # Should never happen
     if @course == nil
       redirect_to students_path
+      return
     end
     
     # A new student is being created
@@ -76,17 +84,14 @@ class StudentsController < ApplicationController
            @assignments = @assignments + course.assignments.all
          end
       end
-  elsif (@isInstructor == true)
-    @courses = @instructor.courses
-    @isStudent = false
-    @isAssistant = false
-  elsif (@isAssistant)
-    @isStudent = false
-    @isInstructor = false
-  end
-
-
-    
+    elsif (@isInstructor == true)
+      @courses = @instructor.courses
+      @isStudent = false
+      @isAssistant = false
+    elsif (@isAssistant)
+      @isStudent = false
+      @isInstructor = false
+    end
   end
 
   private

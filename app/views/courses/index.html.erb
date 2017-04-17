@@ -3,7 +3,7 @@
     <h1>Listing Courses</h1>
   </div>
   
-  <% if @isInstructor %>
+  <% if instructor_signed_in? %>
     <div class="container">
       <div class="row">
       <button type="button" class="btn btn-primary col-md-6 col-md-offset-3" data-toggle="collapse" data-target="#course-create-content">Add a Course</button>
@@ -25,12 +25,12 @@
       
                 <p>
                   <%= f.label :year %>
-                  <%= f.text_field :year, id:"name", class: 'form-control'%>
+                  <%= f.text_field :year, id:"year", class: 'form-control'%>
                 </p>
       
                 <p>
                   <%= f.label :semester %><br>
-                  <%= f.collection_select :session, Course.getSessions, :strip, :strip,{ id:"session", prompt: "Select a semester", :include_blank => false}, {class: "form-control"} %>
+                  <%= f.collection_select :session, Course.getSessions, :strip, :strip,{ id:"session", name:"session", prompt: "Select a semester", :include_blank => false}, {class: "form-control"} %>
                 </p>
       
                 <p>

@@ -1,18 +1,53 @@
 class AssignmentsController < ApplicationController
   def new
+    if not instructor_signed_in?
+      redirect_to root_path
+      return
+    end
     @instructor = current_instructor
-    @courses = @instructor.courses#where( instructor_id: @instructor)
+    @courses = @instructor.courses
   end
 
+
   def create
-    @course = current_instructor.courses.find_by number: (params[:assignment][:course_num].to_i)
+    if not instructor_signed_in?
+      redirect_to root_path
+      return
+    end
+    
+    # Check if that course exists
+    @course = current_instructor.courses.where( number: params[:assignment][:course_num], year: params[:assignment][:course_year], session: params[:assignment][:course_session] ).first#find_by number: (params[:assignment][:course_num].to_i)
+    if (@course == nil) 
+      flash[:danger] = "Could not create #{params[:assignment][:name]} because the course was not found."
+      redirect_to assignments_path
+      return
+    end 
+    
+    #Check if that assignment name is unique to that course
+    @oldAssignment = @course.assignments.find_by( name: params[:assignment][:name])
+    if (@oldAssignment != nil)
+      flash[:danger] = "Could not create #{params[:assignment][:name]} because an assignment with that name exists for that course already."
+      redirect_to assignments_path
+      return
+    end
+    
+    
+    @assignment = Assignment.new(assignment_params)    
+    if @assignment.new_record?  
+      # The assignment was created
+      @assignment = @course.assignments.create(assignment_params)  
+      if @assignment.save
+        redirect_to assignments_path, notice: "The assignment #{@assignment.name} has been created."
       
-    if (@course != nil)
-      @assignment = @course.assignments.create(assignment_params)
-      redirect_to @assignment, notice: "The assignment #{@assignment.name} has been created."
-    else
-      redirect_to assignments_path, danger: "Could not create #{params[:assignment][:name]}."
-      #redirect_to assignments_path, notice: "Could not create #{@assignment.name}."
+      # The assignment was not created
+      else 
+        flash[:danger] = "The form was filled out incorrectly or assignment already exist"
+        redirect_to assignments_path
+      end
+    # The assignment was not created
+    else 
+      flash[:danger] = "The form was filled out incorrectly or assignment already exist"
+      redirect_to assignments_path
     end
   end
   
@@ -20,30 +55,27 @@ class AssignmentsController < ApplicationController
   def index
     #need to distinguish between student and instructor
     
-    @isInstructor = true
-    @isStudent    = true
-    @isAssistant  = true
+    @isInstructor = false
+    @isStudent    = false
+    @isAssistant  = false
    
     if ( student_signed_in? )
       #a student is signed in
       @user = current_student
-      @isInstructor = false
-      @isAssistant  = false
+      @isStudent    = true
       
     elsif( instructor_signed_in? )
       #an instructor is singed in
       @user = current_instructor
-      @isStudent    = false
-      @isAssistant  = false
+      @isInstructor = true
       
     elsif( assistant_signed_in? )
       #an assistant is signed in
       @user = current_assistant
-      @isInstructor = false
-      @isStudent    = false
-        
+      @isAssistant = true
     else 
       redirect_to root_path
+      return
     end
     
     @courses = @user.courses
@@ -56,38 +88,67 @@ class AssignmentsController < ApplicationController
     end
   end
 
+
+
   def show
     @assignment = Assignment.find(params[:id])
-     if student_signed_in?
-      @student = current_student
-      @isStudent = true
-      #render html: @student.course_id
-      @courses = @student.courses
-      #@courses = Course.where( student_id: @student.courses)
-    else  
-      render html: "user not signed in"
-      #redirect_to sign_in_path
+    
+    @isInstructor = false
+    @isStudent    = false
+    @isAssistant  = false
+   
+    if ( student_signed_in? )
+      #a student is signed in
+      @user = current_student
+      @isStudent    = true
+      
+    elsif( instructor_signed_in? )
+      #an instructor is singed in
+      @user = current_instructor
+      @isInstructor = true
+      
+    elsif( assistant_signed_in? )
+      #an assistant is signed in
+      @user = current_assistant
+      @isAssistant = true
+    else 
+      redirect_to root_path
+      return
     end
+    
+    @courses = @user.courses
   end
 
   def edit
+    if not instructor_signed_in?
+      redirect_to root_path
+      return
+    end
     @instructor = current_instructor
-    @courses = Course.where( instructor_id: @instructor)
+    @courses = @instructor.courses
     @assignment = Assignment.find(params[:id])
   end
   
   def update
+    if not instructor_signed_in?
+      redirect_to root_path
+      return
+    end
     @instructor = current_instructor
-    @courses = Course.where( instructor_id: @instructor)
+    @courses = @instructor.courses
     @assignment = Assignment.find(params[:id])
     if @assignment.update(assignment_params)
-       redirect_to @assignment
+       redirect_to @assignment, notice: "The assignment #{@assignment.name} has been edited."
     else
-       render 'edit'
+       render 'edit', danger: "Could not edit #{params[:assignment][:name]}."
     end
   end
     
   def destroy
+    if not instructor_signed_in?
+      redirect_to root_path
+      return
+    end
     @assignment = Assignment.find(params[:id])
     @assignment.destroy
     redirect_to assignments_path, notice:  "The assignment #{@assignment.name} has been deleted."

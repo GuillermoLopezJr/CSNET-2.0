@@ -1,20 +1,19 @@
 class AssistantController < ApplicationController
     
   def new
-    if instructor_signed_in?
-      @instructor = current_instructor
-      @courses = @instructor.courses
-      @isInstructor = true
-      @isStudent = false
-      @isAssistant = false
-    else 
+    if not instructor_signed_in?
       redirect_to root_path
+      return
     end
+
+    @instructor = current_instructor
+    @courses = @instructor.courses
   end
 
   def create
     if not instructor_signed_in?
       redirect_to root_path
+      return
     else 
       @instructor = current_instructor
       @course =  @instructor.courses.find_by( number: params[:assistant][:course_num] )
@@ -57,6 +56,9 @@ class AssistantController < ApplicationController
           @assignments = @assignments + course.assignments.all
         end
       end
+    else
+      redirect_to root_path
+      return
     end
   end
   
@@ -66,6 +68,7 @@ class AssistantController < ApplicationController
       @courses = @assistant.courses
     else  
       redirect_to root_path
+      return
     end
   end
   

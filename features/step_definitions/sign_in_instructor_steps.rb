@@ -22,6 +22,6 @@ When (/^I enter credentials "(.*?)" and "(.*?)" at sign in page$/) do |email, pa
 end
 
 Then (/^I should be signed in and brought to home page$/) do
-	expect(page).to have_content("You are signed in")
+	expect(page).to have_content("Signed in successfully")
 end
 
