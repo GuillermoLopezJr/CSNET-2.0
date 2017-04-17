@@ -64,16 +64,21 @@ class SubmissionsController < ApplicationController
        if not student_signed_in?
            redirect_to root_path
        end
+
       @student = current_student
       @assignment = Assignment.find_by(name: params[:submission][:assignment])
-      @submission = @student.submissions.create!(name: params[:submission][:name], 
+      
+      @submission = @student.submissions.create(name: params[:submission][:name], 
                                             attachment: params[:submission][:attachment],
                                             assignment: @assignment)
       if @submission.save
-         redirect_to root_path, notice: "The submission #{@submission.name} has been uploaded."
+          flash[:success] = "The assignment #{@submission.name} has been submitted successfully"
+          redirect_to submissions_path
       else
-         redirect_to root_path, danger: "Could not upload submission #{params[:submission][:name]}."
+          flash[:danger] = "Assignment was not submited successfuly. Please try again"
+          redirect_to submissions_path
       end
+      
    end
    
    def destroy

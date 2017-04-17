@@ -64,36 +64,32 @@
   </div>
 </div>
 
-
-<table class = "w">
-  <thead>
-    <tr>
-      <th>Course Name</th>
-      <th>Course Number</th>
-      <th>Student Name</th>
-      <th>Student Email</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
- 
-  <% @students.each do |student| %>
-    <tr>
-      <% if student.courses != nil %>
-         <% student.courses.each do |course| %>
-          <td><%= course.name %> </td>
-          <td><%= course.number %></td>
+<div id="subm-show-content">
+  <table style = "width: 80%">
+    <thead >
+      <tr>
+        <th>Course Name</th>
+        <th>Student Name</th>
+        <th>Student Email</th>
+      </tr>
+    </thead>
+        <tr>
+           <% @courses.each do |course| %>
+               <td id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
+               <td id="remove_border_line"></td>
+               <td id="remove_border_line"></td>
+        </tr>
+            <% course.students.each do |c| %>
+            <tr>
+               <td id="remove_border_line"></td>
+               <td style = "text-align:center"><%= c.first_name %> <%= c.last_name %></td>
+               <td style = "text-align:center"><%= c.email %></td>
+            </tr>
+            <% end %>
          <% end %>
-          <td><%= student.first_name %> <%= student.last_name %></td>
-          <td><%= student.email %></td>
-      <% end %>
-          <td></td>
-          <td></td>
-    </tr>
-    
-  <% end %>
-</table>
+  </table>
 
-<div style="text-align:center;">
-    <%= link_to 'Home', root_path %>
+  <div style="text-align:center;">  
+    <%= link_to 'Home', root_path %> 
+  </div>
 </div>

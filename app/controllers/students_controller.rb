@@ -11,6 +11,8 @@ class StudentsController < ApplicationController
   def show
     if student_signed_in?
       @student = current_student
+      @isStudent = true
+      #render html: @student.course_id
       @courses = @student.courses
     else  
       redirect_to sign_in_path
@@ -58,7 +60,7 @@ class StudentsController < ApplicationController
   def index
     @students = Student.all
     @instructor = current_instructor
-    @courses = @instructor.courses
+
 
     @isStudent = true
     @isInstructor = true
@@ -79,6 +81,7 @@ class StudentsController < ApplicationController
          end
       end
   elsif (@isInstructor == true)
+    @courses = @instructor.courses
     @isStudent = false
     @isAssistant = false
   elsif (@isAssistant)

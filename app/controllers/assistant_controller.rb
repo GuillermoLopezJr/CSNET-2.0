@@ -51,8 +51,8 @@ class AssistantController < ApplicationController
         if (@assignments == nil)
           @assignments = course.assignments.all
         else
-           @assignments = @assignments + course.assignments.all
-         end
+          @assignments = @assignments + course.assignments.all
+        end
       end
     else
       redirect_to root_path
