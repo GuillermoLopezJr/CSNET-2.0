@@ -10,6 +10,7 @@ class InstructorController < ApplicationController
       @isAssistant = false
     else 
       redirect_to root_path
+      return
     end
   end
 
@@ -20,7 +21,8 @@ class InstructorController < ApplicationController
   
   
   def index
-    redirect_to root_path
+      redirect_to root_path
+      return
   end
   
   def show
@@ -32,6 +34,7 @@ class InstructorController < ApplicationController
       @isAssistant = false
     else  
       redirect_to root_path
+      return
     end
   end
   

@@ -8,7 +8,7 @@ class Course < ApplicationRecord
 
     validates :name, presence: true,
                     length: { minimum: 1 }
-    validates :number, presence: true,uniqueness: true,
+    validates :number, presence: true, 
                     length: { minimum: 3, maximum: 3 }
     
     validates :year, presence: true,

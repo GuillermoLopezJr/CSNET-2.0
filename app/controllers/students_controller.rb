@@ -3,6 +3,7 @@ class StudentsController < ApplicationController
   def new
     if not instructor_signed_in?
       redirect_to root_path
+      return
     end
     @instructor = current_instructor
     @courses = @instructor.courses
@@ -23,6 +24,7 @@ class StudentsController < ApplicationController
   def create
     if not instructor_signed_in?
       redirect_to root_path
+      return
     end
     
     @instructor = current_instructor
@@ -32,6 +34,7 @@ class StudentsController < ApplicationController
     # Should never happen
     if @course == nil
       redirect_to students_path
+      return
     end
     
     # A new student is being created
@@ -80,17 +83,14 @@ class StudentsController < ApplicationController
            @assignments = @assignments + course.assignments.all
          end
       end
-  elsif (@isInstructor == true)
-    @courses = @instructor.courses
-    @isStudent = false
-    @isAssistant = false
-  elsif (@isAssistant)
-    @isStudent = false
-    @isInstructor = false
-  end
-
-
-    
+    elsif (@isInstructor == true)
+      @courses = @instructor.courses
+      @isStudent = false
+      @isAssistant = false
+    elsif (@isAssistant)
+      @isStudent = false
+      @isInstructor = false
+    end
   end
 
   private

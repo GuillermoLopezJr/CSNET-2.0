@@ -7,6 +7,7 @@ class CoursesController < ApplicationController
   def new
     if not instructor_signed_in?
       redirect_to root_path
+      return
     end
     @course = Course.new
   end
@@ -15,18 +16,31 @@ class CoursesController < ApplicationController
     #only instructors can create courses
     if not instructor_signed_in?
       redirect_to root_path
+      return
     end
     
     @instructor = current_instructor
+    
+    #Check if that course already exists
+    @oldCourse = Course.where(  number: params[:course][:number], year: params[:course][:year], session: params[:course][:session]).first
     @course = Course.new(course_params)
     
+    #Im sorry this controll structure is just out of control
     if @course.new_record?  
-       @course = @instructor.courses.create(course_params)
-        if @course.save
-         flash[:success] = "The course #{@course.name} #{@course.number} has been created successfully"
-         redirect_to courses_path
+        if (@oldCourse == nil) 
+          @course = @instructor.courses.create(course_params)
+          # The course was created
+          if  @course.save
+            flash[:success] = "The course #{@course.name} #{@course.number} has been created successfully"
+            redirect_to courses_path
+          # The course was not created
+          else 
+            flash[:danger] = "The Form was filled out incorrectly or course already exist"
+            redirect_to courses_path
+          end
+        # The course was a duplicate (not created)
         else
-          flash[:danger] = "The Form was filled out incorrectly or course already exist"
+          flash[:danger] = "A course with that number already exists for that semester"
           redirect_to courses_path
         end
     end
@@ -35,6 +49,7 @@ class CoursesController < ApplicationController
   def destroy
     if not instructor_signed_in?
       redirect_to root_path
+      return
     end
     @course = Course.find(params[:id])
     @course.destroy
@@ -62,6 +77,7 @@ class CoursesController < ApplicationController
       
     else
       redirect_to root_path
+      return
     end
     
     @courses = @user.courses
