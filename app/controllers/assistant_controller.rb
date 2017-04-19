@@ -66,6 +66,7 @@ class AssistantController < ApplicationController
     if assistant_signed_in?
       @assistant = current_assistant
       @courses = @assistant.courses
+      @isAssistant = true
     else  
       redirect_to root_path
       return
