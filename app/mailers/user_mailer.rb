@@ -6,4 +6,14 @@ class UserMailer < ApplicationMailer
     @password = pass
     mail(to: @user.email, subject: 'Welcome to CSNET 2.0')
   end
+
+  def ack_submission(user, submission, course, assignment)
+    @user = user
+    @submission = submission
+    @course = course
+    @assignment = assignment
+    
+    mail(to: @user.email, subject: 'This is your Turnitin Digit Receipt')
+  end
+
 end
