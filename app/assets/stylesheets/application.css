@@ -22,6 +22,19 @@
 
 
 /* CSS for the hamburger credit to this guy https://codepen.io/g13nn/pen/eHGEF */
+/* Can add position attribute to indicate where it opens*/
+
+.menu {z-index:1000000; font-weight:bold; font-size:0.8em; width:10%; background:#ffffff;  text-align:center; position: fixed; right: 45px; top: 75px; border: groove;} 
+.menu ul {margin: 0; padding: 0; list-style-type: none; list-style-image: none;}
+.menu li {display: block;   padding:15px 0 15px 0; border-bottom:#dddddd 1px solid;}
+.menu li:hover{display: block;    background:#ffffff; padding:15px 0 15px 0; border-bottom:#dddddd 1px solid;}
+.menu ul li a { text-decoration:none;  margin: 0px; color:#666;}
+.menu ul li a:hover {  color: #666; text-decoration:none;}
+.menu a{text-decoration:none; color:#666;}
+.menu a:hover{text-decoration:none; color:#666;}
+
+
+
 
 body {
   font-family: 'Noto Sans', sans-serif;
@@ -63,16 +76,7 @@ body {
   z-index:10000000000000;
 }
 
-/* Can add position attribute to indicate where it opens*/
 
-.menu {z-index:1000000; font-weight:bold; font-size:0.8em; width:10%; background:#ffffff;  text-align:center; position: fixed; right: 45px; top: 75px; border: groove;} 
-.menu ul {margin: 0; padding: 0; list-style-type: none; list-style-image: none;}
-.menu li {display: block;   padding:15px 0 15px 0; border-bottom:#dddddd 1px solid;}
-.menu li:hover{display: block;    background:#ffffff; padding:15px 0 15px 0; border-bottom:#dddddd 1px solid;}
-.menu ul li a { text-decoration:none;  margin: 0px; color:#666;}
-.menu ul li a:hover {  color: #666; text-decoration:none;}
-.menu a{text-decoration:none; color:#666;}
-.menu a:hover{text-decoration:none; color:#666;}
 
 .glyphicon-home{
   color:white; 

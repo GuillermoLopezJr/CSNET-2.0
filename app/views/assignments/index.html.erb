@@ -71,6 +71,7 @@
         <th>Assignment</th>
         <th>Course</th>
         <th>Due Date</th>
+        <th>Time Left</th>
         
         <th>Download Assignment</th>
         
@@ -96,7 +97,12 @@
           <td><%= assignment.name %></td>
           <td><%= assignment.course_num %></td>
           <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
-          
+          <!-- Checks if the time left hasn't passed yet -->
+          <% if  (DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60 + 5*3600 > 0  %>
+            <td style="color: green"><%= humanize ((DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60) + 5*3600 %></td>
+          <% else %>
+            <td style="color: red">Submission date passed</td>
+          <% end %>
           <td style="text-align:center"><%= link_to "Download", assignment.attachment_url %></td>
           
           

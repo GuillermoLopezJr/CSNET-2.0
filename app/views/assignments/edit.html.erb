@@ -34,9 +34,8 @@
         </p>
        
         <p>
-          <%= f.label :due_date %> <br>
-          <!-- Populate the field with the current due date -->
-          <%= f.date_field :due_date, value: @assignment.due_date, id:"due_date", class: 'form-control'  %> 
+          <%= f.label :due_date %><br>
+          <%= datetime_local_field(:assignment, :due_date, id:"due_date", class: 'form-control') %>
         </p>
         
         <!-- <p> -->

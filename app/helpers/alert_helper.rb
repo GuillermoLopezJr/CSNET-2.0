@@ -1,7 +1,7 @@
 module AlertHelper
   def flash_class(level)
     case level.to_sym
-    when :notice then "alert alert-info"
+    when :notice then "alert alert-success"
     when :success then "alert alert-success"
     when :danger then "alert alert-danger"
     when :error then "alert alert-danger"

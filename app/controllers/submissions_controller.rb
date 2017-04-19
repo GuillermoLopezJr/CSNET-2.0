@@ -64,15 +64,27 @@ class SubmissionsController < ApplicationController
    
    
  def create
-   if not student_signed_in?
-       redirect_to root_path
-       return
-   end
-
+  if not student_signed_in?
+     redirect_to root_path
+     return
+  end
+  
   @student = current_student
   
+  @currentTime = Time.now
+  @currentMonth = @currentTime.month
+  @currentYear = @currentTime.year
+  
+  if( @currentMonth >= 1 && @currentMonth <= 5 )
+    @session = "SPRING"
+  elsif( @currentMonth >= 6 && (@currentMonth < 8 || (@currentMonth == 8 && @currentDay <= 11)) ) 
+    @session = "SUMMER"
+  else 
+    @session = "FALL"
+  end 
+  
   # Check if that course exists
-  @course = current_student.courses.where( number: params[:submission][:course_num], year: params[:submission][:course_year], session: params[:submission][:course_session] ).first
+  @course = current_student.courses.where( number: params[:submission][:course_num], year: @currentYear.to_s, session: @session ).first
   if (@course == nil) 
     flash[:danger] = "Could not submit because the corresponding assignment was not found."
     redirect_to root_path

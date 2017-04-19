@@ -153,7 +153,7 @@ class AssignmentsController < ApplicationController
     @assignment.destroy
     redirect_to assignments_path, notice:  "The assignment #{@assignment.name} has been deleted."
   end
-    
+
     
   private
     def assignment_params
