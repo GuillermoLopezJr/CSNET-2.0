@@ -35,7 +35,19 @@ class StudentsController < ApplicationController
     end
     
     @instructor = current_instructor
+    
+    
+    
     @course =  @instructor.courses.find_by( number: params[:student][:course_num] )
+    
+    # Check if that course exists
+    @course = current_instructor.courses.where( number: params[:student][:course_num], year: params[:student][:course_year], session: params[:student][:course_session] ).first
+    if (@course == nil) 
+      flash[:danger] = "Could not add student because the corresponding course was not found."
+      redirect_to students_path
+      return
+    end
+    
     @student = Student.find_by( email: params[:student][:email] )
     
     # Should never happen
