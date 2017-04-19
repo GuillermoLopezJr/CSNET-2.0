@@ -91,6 +91,9 @@ class SubmissionsController < ApplicationController
                                         assignment: @assignment)
   if @submission.save
       flash[:success] = "The assignment #{@submission.name} has been submitted successfully"
+      
+      # send an acknowldegment email that the submission was turned in successfully
+      UserMailer.ack_submission(@student, @submission, @course, @assignment).deliver_later
       redirect_to submissions_path
   else
       flash[:danger] = "Assignment was not submited successfuly. Please try again"
