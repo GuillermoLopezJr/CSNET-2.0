@@ -4,6 +4,8 @@ class Assignment < ApplicationRecord
   
   has_many :submissions, dependent: :destroy
   
+  attr_accessor :course_num, :course_year, :course_session
+  
   validates :name, presence: true,
                     length: { minimum: 1 }
   validates :due_date, presence: true, 
