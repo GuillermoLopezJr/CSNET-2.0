@@ -75,7 +75,8 @@ class StudentsController < ApplicationController
         @course.students << @student
       end
     end
-    redirect_to students_path, notice: "Student created"
+    flash[:success] = "Student #{@student.first_name} #{@student.last_name} has been created"
+    redirect_to students_path
   end
   
   
