@@ -14,22 +14,22 @@
 
           <p>
             <%= f.label :name %>
-            <%= f.text_field :name, id:"name", class: 'form-control'%>
+            <%= f.text_field :name, id:"name", class: 'form-control', :required => true%>
           </p>
         
           <p>
             <%= f.label :number %>
-            <%= f.number_field :number, id:"number",class: 'form-control'  %>
+            <%= f.number_field :number, id:"number",class: 'form-control', :required => true  %>
           </p>
 
           <p>
             <%= f.label :year %>
-            <%= f.text_field :year, id:"year", class: 'form-control'%>
+            <%= f.text_field :year, id:"year", class: 'form-control', :required => true%>
           </p>
 
           <p>
             <%= f.label :semester %><br>
-            <%= f.collection_select :session, Course.getSessions, :strip, :strip,{ id:"session", name:"session", prompt: "Select a semester", :include_blank => false}, {class: "form-control"} %>
+            <%= f.collection_select :session, Course.getSessions, :strip, :strip,{ id:"session", name:"session", prompt: "Select a semester"}, {class: "form-control", :required => true} %>
           </p>
 
           <p>

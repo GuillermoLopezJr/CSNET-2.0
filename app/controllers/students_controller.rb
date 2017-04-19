@@ -27,6 +27,13 @@ class StudentsController < ApplicationController
       return
     end
     
+    # Checks that the email is in fact an email address
+    if !(EmailValidator.valid?(params[:student][:email]))
+      flash[:danger] = "Invalid Email Address."
+      redirect_to students_path
+      return
+    end
+    
     @instructor = current_instructor
     @course =  @instructor.courses.find_by( number: params[:student][:course_num] )
     @student = Student.find_by( email: params[:student][:email] )

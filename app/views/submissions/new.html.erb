@@ -6,31 +6,31 @@
         <%= form_for :submission, url: submissions_path do |f| %>
          <p>
             <%= f.label :name %><br>
-            <%= f.text_field :name, id:"name", class: 'form-control' %>
+            <%= f.text_field :name, id:"name", class: 'form-control', :required => true %>
           </p>
           
           <p>
             <%= f.label :assignment %><br>
             <% if @assignments != nil %>
-            <%= f.collection_select :assignment, @assignments, :name, :name,{ id:"assignment_name", prompt: true, include_blank: false}, {class: 'form-control' } %>
+            <%= f.collection_select :assignment, @assignments, :name, :name,{ id:"assignment_name", prompt: true}, {class: 'form-control', :required => true} %>
             <% else %>
               <p> Assignment not available for submission, check with your instructor.  </p>
             <% end %>
           
             <%= f.label :course_num %><br>
-            <%= f.collection_select :course_num, @courses.select(:number).uniq, :number, :number,{ id:"course_num", prompt: "Select a Course Number", :include_blank => false}, {class: "form-control"} %>
+            <%= f.collection_select :course_num, @courses.select(:number).uniq, :number, :number,{ id:"course_num", prompt: "Select a Course Number"}, {class: "form-control", :required => true} %>
           
             <%= f.label :course_year %><br>
-            <%= f.collection_select :course_year, @courses.select(:year).uniq, :year, :year,{ id:"course_year", prompt: "Select the year of the course", :include_blank => false}, {class: "form-control"} %>
+            <%= f.collection_select :course_year, @courses.select(:year).uniq, :year, :year,{ id:"course_year", prompt: "Select the year of the course"}, {class: "form-control", :required => true} %>
            
             <%= f.label :course_session %><br>
-            <%= f.collection_select :course_session, Course.getSessions, :strip, :strip,{ id:"course_session", name:"course_session", prompt: "Select a semester", :include_blank => false}, {class: "form-control"} %>
+            <%= f.collection_select :course_session, Course.getSessions, :strip, :strip,{ id:"course_session", name:"course_session", prompt: "Select a semester"}, {class: "form-control", :required => true} %>
           </p>
           
           
           <p>
             <%= f.label :attachment %>
-            <%= f.file_field :attachment, id:"submission", class:"form-control"%>
+            <%= f.file_field :attachment, id:"submission", class:"form-control", :required => true%>
           </p>
         
           <p>

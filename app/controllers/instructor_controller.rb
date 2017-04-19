@@ -15,6 +15,14 @@ class InstructorController < ApplicationController
   end
 
   def create
+    
+    # Checks that the email is in fact an email address
+    if !(EmailValidator.valid?(params[:instructor][:email]))
+      flash[:danger] = "Invalid Email Address."
+      redirect_to instructor_new_path
+      return
+    end
+    
     Instructor.create!(instructor_params)
     redirect_to root_path
   end

@@ -13,22 +13,22 @@
           <%= form_for :student, url: students_path do |f| %>
             <p>
               <%= f.label :first_name %>
-              <%= f.text_field :first_name, id:"name", class: 'form-control'%>
+              <%= f.text_field :first_name, id:"name", class: 'form-control',:required => true%>
             </p>
           
             <p>
               <%= f.label :last_name %>
-              <%= f.text_field :last_name, id:"name", class: 'form-control'%>
+              <%= f.text_field :last_name, id:"name", class: 'form-control',:required => true%>
             </p>
   
             <p>
               <%= f.label :email %>
-              <%= f.text_field :email, id:"email", class: 'form-control'%>
+              <%= f.text_field :email, id:"email", class: 'form-control',:required => true%>
             </p>
   
             <p>
               <%= f.label :course_number %><br>
-              <%= f.collection_select :course_num, @courses, :number, :number,{ id:"course_num", prompt: "Select a Course Number", :include_blank => false}, {class: "form-control"} %>
+              <%= f.collection_select :course_num, @courses, :number, :number,{ id:"course_num", prompt: "Select a Course Number"}, {class: "form-control", :required => true} %>
             </p>
   
             <p>
@@ -54,16 +54,16 @@
           <%= form_for :roster, html: { multipart: true }, url: rosters_path do |f| %>
 
             <%= f.label :course_num %>
-            <%= f.collection_select :course_num, @courses.select(:number).uniq, :number, :number,{ id:"course_num", prompt: "Select a Course Number", :include_blank => false}, {class: "form-control"} %>
+            <%= f.collection_select :course_num, @courses.select(:number).uniq, :number, :number,{ id:"course_num", prompt: "Select a Course Number"}, {class: "form-control", :required => true} %>
 
               <%= f.label :course_year %>
-              <%= f.collection_select :course_year, @courses.select(:year).uniq, :year, :year,{ id:"course_year", prompt: "Select the year of the course", :include_blank => false}, {class: "form-control"} %>
+              <%= f.collection_select :course_year, @courses.select(:year).uniq, :year, :year,{ id:"course_year", prompt: "Select the year of the course"}, {class: "form-control", :required => true} %>
 
               <%= f.label :course_session %>
-              <%= f.collection_select :course_session, Course.getSessions, :strip, :strip,{ id:"course_session", name:"course_session", prompt: "Select a semester", :include_blank => false}, {class: "form-control"} %>
+              <%= f.collection_select :course_session, Course.getSessions, :strip, :strip,{ id:"course_session", name:"course_session", prompt: "Select a semester"}, {class: "form-control", :required => true} %>
 
               <%= f.label :attachment %>
-              <%= f.file_field :attachment, id:"roster", class: 'form-control' %>
+              <%= f.file_field :attachment, id:"roster", class: 'form-control', :required => true %>
               <%= f.submit "Import Roster", class: "btn btn-primary" %>
           <% end %>
         </div>

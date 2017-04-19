@@ -14,7 +14,13 @@ class AssistantController < ApplicationController
     if not instructor_signed_in?
       redirect_to root_path
       return
-    else 
+    else
+      
+      if !(EmailValidator.valid?(params[:assistant][:email]))
+        flash[:danger] = "Invalid Email Address."
+        redirect_to assistant_new_path
+        return
+      end
       @instructor = current_instructor
       @course =  @instructor.courses.find_by( number: params[:assistant][:course_num] )
       @assistant = Assistant.find_by( email: params[:assistant][:email] )
@@ -66,6 +72,7 @@ class AssistantController < ApplicationController
     if assistant_signed_in?
       @assistant = current_assistant
       @courses = @assistant.courses
+      @isAssistant = true
     else  
       redirect_to root_path
       return
