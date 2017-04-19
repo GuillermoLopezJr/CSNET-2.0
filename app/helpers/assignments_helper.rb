@@ -6,11 +6,14 @@ module AssignmentsHelper
     if secs > 0
       secs, n = secs.divmod(count)
       "#{n.to_i} #{name}"
-    else 
-      " - "
     end
-    
   }.compact.reverse.join(' ')
   end
+    
+    
+    
+    
+    
+    
     
 end

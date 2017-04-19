@@ -37,10 +37,10 @@
             
           </p>
         
-          <p>
-            <%= f.label :due_date %><br>
-            <%= date_field(:assignment, :due_date, id:"due_date", class: 'form-control') %>
-          </p>
+        <p>
+          <%= f.label :due_date %><br>
+          <%= datetime_local_field(:assignment, :due_date, id:"due_date", class: 'form-control') %>
+        </p>
         
         
         <% if false %>

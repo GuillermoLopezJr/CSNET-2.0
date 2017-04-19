@@ -12,7 +12,7 @@
   
   <p>
     <strong>DUE DATE:</strong>
-    <%= @assignment.due_date %>
+    <%= DateTime.parse(@assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %>
   </p>
   
   <table class = "w">
@@ -29,17 +29,10 @@
      <% if @assignment.submissions.size > 0 %>
       <% @assignment.submissions.each do |submission| %>
         <tr>
-<<<<<<< HEAD
-         
-              <td><%= student.first_name %> <%= student.last_name %></td>
-              <td><%= student.email %></td>
-       
-=======
           <% if submission.student != nil %>
               <td><%= submission.student.first_name %> <%= submission.student.last_name %></td>
               <td><%= submission.student.email %></td>
           <% end %>
->>>>>>> c494015779f98b3b181897975a688828c52b8c0d
               <td></td>
               <td></td>
               <td></td>
