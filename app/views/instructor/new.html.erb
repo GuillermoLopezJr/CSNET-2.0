@@ -1,4 +1,6 @@
-<h1>Instructor#new</h1>
+<div style="text-align:center;">
+  <h1> NEW INSTRUCTOR</h1>
+</div>
 
 <div class="container">
   <div id="course-create-content">
@@ -9,34 +11,36 @@
 
           <p>
             <%= f.label :first_name %><br>
-            <%= f.text_field :first_name, id:"first_name", class: 'form-control' %>
+            <%= f.text_field :first_name, id:"first_name", class: 'form-control', value: "",:required => true %>
           </p>
 
           <p>
             <%= f.label :last_name %><br>
-            <%= f.text_field :last_name, id:"last_name", class: 'form-control' %>
+            <%= f.text_field :last_name, id:"last_name", class: 'form-control', value: "",:required => true %>
           </p>
 
           <p>
             <%= f.label :email %><br>
-            <%= f.text_field :email, id:"email", class: 'form-control' %>
+            <%= f.text_field :email, id:"email", class: 'form-control', value: "",:required => true %>
           </p>
           
           <p>
             <%= f.label :password %>
-            <%= f.password_field :password, id:"password", class: 'form-control' %>
+            <%= f.password_field :password, id:"password", class: 'form-control',:required => true %>
           </p>
           
           <p>
             <%= f.label :password_confirmation %>
-            <%= f.password_field :password_confirmation, id:"password2", class: 'form-control' %>
+            <%= f.password_field :password_confirmation, id:"password2", class: 'form-control',:required => true %>
           </p>
         
         
           <p>
             <%= f.submit 'submit', id:"submit", class: "btn btn-primary" %>
           </p>
-          <p>  <%= link_to 'Home', root_path %> </p>
+          <div style="text-align:center;">
+            <p>  <%= link_to 'Home', root_path %> </p>
+          </div>
         <% end %>
         
       </div>
