@@ -3,7 +3,7 @@
 =======
 >>>>>>> bc25326f78611721b85f452914e028087fc1c6f9
 
-<% if @is_student%>
+<% if student_signed_in?%>
   <h1 style="text-align:center">View My Submissions</h1>
   <div id="subm-show-content">
   <table style = "width: 80%">
@@ -30,7 +30,7 @@
           </tr>
               <% course.assignments.each do |assignment| %>
                <% assignment.submissions.each do |submission| %>
-                 <% if (submission.student.email == @is_student.email  )%>
+                 <% if (submission.student.email == current_student.email  )%>
                   <tr>
                     <td id="remove_border_line"></td>
                     <td><%= assignment.name %></td>
@@ -43,7 +43,7 @@
                      <% else %>
                         <td id="on_time">On time</td>
                     <% end %>
-                  <td style="text-align:center"><%= link_to submission.name , submission.attachment_url %></td>
+                  <td style="text-align:center"><%= link_to truncate(submission.name, :length => 20, :ommission => true), submission.attachment_url -%></td>
                   </tr>
                   <% end %>
                 <% end %>
@@ -62,7 +62,10 @@
   </div>
 <% end %>
 
-<% if @is_instructor or @is_assistant%>
+
+
+
+<% if instructor_signed_in? or assistant_signed_in? %>
   <h1 style="text-align:center">View Student Submissions</h1>
 <div id="subm-show-content">
   <table style = "width: 80%">
@@ -104,15 +107,15 @@
 
                   <td><%= assignment.name %></td>
                   <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p")%></td>
-                  <td><%= submission.created_at.localtime.strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
+                  <td><%= submission.created_at.strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
     
-                   <% if ( submission.created_at.localtime > Time.parse(assignment.due_date) ) %>
+                   <% if ( submission.created_at > Time.parse(assignment.due_date) ) %>
                         <td id="not_on_time">Late</td>
                    <% else %>
                       <td id="on_time">On time</td>
                    <% end %>
     
-                  <td style="text-align:center"><%= link_to submission.name , submission.attachment_url %></td>
+                  <td style="text-align:center"><%= link_to truncate(submission.name, :length => 20, :ommission => true), submission.attachment_url -%></td>
                  
                 </tr>
               <% end %>

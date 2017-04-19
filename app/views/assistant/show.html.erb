@@ -1,47 +1,22 @@
 <div id="main-content">
-<p>You are signed in,  <font size="3"><%= @assistant.email %></font>  </p>
+<p> <font size="12">Welcome,  <%= @assistant.first_name %> <%= @assistant.last_name %></font>  </p>
+</div
 
 <div id="instructor-content" >
-    <li><%= link_to "View Lists of Assignments", assignments_path %></li>
-      <li><%= link_to "View Students Submissions",  submissions_path %></li>
-</div>
-
-<h2 align="center">Courses</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Number</th>
-      <th>Assignment</th>
-      <th>Due Date</th>
-    </tr>
-  </thead>
- 
-  <tr>
-  <% @courses.each do |course| %>
-      <td><%= course.name %></td>
-      <td><%= link_to course.number , course_path(course) %></td>
-      <td></td>
-      <td></td>
-    <tr>
-    </tr>
-    <tr>
-      <% course.assignments.each do |assignment| %>
-        <tr>
-          <td></td>
-          <td></td>
-          <td><%= link_to assignment.name , assignment_path(assignment) %></td>
-          <td><%= assignment.due_date %></td>
-        </tr>
+    <div id="grid">
+      <div class="grid-element"><%=link_to courses_path do %>
+        <%= image_tag("Courses.png", class: "png", size: "314x172") %>
       <% end %>
-
-    </tr>
-    
-  <% end %>
-  </tr>
-</table>
-
-
-
+      </div>
+      <div class="grid-element"><%=link_to assignments_path do %>
+        <%= image_tag("Assignments.png", class: "png", size: "314x172") %>
+      <% end %>
+      </div>
+      <div class="grid-element"><%=link_to submissions_path do %>
+        <%= image_tag("Submissions.png", class: "png", size: "314x172") %>
+      <% end %>
+      </div>
+    </div>
+</div>
 
 </div>

@@ -5,48 +5,88 @@ class CoursesController < ApplicationController
   end
 
   def new
+    if not instructor_signed_in?
+      redirect_to root_path
+      return
+    end
     @course = Course.new
   end
 
   def create
     #only instructors can create courses
-    @instructor = current_instructor
-    @course = @instructor.courses.create(course_params)
-    if @course.save
-      flash[:success] = "The course #{@course.name} #{@course.number} has been created successfully"
+    if not instructor_signed_in?
       redirect_to root_path
-    else
-      flash[:danger] = "The Form was filled out incorrectly."
-      redirect_to courses_path
-    end 
+      return
+    end
+    
+    @instructor = current_instructor
+    
+    #Check if that course already exists
+    @oldCourse = Course.where(  number: params[:course][:number], year: params[:course][:year], session: params[:course][:session]).first
+    @course = Course.new(course_params)
+    
+    #Im sorry this controll structure is just out of control
+    if @course.new_record?  
+        if (@oldCourse == nil) 
+          @course = @instructor.courses.create(course_params)
+          # The course was created
+          if  @course.save
+            flash[:success] = "The course #{@course.name} #{@course.number} has been created successfully"
+            redirect_to courses_path
+          # The course was not created
+          else 
+            flash[:danger] = "The Form was filled out incorrectly or course already exist"
+            redirect_to courses_path
+          end
+        # The course was a duplicate (not created)
+        else
+          flash[:danger] = "A course with that number already exists for that semester"
+          redirect_to courses_path
+        end
+    end
   end
   
   def destroy
-      @course = Course.find(params[:id])
-      @course.destroy
-      flash[:danger] = "The course #{@course.name} #{@course.number} has been deleted."
-      redirect_to courses_path
+    if not instructor_signed_in?
+      redirect_to root_path
+      return
+    end
+    @course = Course.find(params[:id])
+    @course.destroy
+    flash[:danger] = "The course #{@course.name} #{@course.number} has been deleted."
+    redirect_to courses_path
   end
 
   def index
     #need to distinguish between student and instructor
-    @user = current_instructor
-    @isInstructor = true
-    if @user == nil
-      #a student is signed in
+    @isInstructor = false
+    @isStudent = false
+    @isAssistant = false
+      
+    if instructor_signed_in?
+      @user = current_instructor
+      @isInstructor = true
+      
+    elsif student_signed_in?
       @user = current_student
       @isStudent = true
-      @isInstructor = false
-      @courses = @user.courses
+      
+    elsif assistant_signed_in?
+      @user = current_assistant
+      @isAssistant = true
+      
     else
-      #an instructor is singed in
-      @courses = @user.courses
+      redirect_to root_path
+      return
     end
+    
+    @courses = @user.courses
   end
+
 
   def show
     @course = Course.find(params[:id])
-    if current_instructor != nil
+    if instructor_signed_in?
       @isInstructor = true
     else
       @isInstructor = false

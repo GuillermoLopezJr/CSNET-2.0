@@ -11,7 +11,7 @@ Given(/^A course with number (\d+) exists for instructor "(.*?)"$/) do |number, 
  end
  expect( @instructor ).to be_truthy
  
- @instructor.courses.create(number: number, name: "Software Eng")
+ @instructor.courses.create(number: number, name: "Software Eng", year: "2017", session: "SPRING")
  expect( Course.find_by( number: number)).to be_truthy
 end
 

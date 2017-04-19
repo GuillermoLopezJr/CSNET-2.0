@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    Dear <%= @user.first_name %> <%= @user.last_name %>
+
+    <p>
+      You have been succesfully submitted the file "<%= @submission.name %>"
+      to the assignment "<%= @assignment.name %>"
+      for the class "<%= @course.name %> <%= @course.number %>" on
+      <%= (@submission.created_at).strftime("%a, %m/%d/%Y at %I:%M%p") %>.
+      <br>
+      The assignment was due at 
+      <%= DateTime.parse(@assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %>
+    </p>
+
+  </body>
+</html>

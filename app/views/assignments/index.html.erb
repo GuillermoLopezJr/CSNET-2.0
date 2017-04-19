@@ -15,7 +15,7 @@
               <%= form_for :assignment, url: assignments_path do |f| %>
                <p>
                   <%= f.label :name %><br>
-                  <%= f.text_field :name, id:"name", class: 'form-control' %>
+                  <%= f.text_field :name, id:"name", class: 'form-control', :required => true %>
                 </p>
                 
                 <p>
@@ -25,12 +25,22 @@
               
                 <p>
                   <%= f.label :course_num %><br>
-                  <%= f.collection_select :course_num, @courses, :number, :number,{ id:"course_num", prompt: "Select a Course Number", :include_blank => false}, {class: "form-control"} %>
+                  <%= f.collection_select :course_num, @courses.select(:number).uniq, :number, :number,{ id:"course_num", prompt: "Select a Course Number"}, {class: "form-control", :required => true} %>
                 </p>
               
                 <p>
+                  <%= f.label :course_year %><br>
+                  <%= f.collection_select :course_year, @courses.select(:year).uniq, :year, :year,{ id:"course_year", prompt: "Select the year of the course"}, {class: "form-control", :required => true} %>
+                </p>
+                
+                <p>  
+                  <%= f.label :course_session %><br>
+                  <%= f.collection_select :course_session, Course.getSessions, :strip, :strip,{ id:"course_session", name:"course_session", prompt: "Select a semester"}, {class: "form-control", :required => true} %>
+                </p>
+                
+                <p>
                   <%= f.label :due_date %><br>
-                  <%= datetime_local_field(:assignment, :due_date, id:"due_date", class: 'form-control') %>
+                  <%= datetime_local_field(:assignment, :due_date, id:"due_date", class: 'form-control', :required => true) %>
                 </p>
                 
               
@@ -75,9 +85,6 @@
         <!--  <th>Actions</th>-->
         <!--<% end %>-->
         
-        <% if @isStudent %>
-          <th> Submit assignment </th>
-        <% end %>
         
         
       </tr>
@@ -91,6 +98,7 @@
           <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
           
           <td style="text-align:center"><%= link_to "Download", assignment.attachment_url %></td>
+          
           
           <% if @isInstructor %>
           <td><%= button_to "Edit", edit_assignment_path(assignment), method: :get, class: "btn btn-info", data: {confirm: "Are you sure that you wish to edit #{assignment.name}?"} %></td>

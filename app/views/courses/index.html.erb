@@ -1,9 +1,9 @@
 <div class="course-list-content">
   <div style="text-align:center;">
-    <h1>Listing Courses</h1>
+    <h1>Courses</h1>
   </div>
   
-  <% if @isInstructor %>
+  <% if instructor_signed_in? %>
     <div class="container">
       <div class="row">
       <button type="button" class="btn btn-primary col-md-6 col-md-offset-3" data-toggle="collapse" data-target="#course-create-content">Add a Course</button>
@@ -15,22 +15,22 @@
               <%= form_for :course, url: courses_path do |f| %>
                 <p>
                   <%= f.label :name %>
-                  <%= f.text_field :name, id:"name", class: 'form-control'%>
+                  <%= f.text_field :name, id:"name", class: 'form-control', :required => true%>
                 </p>
               
                 <p>
                   <%= f.label :number %>
-                  <%= f.number_field :number, id:"number",class: 'form-control'  %>
+                  <%= f.number_field :number, id:"number",class: 'form-control', :required => true%>
                 </p>
       
                 <p>
                   <%= f.label :year %>
-                  <%= f.text_field :year, id:"name", class: 'form-control'%>
+                  <%= f.text_field :year, id:"year", class: 'form-control', :required => true%>
                 </p>
       
                 <p>
                   <%= f.label :semester %><br>
-                  <%= f.collection_select :session, Course.getSessions, :strip, :strip,{ id:"session", prompt: "Select a semester", :include_blank => false}, {class: "form-control"} %>
+                  <%= f.collection_select :session, Course.getSessions, :strip, :strip,{ id:"session", name:"session", prompt: "Select a semester"}, {class: "form-control", :required => true} %>
                 </p>
       
                 <p>
@@ -54,8 +54,6 @@
         <th>Year</th>
         <% if @isInstructor %>
           <th>Action</th>
-        <% else %>
-        <th></th>
         <% end %>
         
       </tr>
@@ -76,9 +74,6 @@
           <td><%= button_to "Delete",  course, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure that you wish to delete #{course.name} #{course.number}?"} %> </td>
         <% end %>
         
-        <% if @isStudent %>
-          <td>  </td>
-        <% end %>
       
       </tr>
     <% end %>
