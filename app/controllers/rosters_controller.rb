@@ -1,5 +1,7 @@
 require 'spreadsheet'
+require 'aws/s3'
 class RostersController < ApplicationController
+  
   def index
       if not instructor_signed_in?
         redirect_to root_path
@@ -9,7 +11,19 @@ class RostersController < ApplicationController
       @rosters = Roster.all
       @roster = session[:roster]
       Spreadsheet.client_encoding = 'UTF-8'
-      book = Spreadsheet.open('public' + @roster["attachment"]["url"])
+      # book = Spreadsheet.open( @roster["attachment"]["url"])
+      # book = Spreadsheet.open('public' + @roster["attachment"]["url"])
+
+      # Establish a connection with AWS
+      connection = AWS::S3::new(:aws_access_key_id => ENV['AWS_ACCESS_KEY_ID'],       
+              :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY'])
+      
+      # Instead of reading the contents of f, pass f (an IO object) to Spreadsheet.open
+        book = nil
+        open @roster["attachment"]["url"] do |f|
+          book = Spreadsheet.open f
+        end
+      
       @sheet1 = book.worksheet 0
       #render :inline => "<%= @sheet1.row(3)[0] %> <br></br> <%= @sheet1.row(3)[2] %>"
       #newStudent = Student.create!(:email => @sheet1.row(1)[2], :password => "password")

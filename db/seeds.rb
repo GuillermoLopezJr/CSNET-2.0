@@ -10,3 +10,4 @@
 
 @c.assistants << @ta
 @c.students << @s
+
