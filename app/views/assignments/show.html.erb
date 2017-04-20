@@ -98,6 +98,7 @@
       <thead>
         <tr>
           <th>Student Name</th>
+          <th>Student Email</th>
           <th>Due Date</th>
           <th>Submitted Date</th>
           <th>Status</th>
@@ -110,6 +111,7 @@
         <tr>
           <% if submission.student != nil %>
               <td><%= submission.student.first_name %> <%= submission.student.last_name %></td>
+              <td><%= submission.student.email %></td>
           <% end %>
               <td><%= DateTime.parse(@assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
               <td><%= (submission.created_at).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
