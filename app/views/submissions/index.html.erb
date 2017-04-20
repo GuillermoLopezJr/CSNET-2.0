@@ -31,7 +31,7 @@
                   <tr>
                     <td id="remove_border_line"></td>
                     <td><%= assignment.name %></td>
-          <td><%= DateTime.parse(assignment.due_date) %></td>
+          <td><%= Time.parse(assignment.due_date) %></td>
 
                 <% if false %>
                     <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
