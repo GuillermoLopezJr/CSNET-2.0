@@ -15,8 +15,20 @@ class AssignmentsController < ApplicationController
       return
     end
     
+    @currentTime = params[:assignment][:due_date].to_time#Time.now
+    @currentMonth = @currentTime.month
+    @currentYear = @currentTime.year
+    
+    if( @currentMonth >= 1 && @currentMonth <= 5 )
+      @session = "SPRING"
+    elsif( @currentMonth >= 6 && (@currentMonth < 8 || (@currentMonth == 8 && @currentDay <= 11)) ) 
+      @session = "SUMMER"
+    else 
+      @session = "FALL"
+    end 
+  
     # Check if that course exists
-    @course = current_instructor.courses.where( number: params[:assignment][:course_num], year: params[:assignment][:course_year], session: params[:assignment][:course_session] ).first#find_by number: (params[:assignment][:course_num].to_i)
+    @course = current_instructor.courses.where( number: params[:assignment][:course_num], year: @currentYear, session: @session ).first
     if (@course == nil) 
       flash[:danger] = "Could not create #{params[:assignment][:name]} because the course was not found."
       redirect_to assignments_path
