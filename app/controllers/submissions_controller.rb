@@ -86,7 +86,7 @@ class SubmissionsController < ApplicationController
   # Check if that course exists
   @course = current_student.courses.where( number: params[:submission][:course_num], year: @currentYear.to_s, session: @session ).first
   if (@course == nil) 
-    flash[:danger] = "Could not submit because the corresponding assignment was not found."
+    flash[:danger] = "Could not submit because the corresponding course was not found."
     redirect_to root_path
     return
   end 

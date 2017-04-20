@@ -27,16 +27,6 @@
                   <%= f.label :course_num %><br>
                   <%= f.collection_select :course_num, @courses.select(:number).uniq, :number, :number,{ id:"course_num", prompt: "Select a Course Number"}, {class: "form-control", :required => true} %>
                 </p>
-              
-                <p>
-                  <%= f.label :course_year %><br>
-                  <%= f.collection_select :course_year, @courses.select(:year).uniq, :year, :year,{ id:"course_year", prompt: "Select the year of the course"}, {class: "form-control", :required => true} %>
-                </p>
-                
-                <p>  
-                  <%= f.label :course_session %><br>
-                  <%= f.collection_select :course_session, Course.getSessions, :strip, :strip,{ id:"course_session", name:"course_session", prompt: "Select a semester"}, {class: "form-control", :required => true} %>
-                </p>
                 
                 <p>
                   <%= f.label :due_date %><br>
@@ -95,7 +85,7 @@
       <% @assignments.each do |assignment| %>
         <tr onclick="location.href='<%= assignment_path(assignment) %>'">
           <td><%= assignment.name %></td>
-          <td><%= assignment.course_num %></td>
+          <td><%= assignment.course.number %></td>
           <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
           <!-- Checks if the time left hasn't passed yet -->
           <% if  (DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60 + 5*3600 > 0  %>

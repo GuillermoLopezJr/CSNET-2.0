@@ -12,6 +12,7 @@
           <p>
             <%= f.label :assignment %><br>
             <% if @assignments != nil %>
+
             <%= f.collection_select :assignment, @assignments, :name, :name,{ id:"assignment_name", prompt: true}, {class: 'form-control', :required => true} %>
             <% else %>
               <p> Assignment not available for submission, check with your instructor.  </p>

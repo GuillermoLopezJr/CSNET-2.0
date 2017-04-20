@@ -79,3 +79,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem "roo", "~> 2.7.0"
+
+
+# Amazon S3 Storage.  Comment in the next gem, bundle install (might need to delete Gemfile.lock), and change the uploaders to configure this.
+gem "fog-aws" 
+gem 'aws-sdk', '< 2.0'
+gem "mini_magick" 
+gem "figaro" # manages environment variables

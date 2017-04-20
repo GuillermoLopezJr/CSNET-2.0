@@ -24,6 +24,7 @@ class AssistantController < ApplicationController
       @instructor = current_instructor
       @course =  @instructor.courses.find_by( number: params[:assistant][:course_num] )
       @assistant = Assistant.find_by( email: params[:assistant][:email] )
+
       
       # Should never happen
       if @course == nil
@@ -36,7 +37,12 @@ class AssistantController < ApplicationController
         #Ensure assistants arent enrolled twice
         if @course.assistants.where( id: @assistant ).empty? 
           @assistant = @course.assistants.create!(assistant_params)
-          @assistant.save
+
+          if @assistant.save
+             UserMailer.welcome_email(@assistant, @assistant.password).deliver_later
+          else
+            #could not send email
+          end
         end
       #The assistant already exists
       else
@@ -45,7 +51,7 @@ class AssistantController < ApplicationController
           @course.assistants << @assistant
         end
       end
-      flash[:success] = "Teaching assistant #{@assistant.email} has been added for #{@course.name} #{@course.number}"
+      flash[:success] = "Teaching assistant #{@assistant.first_name} has been added for #{@course.name} #{@course.number}"
       redirect_to root_path
     end
   end
@@ -85,7 +91,6 @@ class AssistantController < ApplicationController
       password_length = 6
       pass = Devise.friendly_token.first(password_length)
       #puts "pass is "
-      pass = "password"
       #puts pass
       params.require(:assistant).permit(:first_name, :last_name, :email, :password, :password_confirmation).merge(:password => pass, :password_confirmation => pass)
     end
