@@ -19,11 +19,11 @@
           <tr>
              <% @courses.each do |course| %>
              <td id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
-             <td id="remove_border_line"></td>
-             <td id="remove_border_line"></td>
-             <td id="remove_border_line"></td>
-             <td id="remove_border_line"></td>
-             <td id="remove_border_line"></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
           </tr>
               <% course.assignments.each do |assignment| %>
                <% assignment.submissions.each do |submission| %>
@@ -89,13 +89,13 @@
            <% @courses.each do |course| %>
            
            <td id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
-           <td id="remove_border_line"></td>
-           <td id="remove_border_line"></td>
-           <td id="remove_border_line"></td>
-           <td id="remove_border_line"></td>
-           <td id="remove_border_line"></td>
-           <td id="remove_border_line"></td>
-           <td id="remove_border_line"></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
         </tr>
      
             <% course.assignments.each do |assignment| %>
