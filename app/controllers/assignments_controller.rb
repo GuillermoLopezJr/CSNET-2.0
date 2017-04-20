@@ -101,6 +101,7 @@ class AssignmentsController < ApplicationController
       #a student is signed in
       @user = current_student
       @isStudent    = true
+      @submissions = @assignment.submissions.all
       
     elsif( instructor_signed_in? )
       #an instructor is singed in

@@ -63,7 +63,7 @@
           <% @course.assignments.each do |assignment| %>
             <tr onclick="location.href='<%= assignment_path(assignment) %>'">
               <td><%= assignment.name %></td>
-              <td><%= assignment.due_date %></td>
+              <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
               
               <td><%= link_to "Download", assignment.attachment_url %></td>
               
