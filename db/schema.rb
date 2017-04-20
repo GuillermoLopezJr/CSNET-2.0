@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20170409185537) do
     t.integer  "instructor_id"
     t.integer  "student_id"
     t.integer  "section"
-    t.string   "year"
+    t.integer  "year"
     t.string   "session"
   end
 
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170409185537) do
 
   create_table "rosters", force: :cascade do |t|
     t.integer  "course_num"
+    t.integer  "course_id"
     t.string   "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
