@@ -31,18 +31,13 @@
                   <tr>
                     <td id="remove_border_line"></td>
                     <td><%= assignment.name %></td>
-          <td><%= Time.parse(assignment.due_date) %></td>
-
-                <% if false %>
                     <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
-
-
                     <td><%= (submission.created_at).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
-                <% end %>
 
+                  <div id="hidden">
                     <%= zoned_time = submission.created_at %>
                     <%= unzoned_time = Time.new(zoned_time.strftime("%Y").to_i,zoned_time.strftime("%m").to_i,zoned_time.strftime("%d").to_i,zoned_time.strftime("%H").to_i,zoned_time.strftime("%M").to_i,zoned_time.strftime("%S").to_i,"+00:00") %>
-                    <td><%= (submission.created_at)%></td>
+                  </div>
                     
                     
                      <% if ( unzoned_time > DateTime.parse(assignment.due_date).in_time_zone("Central Time (US & Canada)") ) %>
@@ -115,8 +110,18 @@
                   <td><%= assignment.name %></td>
                   <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p")%></td>
                   <td><%= submission.created_at.strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
+
+
+                    <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
+                    <td><%= (submission.created_at).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
+                    
+                  <div id="hidden">
+                    <%= zoned_time = submission.created_at %>
+                    <%= unzoned_time = Time.new(zoned_time.strftime("%Y").to_i,zoned_time.strftime("%m").to_i,zoned_time.strftime("%d").to_i,zoned_time.strftime("%H").to_i,zoned_time.strftime("%M").to_i,zoned_time.strftime("%S").to_i,"+00:00") %>
+
+                  </div>
     
-                   <% if ( submission.created_at > Time.parse(assignment.due_date) ) %>
+                   <% if ( unzoned_time > Time.parse(assignment.due_date) ) %>
                         <td id="not_on_time">Late</td>
                    <% else %>
                       <td id="on_time">On time</td>
