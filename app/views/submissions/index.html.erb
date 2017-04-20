@@ -40,8 +40,8 @@
                     <td><%= (submission.created_at).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
                 <% end %>
 
-                    <%= @zoned_time = submission.created_at %>
-                    <%= @unzoned_time = Time.new(zoned_time.strftime("%Y").to_i,zoned_time.strftime("%m").to_i,zoned_time.strftime("%d").to_i,zoned_time.strftime("%H").to_i,zoned_time.strftime("%M").to_i,zoned_time.strftime("%S").to_i,"+00:00") %>
+                    <%= zoned_time = submission.created_at %>
+                    <%= unzoned_time = Time.new(zoned_time.strftime("%Y").to_i,zoned_time.strftime("%m").to_i,zoned_time.strftime("%d").to_i,zoned_time.strftime("%H").to_i,zoned_time.strftime("%M").to_i,zoned_time.strftime("%S").to_i,"+00:00") %>
                     <td><%= (submission.created_at)%></td>
                     
                     
