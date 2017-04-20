@@ -23,7 +23,13 @@ class InstructorController < ApplicationController
       return
     end
     
-    Instructor.create!(instructor_params)
+    @instr = Instructor.create!(instructor_params)
+    if @instr.save
+       UserMailer.welcome_email(@instr, @instr.password).deliver_later
+    else
+      #could not send email
+    end
+
     redirect_to root_path
   end
   
@@ -49,7 +55,10 @@ class InstructorController < ApplicationController
 
   private
     def instructor_params
-      params.require(:instructor).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+      password_length = 8
+      pass = Devise.friendly_token.first(password_length)
+      puts "pass is "
+      params.require(:instructor).permit(:first_name, :last_name, :email, :password, :password_confirmation).merge(:password => pass, :password_confirmation => pass)
     end
- 
+
 end

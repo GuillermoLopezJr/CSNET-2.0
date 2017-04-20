@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20170409185537) do
     t.integer  "instructor_id"
     t.integer  "student_id"
     t.integer  "section"
-    t.string   "year"
+    t.integer  "year"
     t.string   "session"
   end
 
