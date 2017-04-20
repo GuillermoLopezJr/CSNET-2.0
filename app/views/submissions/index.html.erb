@@ -35,7 +35,7 @@
                     <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
                     <td><%= (submission.created_at).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
                     
-                     <% if ( submission.created_at.new_offset(0) > DateTime.parse(assignment.due_date).new_offset(0)) %>
+                     <% if ( (submission.created_at).now.in_time_zone("Central Time (US & Canada)") > DateTime.parse(assignment.due_date) %>
                         <td id="not_on_time">Late</td>
                      <% else %>
                         <td id="on_time">On time</td>
