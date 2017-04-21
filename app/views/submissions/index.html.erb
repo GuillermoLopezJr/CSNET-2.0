@@ -69,8 +69,7 @@
 
 <% if instructor_signed_in? or assistant_signed_in? %>
   <h1 style="text-align:center">View Student Submissions</h1>
-
-  <%= link_to 'download', download %> 
+  <%= link_to 'download', controller: 'submissions', action: 'download' %> 
 <div id="subm-show-content">
   <table style = "width: 80%">
     <thead >

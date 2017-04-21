@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'submissions/new'
 
   get 'submissions/create'
+  get 'submissions/download'
 
   get 'submissions/destroy'
 

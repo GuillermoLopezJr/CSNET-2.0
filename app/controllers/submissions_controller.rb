@@ -156,49 +156,31 @@ class SubmissionsController < ApplicationController
     #files = ["photo1.png", "photo2.png", "photo3.png", "photo4.png"]
 #https://431storage.s3.amazonaws.com/Test.pdf
     files = ["Test.pdf"]
-
-    #folder = "uploads/images"
+    local_folder = "tmp/submissions"
+    zipfile_name = "submissions.zip"
 
     # Download the files from S3 to a local folder
     files.each do |file_name|
       # Get the file object
-      #file_obj = bucket.object("#{folder}/#{file_name}")
       file_obj = bucket.object("#{file_name}")
       # Save it on disk
-      #file_obj.get(response_target: "tmp_dir/#{file_name}")
-      file_obj.get(response_target: "tmp/#{file_name}")
+      file_obj.get(response_target: "#{local_folder}/#{file_name}")
     end
 
     # Create the zip
-    #Zip::File.open("tmp_dir/photos.zip", Zip::File::CREATE) do |zipfile|
-      #files.each do |filename|
-         # Add the file to the zip
-        #zipfile.add(filename, "tmp_dir/#{filename}")
-      #end
-    #end
-
-    # Create the zip
-    Zip::File.open("tmp/photos.zip", Zip::File::CREATE) do |zipfile|
+    Zip::File.open("#{local_folder}/#{zipfile_name}", Zip::File::CREATE) do |zipfile|
       files.each do |filename|
          # Add the file to the zip
-        zipfile.add(filename, "tmp/#{filename}")
+        zipfile.add(filename, "#{local_folder}/#{filename}")
       end
     end
 
-    # Create the object to upload
-    #zip_obj = bucket.object("#{folder}/photos.zip")
-    # Upload it
-    #zip_obj.upload_file(zipfile_name)
-
-    # Create the object to upload
-    zipfile_name = "temp/photos.zip"
-    zip_obj = bucket.object("temp/photos.zip")
-    # Upload it
-    #zip_obj.upload_file(zipfile_name)
+    # Create the object to download
+    zip_obj = bucket.object("#{local_folder}/#{zipfile_name}")
     #download
-    send_file "tmp/photos.zip"
+    send_file "#{local_folder}/#{zipfile_name}"
 
-   @submission 
+    #redirect_to root_path
   end
  
   helper_method :download 
