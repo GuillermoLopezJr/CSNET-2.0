@@ -139,7 +139,7 @@ class SubmissionsController < ApplicationController
 
     # Configure aws
     Aws.config.update({
-      region: 'eu-west-1',
+      region: 'us-east-1',
       access_key_id: ENV['ACCESS_KEY_ID'],
       secret_access_key: ENV['SECRET_ACCESS_KEY']
     })
