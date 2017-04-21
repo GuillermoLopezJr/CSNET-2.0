@@ -169,6 +169,21 @@ class SubmissionsController < ApplicationController
       file_obj.get(response_target: "tmp/#{file_name}")
     end
 
+    # Create the zip
+    #Zip::File.open("tmp_dir/photos.zip", Zip::File::CREATE) do |zipfile|
+      #files.each do |filename|
+         # Add the file to the zip
+        #zipfile.add(filename, "tmp_dir/#{filename}")
+      #end
+    #end
+
+    # Create the zip
+    Zip::File.open("tmp/photos.zip", Zip::File::CREATE) do |zipfile|
+      files.each do |filename|
+         # Add the file to the zip
+        zipfile.add(filename, "tmp/#{filename}")
+      end
+    end
    @submission 
   end
  
