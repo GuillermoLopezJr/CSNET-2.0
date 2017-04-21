@@ -162,7 +162,7 @@ class SubmissionsController < ApplicationController
     files.each do |file_name|
       # Get the file object
       #file_obj = bucket.object("#{folder}/#{file_name}")
-      file_obj = bucket.object("/#{file_name}")
+      file_obj = bucket.object("#{file_name}")
       # Save it on disk
       file_obj.get(response_target: "tmp_dir/#{file_name}")
     end
