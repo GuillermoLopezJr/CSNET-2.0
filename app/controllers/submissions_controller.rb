@@ -154,6 +154,7 @@ class SubmissionsController < ApplicationController
     #puts @submission.attachment_url
 
     #files = ["photo1.png", "photo2.png", "photo3.png", "photo4.png"]
+#https://431storage.s3.amazonaws.com/Test.pdf
     files = ["Test.pdf"]
 
     #folder = "uploads/images"
@@ -164,7 +165,8 @@ class SubmissionsController < ApplicationController
       #file_obj = bucket.object("#{folder}/#{file_name}")
       file_obj = bucket.object("#{file_name}")
       # Save it on disk
-      file_obj.get(response_target: "tmp_dir/#{file_name}")
+      #file_obj.get(response_target: "tmp_dir/#{file_name}")
+      file_obj.get(response_target: "tmp/#{file_name}")
     end
 
    @submission 
