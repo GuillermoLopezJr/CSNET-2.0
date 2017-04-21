@@ -184,6 +184,20 @@ class SubmissionsController < ApplicationController
         zipfile.add(filename, "tmp/#{filename}")
       end
     end
+
+    # Create the object to upload
+    #zip_obj = bucket.object("#{folder}/photos.zip")
+    # Upload it
+    #zip_obj.upload_file(zipfile_name)
+
+    # Create the object to upload
+    zipfile_name = "temp/photos.zip"
+    zip_obj = bucket.object("temp/photos.zip")
+    # Upload it
+    #zip_obj.upload_file(zipfile_name)
+    #download
+    send_file "tmp/photos.zip"
+
    @submission 
   end
  
