@@ -155,7 +155,7 @@ class SubmissionsController < ApplicationController
 
     #files = ["photo1.png", "photo2.png", "photo3.png", "photo4.png"]
 #https://431storage.s3.amazonaws.com/Test.pdf
-    files = ["Test.pdf", "testgg"]
+    files = ["Test.pdf", "CSCE-463-report.docx"]
     local_folder = "tmp"
     zipfile_name = "submissions.zip"
 
