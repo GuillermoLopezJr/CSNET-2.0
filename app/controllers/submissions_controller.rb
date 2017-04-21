@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'zip'
+require 'aws-sdk' # not 'aws-sdk'
 class SubmissionsController < ApplicationController
    
     def index
@@ -130,7 +133,44 @@ class SubmissionsController < ApplicationController
       @submission.destroy
       redirect_to submissions_path, notice:  "The submission #{@submission.name} has been deleted."
    end
-   
+  
+  def download
+    puts "downloading!!!!!!!!!!!!!!!!!!!!"
+
+    # Configure aws
+    Aws.config.update({
+      region: 'eu-west-1',
+      access_key_id: ENV['ACCESS_KEY_ID'],
+      secret_access_key: ENV['SECRET_ACCESS_KEY']
+    })
+    
+    s3 = Aws::S3::Resource.new
+
+#S3: The bucket you are attempting to access must be addressed using the specified endpoint. #2151
+#The S3 link generated for the images is incorrect. It needs to use a different endpoint format.
+#the file is probably not in the right locatin
+
+    bucket = s3.bucket("431storage")
+    #puts @submission.attachment_url
+
+    #files = ["photo1.png", "photo2.png", "photo3.png", "photo4.png"]
+    files = ["Test.pdf"]
+
+    #folder = "uploads/images"
+
+    # Download the files from S3 to a local folder
+    files.each do |file_name|
+      # Get the file object
+      #file_obj = bucket.object("#{folder}/#{file_name}")
+      file_obj = bucket.object("/#{file_name}")
+      # Save it on disk
+      file_obj.get(response_target: "tmp_dir/#{file_name}")
+    end
+
+   @submission 
+  end
+ 
+  helper_method :download 
    private
     def submission_params
       params.require(:submission).permit(:name, :assignment, :attachment)
