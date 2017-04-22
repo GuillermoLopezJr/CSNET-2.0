@@ -112,13 +112,8 @@ class SubmissionsController < ApplicationController
                                         attachment: params[:submission][:attachment],
                                         assignment: @assignment)
 
-  puts "attachment url is : "
-  puts @submission_attachment_url
   if @submission.save
       flash[:success] = "The assignment #{@submission.name} has been submitted successfully"
-      puts "submissions url is "
-      puts @submission.attachment_url
-      puts "end sub"
       
       # send an acknowldegment email that the submission was turned in successfully
       UserMailer.ack_submission(@student, @submission, @course, @assignment).deliver_later
@@ -164,17 +159,13 @@ class SubmissionsController < ApplicationController
         dupIndex = -1
         sub = @all_submissions[i]
         stud_id = sub.student_id
-      puts "newest sub size "
-      puts newest_submissions.size
       for j in 0 .. newest_submissions.size-1
-        puts "j is #{j} and siz is #{newest_submissions.size}"
         if (stud_id == newest_submissions[j].student_id)
           dupSubFound = true
           dupIndex = j
           break
         end
       end
-
       if dupSubFound == false
         # the first encountered submission of a particular student
         newest_submissions.push(sub)
@@ -192,12 +183,8 @@ class SubmissionsController < ApplicationController
           newest_submissions[dupIndex] = sub
         end
       end
-          
-        
     end
         
-    puts "newest submis ars: "
-    puts newest_submissions.inspect 
     # get all the attachment names for that assignment (b/c we only store the attachmetn on aws)
     # note: escape https://431storage.s3.amazonaws.com/ since not needed
     @desired_attachment_names = newest_submissions.map{ |sub| sub.attachment_url[36..-1] }
@@ -238,24 +225,6 @@ class SubmissionsController < ApplicationController
       file_obj.get(response_target: "#{local_folder}/#{file_name}")
     end
 
-=begin
-    # Open a zip file
-    Zip::File.open("#{local_folder}/#{zipfile_name}", Zip::File::CREATE) do |zipfile|
-      files.each do |filename|
-         # Add the file to the zip
-        zipfile.add(filename, "#{local_folder}/#{filename}")
-      end
-    end
-
-    # Create the zip file object to download
-    zip_obj = bucket.object("#{local_folder}/#{zipfile_name}")
-
-    #download
-    send_file "#{local_folder}/#{zipfile_name}"
-=end
-
-    # success
-
     # after files have been downloaded zip to this file
     zipfile_name = "submissions.zip"
 
@@ -283,15 +252,15 @@ class SubmissionsController < ApplicationController
       send_data(zip_data, :type => 'application/zip', :filename => zipfile_name)
     ensure
 
-      #Close and delete the temp file
+      #Close and delete the downloaded zip file (was stored in temp dir.)
       temp_file.close
       temp_file.unlink
+      
+      # delete the local folder that had the submissions downloaded
+      FileUtils.rm_rf("#{local_folder}")
     end
 
-    FileUtils.rm_rf("#{local_folder}")
-
     # success
-
   end
 
 
