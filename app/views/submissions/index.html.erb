@@ -69,7 +69,7 @@
 
 <% if instructor_signed_in? or assistant_signed_in? %>
   <h1 style="text-align:center">View Student Submissions</h1>
-  <%= link_to 'download', controller: 'submissions', action: 'download' %> 
+
 <div id="subm-show-content">
   <table style = "width: 80%">
     <thead >
@@ -95,8 +95,23 @@
            <td></td>
            <td></td>
            <td></td>
-           <td></td>
-           <td></td>
+           <td>
+
+              <%= form_for :submission, :url =>url_for(:controller => 'submissions', :action => 'download'), :method => :get  do |f| %>
+  <div class="col-xs-12">
+                  <%= f.collection_select :assignment, course.assignments.all.map{ |assign| assign.name }, :strip, :strip,{ id:"session", name:"session", prompt: "Select an assignmnet"}, {class: "form-control", :required => true} %>
+                  <%= f.hidden_field :course_id, :value => course.id%>
+  </div>
+          </td>
+
+          <td> 
+                  <%= f.submit 'download', :id=>"submit", class: "btn btn-primary" %>
+          </td>
+
+
+
+
+          <% end %>
         </tr>
      
             <% course.assignments.each do |assignment| %>
@@ -136,6 +151,7 @@
 <div style="text-align:center;">  
   <%= link_to 'Back', :back %> &emsp;
   <%= link_to 'Home', root_path %> 
+
 </div>
 </div>
 <% end %>

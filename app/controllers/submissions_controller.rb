@@ -106,6 +106,9 @@ class SubmissionsController < ApplicationController
                                         assignment: @assignment)
   if @submission.save
       flash[:success] = "The assignment #{@submission.name} has been submitted successfully"
+      puts "submissions url is "
+      puts @submission.attachment_url
+      puts "end sub"
       
       # send an acknowldegment email that the submission was turned in successfully
       UserMailer.ack_submission(@student, @submission, @course, @assignment).deliver_later
@@ -115,7 +118,6 @@ class SubmissionsController < ApplicationController
       redirect_to submissions_path
   end
  end
- 
    
    def destroy
        if not student_signed_in?
@@ -135,9 +137,24 @@ class SubmissionsController < ApplicationController
    end
   
   def download
-    puts "downloading!!!!!!!!!!!!!!!!!!!!"
 
-    # Configure aws
+    # first find the course that we want to download the submissions for
+    @course_chosen = Course.find(params[:submission][:course_id])
+
+    # the assignment we want to get submissions for
+    @assignment_chosen = Assignment.find_by(name: params[:submission][:assignment])
+
+    # get all the submissions for that assignment
+    @all_submissions = Submission.where(assignment_id: @assignment_chosen.id)
+    
+    # get all the attachment names for that assignment (b/c we only store the attachmetn on aws)
+    # note: escape https://431storage.s3.amazonaws.com/ since not needed
+    @desired_attachment_names = @all_submissions.map{ |sub| sub.attachment_url[36..-1] }
+
+    # limit submissions to only new the newest ones
+    # TODO
+
+    # configure aws
     Aws.config.update({
       region: 'us-east-1',
       access_key_id: ENV['ACCESS_KEY_ID'],
@@ -145,19 +162,20 @@ class SubmissionsController < ApplicationController
     })
     
     s3 = Aws::S3::Resource.new
-
-#S3: The bucket you are attempting to access must be addressed using the specified endpoint. #2151
-#The S3 link generated for the images is incorrect. It needs to use a different endpoint format.
-#the file is probably not in the right locatin
-
+    # the bucket where submissions are stored
     bucket = s3.bucket("431storage")
-    #puts @submission.attachment_url
+  
+    # These are all the files in the bucket - for testing purposes
+    #files_in_bucket = bucket.objects(prefix: '').collect(&:key)
+    #puts "putting "
+    #puts files_in_bucket
 
-    #files = ["photo1.png", "photo2.png", "photo3.png", "photo4.png"]
-#https://431storage.s3.amazonaws.com/Test.pdf
-    files = ["Test.pdf", "CSCE-463-report.docx"]
+    
+    # files downloaded first to the tmp folder
     local_folder = "tmp"
-    zipfile_name = "submissions.zip"
+   
+    # the files to download 
+    files = @desired_attachment_names
 
     # Download the files from S3 to a local folder
     files.each do |file_name|
@@ -167,7 +185,10 @@ class SubmissionsController < ApplicationController
       file_obj.get(response_target: "#{local_folder}/#{file_name}")
     end
 
-    # Create the zip
+    # after files have been downloaded zip them all
+    zipfile_name = "submissions.zip"
+
+    # Open a zip file
     Zip::File.open("#{local_folder}/#{zipfile_name}", Zip::File::CREATE) do |zipfile|
       files.each do |filename|
          # Add the file to the zip
@@ -175,15 +196,18 @@ class SubmissionsController < ApplicationController
       end
     end
 
-    # Create the object to download
+    # Create the zip file object to download
     zip_obj = bucket.object("#{local_folder}/#{zipfile_name}")
+
     #download
     send_file "#{local_folder}/#{zipfile_name}"
 
-    #redirect_to root_path
+    # success
   end
- 
+
+
   helper_method :download 
+
    private
     def submission_params
       params.require(:submission).permit(:name, :assignment, :attachment)
