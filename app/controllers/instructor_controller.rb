@@ -51,6 +51,10 @@ class InstructorController < ApplicationController
       return
     end
   end
+
+  def download
+    puts "here"
+  end
   
 
   private
