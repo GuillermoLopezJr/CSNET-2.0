@@ -101,9 +101,19 @@ class SubmissionsController < ApplicationController
     return
   end 
   
+
+  # store the file as something unique otherwise unable to distinguish between
+  # two student submissions with the same name
+  orig_name = params[:submission][:attachment].original_filename
+  params[:submission][:attachment].original_filename = "#{@student.last_name}_#{@student.first_name}_#{@student.id}_#{orig_name}"
+  
+  
   @submission = @student.submissions.create(name: params[:submission][:name], 
                                         attachment: params[:submission][:attachment],
                                         assignment: @assignment)
+
+  puts "attachment url is : "
+  puts @submission_attachment_url
   if @submission.save
       flash[:success] = "The assignment #{@submission.name} has been submitted successfully"
       puts "submissions url is "
@@ -146,13 +156,52 @@ class SubmissionsController < ApplicationController
 
     # get all the submissions for that assignment
     @all_submissions = Submission.where(assignment_id: @assignment_chosen.id)
-    
-    # get all the attachment names for that assignment (b/c we only store the attachmetn on aws)
-    # note: escape https://431storage.s3.amazonaws.com/ since not needed
-    @desired_attachment_names = @all_submissions.map{ |sub| sub.attachment_url[36..-1] }
 
     # limit submissions to only new the newest ones
-    # TODO
+    newest_submissions = []
+    for i in 0 .. @all_submissions.size-1
+        dupSubFound = false
+        dupIndex = -1
+        sub = @all_submissions[i]
+        stud_id = sub.student_id
+      puts "newest sub size "
+      puts newest_submissions.size
+      for j in 0 .. newest_submissions.size-1
+        puts "j is #{j} and siz is #{newest_submissions.size}"
+        if (stud_id == newest_submissions[j].student_id)
+          dupSubFound = true
+          dupIndex = j
+          break
+        end
+      end
+
+      if dupSubFound == false
+        # the first encountered submission of a particular student
+        newest_submissions.push(sub)
+      else
+        # keep only the newest submission
+      
+        # find the students other submission
+        dupSub = newest_submissions[dupIndex]
+
+        # keep only the newest one
+        if (dupSub.created_at > sub.created_at)
+          # the newest submission is already in the list
+        else
+          # replace the submission
+          newest_submissions[dupIndex] = sub
+        end
+      end
+          
+        
+    end
+        
+    puts "newest submis ars: "
+    puts newest_submissions.inspect 
+    # get all the attachment names for that assignment (b/c we only store the attachmetn on aws)
+    # note: escape https://431storage.s3.amazonaws.com/ since not needed
+    @desired_attachment_names = newest_submissions.map{ |sub| sub.attachment_url[36..-1] }
+
 
     # configure aws
     Aws.config.update({
@@ -172,7 +221,7 @@ class SubmissionsController < ApplicationController
 
     
     # files downloaded first to the tmp folder
-    local_folder = "tmp"
+    local_folder = "tmp/submissions"
    
     # the files to download 
     files = @desired_attachment_names
@@ -184,7 +233,7 @@ class SubmissionsController < ApplicationController
       # Save it on disk
       file_obj.get(response_target: "#{local_folder}/#{file_name}")
     end
-
+=begin
     # after files have been downloaded zip them all
     zipfile_name = "submissions.zip"
 
@@ -201,8 +250,47 @@ class SubmissionsController < ApplicationController
 
     #download
     send_file "#{local_folder}/#{zipfile_name}"
+=end
 
     # success
+
+
+
+#Attachment name
+zipfile_name = "test.zip"
+temp_file = Tempfile.new(zipfile_name)
+ 
+begin
+  #This is the tricky part
+  #Initialize the temp file as a zip file
+  Zip::OutputStream.open(temp_file) { |zos| }
+ 
+  #Add files to the zip file as usual
+  Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
+    #Put files in here
+      files.each do |filename|
+        zip.add(filename, temp_file.path)
+      end
+  end
+ 
+  #Read the binary data from the file
+  zip_data = File.read(temp_file.path)
+  puts "path is "
+  puts temp_file.path
+ 
+  #Send the data to the browser as an attachment
+  #We do not send the file directly because it will
+  #get deleted before rails actually starts sending it
+  send_data(zip_data, :type => 'application/zip', :filename => zipfile_name)
+ensure
+  #Close and delete the temp file
+  temp_file.close
+  temp_file.unlink
+end
+
+
+
+
   end
 
 
