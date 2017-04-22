@@ -220,9 +220,13 @@ class SubmissionsController < ApplicationController
     #puts files_in_bucket
 
     
-    # files downloaded first to the tmp folder
+    # files downloaded first to local folder in temp dir
+    # it will get deleted when this function ends
     local_folder = "tmp/submissions"
-   
+
+    # first check if folder exists. if not make it.
+    Dir.mkdir(local_folder) unless File.exists?(local_folder)
+
     # the files to download 
     files = @desired_attachment_names
 
@@ -233,10 +237,8 @@ class SubmissionsController < ApplicationController
       # Save it on disk
       file_obj.get(response_target: "#{local_folder}/#{file_name}")
     end
-=begin
-    # after files have been downloaded zip them all
-    zipfile_name = "submissions.zip"
 
+=begin
     # Open a zip file
     Zip::File.open("#{local_folder}/#{zipfile_name}", Zip::File::CREATE) do |zipfile|
       files.each do |filename|
@@ -254,47 +256,46 @@ class SubmissionsController < ApplicationController
 
     # success
 
+    # after files have been downloaded zip to this file
+    zipfile_name = "submissions.zip"
 
-
-#Attachment name
-zipfile_name = "test.zip"
-temp_file = Tempfile.new(zipfile_name)
- 
-begin
-  #This is the tricky part
-  #Initialize the temp file as a zip file
-  Zip::OutputStream.open(temp_file) { |zos| }
- 
-  #Add files to the zip file as usual
-  Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
-    #Put files in here
-      files.each do |filename|
-        zip.add(filename, temp_file.path)
+    # create a temp folder for this zip file. it will also get deleted
+    temp_file = Tempfile.new(zipfile_name)
+     
+    begin
+      # Initialize the temp file as a zip file
+      Zip::OutputStream.open(temp_file) { |zos| }
+     
+      # Open a zip file
+      Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip| 
+        files.each do |filename|
+          # add files to the zip
+          zip.add(filename, temp_file.path)
+        end
       end
+     
+      #Read the binary data from the file
+      zip_data = File.read(temp_file.path)
+     
+      #Send the data to the browser as an attachment
+      #We do not send the file directly because it will
+      #get deleted before rails actually starts sending it
+      send_data(zip_data, :type => 'application/zip', :filename => zipfile_name)
+    ensure
+
+      #Close and delete the temp file
+      temp_file.close
+      temp_file.unlink
+    end
+
+    FileUtils.rm_rf("#{local_folder}")
+
+    # success
+
   end
- 
-  #Read the binary data from the file
-  zip_data = File.read(temp_file.path)
-  puts "path is "
-  puts temp_file.path
- 
-  #Send the data to the browser as an attachment
-  #We do not send the file directly because it will
-  #get deleted before rails actually starts sending it
-  send_data(zip_data, :type => 'application/zip', :filename => zipfile_name)
-ensure
-  #Close and delete the temp file
-  temp_file.close
-  temp_file.unlink
-end
 
 
-
-
-  end
-
-
-  helper_method :download 
+    helper_method :download 
 
    private
     def submission_params
