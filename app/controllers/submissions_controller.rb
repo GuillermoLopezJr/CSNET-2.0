@@ -214,13 +214,15 @@ class SubmissionsController < ApplicationController
     
     # files downloaded first to local folder in temp dir
     # it will get deleted when this function ends
-    local_folder = "tmp/submissions"
+    #local_folder = "tmp/submissions"
+    local_folder = Rails.root.join('temp')
 
     # first check if folder exists. if not make it.
     Dir.mkdir(local_folder) unless File.exists?(local_folder)
 
     # the files to download 
     files = @desired_attachment_names
+
 
     # Download the files from S3 to a local folder
     files.each do |file_name|
@@ -230,40 +232,23 @@ class SubmissionsController < ApplicationController
       file_obj.get(response_target: "#{local_folder}/#{file_name}")
     end
 
-    # after files have been downloaded zip to this file
+    # after files have been downloaded zip them all
     zipfile_name = "submissions.zip"
 
-    # create a temp folder for this zip file. it will also get deleted
-    temp_file = Tempfile.new(zipfile_name)
-     
-    begin
-      # Initialize the temp file as a zip file
-      Zip::OutputStream.open(temp_file) { |zos| }
-     
-      # Open a zip file
-      Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip| 
-        files.each do |filename|
-          # add files to the zip
-          zip.add(filename, temp_file.path)
-        end
+    # Open a zip file
+    Zip::File.open("#{local_folder}/#{zipfile_name}", Zip::File::CREATE) do |zipfile|
+      files.each do |filename|
+         # Add the file to the zip
+        zipfile.add(filename, "#{local_folder}/#{filename}")
       end
-     
-      #Read the binary data from the file
-      zip_data = File.read(temp_file.path)
-     
-      #Send the data to the browser as an attachment
-      #We do not send the file directly because it will
-      #get deleted before rails actually starts sending it
-      send_data(zip_data, :type => 'application/zip', :filename => zipfile_name)
-    ensure
-
-      #Close and delete the downloaded zip file (was stored in temp dir.)
-      temp_file.close
-      temp_file.unlink
-      
-      # delete the local folder that had the submissions downloaded
-      FileUtils.rm_rf("#{local_folder}")
     end
+
+    # Create the zip file object to download
+    zip_obj = bucket.object("#{local_folder}/#{zipfile_name}")
+
+    #download
+    send_file "#{local_folder}/#{zipfile_name}"
+
 
     # success
   end
