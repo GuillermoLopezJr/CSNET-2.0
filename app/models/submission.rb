@@ -9,5 +9,5 @@ class Submission < ApplicationRecord
     validates :attachment, presence: true # Make sure the owner's name is present.
 
     validates :assignment, presence: true # Make sure the owner's name is present.
-    
+
 end

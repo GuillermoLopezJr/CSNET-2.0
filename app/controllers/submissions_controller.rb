@@ -101,12 +101,17 @@ class SubmissionsController < ApplicationController
     return
   end 
   
-
   # store the file as something unique otherwise unable to distinguish between
   # two student submissions with the same name
   orig_name = params[:submission][:attachment].original_filename
-  params[:submission][:attachment].original_filename = "#{@student.last_name}_#{@student.first_name}_#{@student.id}_#{orig_name}"
-  
+  # to distinguish between a file submited by the same student with the 'original_filename'
+  subCount = Submission.maximum(:id)
+  if subCount == nil
+    subCount = 1
+  else
+    subCount += 1
+  end
+  params[:submission][:attachment].original_filename = "#{@student.last_name}_#{@student.first_name}_#{@student.id}_#{subCount}_#{orig_name}"
   
   @submission = @student.submissions.create(name: params[:submission][:name], 
                                         attachment: params[:submission][:attachment],
