@@ -22,7 +22,7 @@
       <%= image_tag("QuickLinks.png", class: "png", size: "314x172") %>
     <% end %>
     </div>
-    <div class="grid-element"><%=link_to submissions_path do %>
+    <div class="grid-element"><%=link_to submissions_path, data: {turbolinks: 'false'} do %>
       <%= image_tag("Submissions.png", class: "png", size: "314x172") %>
     <% end %>
     </div>
