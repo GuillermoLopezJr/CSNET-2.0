@@ -45,9 +45,18 @@ GEM
       execjs
     aws-sdk (1.67.0)
       aws-sdk-v1 (= 1.67.0)
+    aws-sdk-core (2.9.10)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-rails (1.0.1)
+      aws-sdk-resources (~> 2)
+      railties (>= 3)
+    aws-sdk-resources (2.9.10)
+      aws-sdk-core (= 2.9.10)
     aws-sdk-v1 (1.67.0)
       json (~> 1.4)
       nokogiri (~> 1)
+    aws-sigv4 (1.0.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
     bootstrap-sass (3.3.6)
@@ -140,6 +149,7 @@ GEM
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
+    jmespath (1.3.1)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -270,12 +280,15 @@ GEM
     websocket-extensions (0.1.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    zip-zip (0.3)
+      rubyzip (>= 1.0.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   aws-sdk (< 2.0)
+  aws-sdk-rails
   bootstrap-sass (= 3.3.6)
   byebug
   capybara
@@ -299,7 +312,11 @@ DEPENDENCIES
   rails (~> 5.0.1)
   roo (~> 2.7.0)
   rspec-rails
+<<<<<<< HEAD
   rubyzip
+=======
+  rubyzip (>= 1.0.0)
+>>>>>>> 2899ceb3d37d468c12b6b9dcd253cfa7b8159f99
   sass-rails (~> 5.0)
   sendgrid-rails
   spreadsheet
@@ -310,6 +327,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  zip-zip
 
 BUNDLED WITH
-   1.14.4
+   1.14.5

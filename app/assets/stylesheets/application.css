@@ -101,3 +101,8 @@ tr {text-align:center;}
 .sortable td {
     cursor: pointer;
 }
+
+
+#hidden {
+    display: none;
+}

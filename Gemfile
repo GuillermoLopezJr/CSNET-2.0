@@ -35,6 +35,13 @@ gem 'sendgrid-rails'
 # Used to validate emails in student creation
 gem 'email_validator'
 
+# Used to zip submissions for grading
+gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
+gem 'zip-zip' # will load compatibility for old rubyzip API. 
+
+# Used to connect to aws
+gem 'aws-sdk-rails'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
