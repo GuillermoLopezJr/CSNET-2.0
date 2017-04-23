@@ -21,7 +21,8 @@ Rails.application.routes.draw do
 
   resources :assignments
   get 'assignments/new'
-
+  get 'assignments/download'
+  
   resources :courses
   get 'courses/new'
   
@@ -48,7 +49,10 @@ Rails.application.routes.draw do
   resources :submissions
   get 'submissions/new'
   
-  devise_for :student
+  devise_for :student,
+  path_names: {
+    sign_up: ''
+  }
   devise_scope :student do
     authenticated :student do
       root 'students#show', as: :authenticated_students_root
@@ -67,17 +71,23 @@ Rails.application.routes.draw do
     end
   end
   
-  devise_for :instructors
+  devise_for :instructors,    
+  path_names: {
+      sign_up: ''
+    }
   devise_scope :instructor do
-    
+
     unauthenticated do
       root 'application#index'
     end
   end
   
-  devise_for :assistants
+  devise_for :assistants,
+      path_names: {
+      sign_up: ''
+    }
   devise_scope :assistant do
-    
+
     unauthenticated do
       root 'application#index'
     end
@@ -88,5 +98,6 @@ Rails.application.routes.draw do
   root 'application#index'
   
 
-  
+
+
 end

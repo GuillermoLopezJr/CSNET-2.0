@@ -15,6 +15,8 @@
     <%= DateTime.parse(@assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %>
   </p>
   
+  <!--<%= link_to "Download all submissions", assignments_download_path(@assignment) %>-->
+  
   <table class = "w">
       <thead>
         <tr>

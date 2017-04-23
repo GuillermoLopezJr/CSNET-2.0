@@ -53,12 +53,12 @@ class AssignmentsController < ApplicationController
       
       # The assignment was not created
       else 
-        flash[:danger] = "The form was filled out incorrectly or assignment already exist"
+        flash[:danger] = "Could not create. The form was filled out incorrectly or assignment already exist"
         redirect_to assignments_path
       end
     # The assignment was not created
     else 
-      flash[:danger] = "The form was filled out incorrectly or assignment already exist"
+      flash[:danger] = "Could not create. The form was filled out incorrectly or assignment already exist"
       redirect_to assignments_path
     end
   end
@@ -129,6 +129,8 @@ class AssignmentsController < ApplicationController
     end
     
     @courses = @user.courses
+    
+    download( @assignment.submissions)
   end
 
   def edit
@@ -166,7 +168,21 @@ class AssignmentsController < ApplicationController
     redirect_to assignments_path, notice:  "The assignment #{@assignment.name} has been deleted."
   end
 
-    
+
+  def download (submissions)
+    #redirect_to root_path
+    #return 
+    require 'rubygems'
+    require 'zip'
+    zipFile = File.new(Rails.root + 'tmp/submission_downloads', 'w')
+    Zip::File.open(zipFile.path, Zip::File::CREATE) do |zip|
+      submissions.each do |submission|
+        zip.add(submission.name + '_' + Student.find(submission.student_id).last_name, submission.attachment_url);
+      end
+    end
+    send_file Rails.root + 'tmp/submission_downloads'
+  end 
+  
   private
     def assignment_params
       params.require(:assignment).permit(:name, :due_date, :course_num, :attachment)

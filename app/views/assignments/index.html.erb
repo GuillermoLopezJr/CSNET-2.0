@@ -25,7 +25,7 @@
               
                 <p>
                   <%= f.label :course_num %><br>
-                  <%= f.collection_select :course_num, @courses.select(:number).uniq, :number, :number,{ id:"course_num", prompt: "Select a Course Number"}, {class: "form-control", :required => true} %>
+                  <%= f.collection_select :course_num, @courses.select(:number).distinct, :number, :number,{ id:"course_num", prompt: "Select a Course Number"}, {class: "form-control", :required => true} %>
                 </p>
                 
                 <p>

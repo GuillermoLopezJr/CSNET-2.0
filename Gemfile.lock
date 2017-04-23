@@ -299,6 +299,7 @@ DEPENDENCIES
   rails (~> 5.0.1)
   roo (~> 2.7.0)
   rspec-rails
+  rubyzip
   sass-rails (~> 5.0)
   sendgrid-rails
   spreadsheet

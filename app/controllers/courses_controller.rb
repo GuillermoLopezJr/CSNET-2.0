@@ -35,12 +35,12 @@ class CoursesController < ApplicationController
             redirect_to courses_path
           # The course was not created
           else 
-            flash[:danger] = "The Form was filled out incorrectly or course already exist"
+            flash[:danger] = "Could not create course. The Form was filled out incorrectly or course already exist"
             redirect_to courses_path
           end
         # The course was a duplicate (not created)
         else
-          flash[:danger] = "A course with that number already exists for that semester"
+          flash[:danger] = "Could not create course. A course with that number already exists for that semester"
           redirect_to courses_path
         end
     end
