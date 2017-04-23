@@ -130,10 +130,7 @@ class AssignmentsController < ApplicationController
     end
     
     @courses = @user.courses
-    
-    if ( instructor_signed_in? or assistant_signed_in? )
-      download( @assignment.submissions)
-    end
+  
   end
 
   def edit
@@ -171,21 +168,6 @@ class AssignmentsController < ApplicationController
     redirect_to assignments_path, notice:  "The assignment #{@assignment.name} has been deleted."
   end
 
-
-  def download (submissions)
-    #redirect_to root_path
-    #return 
-    require 'rubygems'
-    require 'zip'
-    zipFile = File.new(Rails.root + 'tmp/submission_downloads', 'w')
-    Zip::File.open(zipFile.path, Zip::File::CREATE) do |zip|
-      submissions.each do |submission|
-        zip.add(submission.name + '_' + Student.find(submission.student_id).last_name, submission.attachment_url);
-      end
-    end
-    send_file Rails.root + 'tmp/submission_downloads'
-  end 
-  
   private
     def assignment_params
       params.require(:assignment).permit(:name, :due_date, :course_num, :attachment)
