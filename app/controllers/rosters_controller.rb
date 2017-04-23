@@ -86,7 +86,9 @@ class RostersController < ApplicationController
     end
     
     # Check if that course exists
-    @course = current_instructor.courses.where( number: params[:roster][:course_num], year: params[:roster][:course_year], session: params[:roster][:course_session] ).first#find_by number: (params[:assignment][:course_num].to_i)
+    @courses = current_instructor.courses
+    @course = @courses.find_by( number: params[:roster][:course_num], year: params[:roster][:course_year], session: params[:roster][:course_session] )
+
     if (@course == nil) 
       flash[:danger] = "Could not upload roster because the corresponding course was not found."
       redirect_to students_path
@@ -106,6 +108,6 @@ class RostersController < ApplicationController
   
   private
     def roster_params
-      params.require(:roster).permit(:course_num, :attachment)
+      params.require(:roster).permit(:course_num, :course_year, :course_session, :attachment)
     end
 end

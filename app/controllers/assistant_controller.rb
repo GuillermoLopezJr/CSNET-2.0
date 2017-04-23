@@ -1,5 +1,6 @@
 class AssistantController < ApplicationController
-    
+  
+
   def new
     if not instructor_signed_in?
       redirect_to root_path

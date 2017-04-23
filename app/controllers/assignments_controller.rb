@@ -53,12 +53,12 @@ class AssignmentsController < ApplicationController
       
       # The assignment was not created
       else 
-        flash[:danger] = "The form was filled out incorrectly or assignment already exist"
+        flash[:danger] = "Could not create. The form was filled out incorrectly or assignment already exist"
         redirect_to assignments_path
       end
     # The assignment was not created
     else 
-      flash[:danger] = "The form was filled out incorrectly or assignment already exist"
+      flash[:danger] = "Could not create. The form was filled out incorrectly or assignment already exist"
       redirect_to assignments_path
     end
   end
@@ -130,6 +130,7 @@ class AssignmentsController < ApplicationController
     end
     
     @courses = @user.courses
+  
   end
 
   def edit
@@ -167,7 +168,6 @@ class AssignmentsController < ApplicationController
     redirect_to assignments_path, notice:  "The assignment #{@assignment.name} has been deleted."
   end
 
-    
   private
     def assignment_params
       params.require(:assignment).permit(:name, :due_date, :course_num, :attachment)
