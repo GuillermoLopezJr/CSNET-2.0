@@ -18,14 +18,14 @@
   </p>
   
   
-  
-  <div style="text-align:center;">
+  <div style="text-align: center;">
     <h1>Assignments</h1>
   </div>
+  
   <% if @isInstructor %>
-    <div class="row">
-      <div class="col-md-2 col-xs-offset-3">
-        <%= link_to 'Add an Assignment', assignments_new_path(:course_num => @course.number), :class => "btn btn-primary" %>
+    <div class="row", style="text-align: center;">
+      <div class="container">
+        <%= link_to 'Add an Assignment', assignments_new_path(:course_num => @course.number), :class => "btn btn-primary courseButton" %>
       </div>
     </div>
   <% end %>
@@ -78,14 +78,15 @@
     </table>
   </div>
   
+  
   <% if @isInstructor %>
     <div style="text-align:center;">
       <h1>Students</h1>
     </div>
-    <div class="row">
-      <div class="col-md-2 col-xs-offset-3">
-        <%= link_to 'Add a Student', students_new_path(:course_num => @course.number), :class => "btn btn-primary" %>
-        <%= link_to 'Import a Roster', rosters_new_path(:course_num => @course.number), :class => "btn btn-primary" %>
+    <div class="row", style="text-align: center;">
+      <div class="container">
+        <%= link_to 'Add a Student', students_new_path(:course_num => @course.number), :class => "btn btn-primary", :style =>"width:25%"  %>
+        <%= link_to 'Import a Roster', rosters_new_path(:course_num => @course.number), :class => "btn btn-primary", :style =>"width:25%" %>
       </div>
     </div>
     
