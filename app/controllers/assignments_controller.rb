@@ -131,7 +131,9 @@ class AssignmentsController < ApplicationController
     
     @courses = @user.courses
     
-    download( @assignment.submissions)
+    if ( instructor_signed_in? or assistant_signed_in? )
+      download( @assignment.submissions)
+    end
   end
 
   def edit

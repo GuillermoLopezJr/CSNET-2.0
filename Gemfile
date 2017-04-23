@@ -13,7 +13,6 @@ gem 'bootstrap-sass' , '3.3.6'
 gem 'devise-bootstrap-views'
 gem 'devise-i18n'
 
-gem 'rubyzip'
 # Use sqlite3 as the database for Active Record
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
