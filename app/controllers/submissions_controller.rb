@@ -197,7 +197,7 @@ class SubmissionsController < ApplicationController
 
     # configure aws
     Aws.config.update({
-      region: 'us-east-1',
+      region: 'us-west-2',
       access_key_id: ENV['ACCESS_KEY_ID'],
       secret_access_key: ENV['SECRET_ACCESS_KEY']
     })
@@ -215,7 +215,7 @@ class SubmissionsController < ApplicationController
     # files downloaded first to local folder in temp dir
     # it will get deleted when this function ends
     #local_folder = "tmp/submissions"
-    local_folder = Rails.root.join('temp')
+    local_folder = Rails.root.join("temp/submission-#{rand(100000)}")
 
     # first check if folder exists. if not make it.
     Dir.mkdir(local_folder) unless File.exists?(local_folder)
@@ -248,7 +248,6 @@ class SubmissionsController < ApplicationController
 
     #download
     send_file "#{local_folder}/#{zipfile_name}"
-
 
     # success
   end
