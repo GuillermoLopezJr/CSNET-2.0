@@ -215,7 +215,8 @@ class SubmissionsController < ApplicationController
     # files downloaded first to local folder in temp dir
     # it will get deleted when this function ends
     #local_folder = "tmp/submissions"
-    local_folder = Rails.root.join("temp/submission-#{rand(100000)}")
+    #local_folder = Rails.root.join("temp/submission-#{rand(100000)}")
+    local_folder = Rails.root.join("temp/submission")
 
     # first check if folder exists. if not make it.
     Dir.mkdir(local_folder) unless File.exists?(local_folder)
