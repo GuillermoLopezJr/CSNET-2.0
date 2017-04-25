@@ -46,6 +46,24 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.page-banner {
+  font-family: verdana;
+  font-size: 400%;
+  padding: 10px;
+  background: maroon;
+  margin-top: -20px;
+}
+        
+#banner_style{
+  color:white;
+  text-decoration:none;
+}
+        
+#banner_style:hover{
+  color:#C9C6C6;
+  text-decoration:none;
+}
+
 .hamburger {
   background: none;
   position:absolute;
