@@ -15,7 +15,7 @@
           :provider               => 'AWS',                        # change var's name
           :aws_access_key_id      => ENV['AWS_ACCESS_KEY_ID'],         # change var's name
           :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY'],
-          :region                 => ENV['AWS_DEFAULT_REGION'],
+          :region                 => 'us-west-2',
         }
          config.fog_directory  = '431storage'
       end

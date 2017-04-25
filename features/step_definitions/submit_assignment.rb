@@ -1,4 +1,4 @@
-require 'aws-sdk' # not 'aws-sdk'
+require 'aws-sdk'
 
 Given(/^I am a student logged in as "(.*?)" with password "(.*?)"$/) do |email, pass|
   visit new_student_registration_path
@@ -28,13 +28,6 @@ end
 
 
 When(/^I select "(.*?)" and course (\d+) and select the filepath for my submission and submit$/) do |assignment, course_num|
-     # configure aws
-    Aws.config.update({
-      region: 'us-west-2',
-      access_key_id: ENV['ACCESS_KEY_ID'],
-      secret_access_key: ENV['SECRET_ACCESS_KEY']
-    })
-    
  visit submissions_new_path
  fill_in "name", :with => "submission1"
  select assignment, from: "assignment_name"
