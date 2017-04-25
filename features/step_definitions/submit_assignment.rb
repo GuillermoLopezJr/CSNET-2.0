@@ -37,8 +37,12 @@ When(/^I select "(.*?)" and course (\d+) and select the filepath for my submissi
 end
 
 
-Then(/^That document should be saved as a submission for student "(.*?)"$/) do |student|
-    @student = Student.find_by(email: student)
-    @submission = @student.submissions.first
-    expect( @submission ).to be_truthy
+Then(/^That document should be saved as a submission for student "(.*?)" for "(.*?)"$/) do |student, assignment|
+ @student = Student.find_by(email: student)
+ @assignment = Assignment.find_by(name: assignment)
+ expect( @assignment ).to be_truthy  
+ expect( @student ).to be_truthy
+
+ @submission = @student.submissions.find_by(assignment: @assignment)
+ expect( @submission ).to be_truthy
 end
