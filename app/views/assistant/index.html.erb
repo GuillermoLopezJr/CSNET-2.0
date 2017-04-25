@@ -45,7 +45,7 @@
           <th>Assistant Email</th>
         </tr>
       </thead>
-          <tr>
+          <tr style="background:#DCDCDC;">
              <% @courses.each do |course| %>
                  <td id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
                  <td id="remove_border_line"></td>
@@ -53,7 +53,7 @@
           </tr>
               <% course.assistants.each do |c| %>
               <tr>
-                 <td id="remove_border_line"></td>
+                 <td></td>
                  <td style = "text-align:center"><%= c.first_name %> <%= c.last_name %></td>
                  <td style = "text-align:center"><%= c.email %></td>
               </tr>
