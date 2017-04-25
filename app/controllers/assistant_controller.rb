@@ -58,15 +58,15 @@ class AssistantController < ApplicationController
   end
   
   def index
-    if assistant_signed_in?
+    if instructor_signed_in?
       @submissions = Submission.all
-      @assistant = current_assistant
-      @courses = @assistant.courses
+      @instructor = current_instructor
+      @courses = @instructor.courses
       @courses.each do |course|
-        if (@assignments == nil)
-          @assignments = course.assignments.all
+        if (@assistants == nil)
+          @assistants = course.assistants.all
         else
-          @assignments = @assignments + course.assignments.all
+          @assistants = @assistants + course.assistants.all
         end
       end
     else

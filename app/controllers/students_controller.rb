@@ -85,7 +85,6 @@ class StudentsController < ApplicationController
     @students = Student.all
     @instructor = current_instructor
 
-
     @isStudent = true
     @isInstructor = true
     @isAssistant = true
