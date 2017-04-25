@@ -95,7 +95,7 @@
        
            <% @courses.each do |course| %>
               <tr id = "row_color">
-               <td class = "row_border"><%= course.name + (" ") + course.number.to_s %></td>
+               <td class = "row_border" id="course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
                <td class = "row_border"></td>
                <td class = "row_border"></td>
         </tr>
