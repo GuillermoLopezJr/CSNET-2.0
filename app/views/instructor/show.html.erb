@@ -4,29 +4,29 @@
 
 <div id="instructor-content" >
     <!--, path-->
-  <div id="grid">
-    <div class="grid-element"><%=link_to courses_path do %>
+  <div class="group">
+    <div class="group-element"><%=link_to courses_path do %>
       <%= image_tag("Courses.png", class: "png", size: "314x172") %>
     <% end %>
     </div>
-    <div class="grid-element"><%=link_to assignments_path do %>
+    <div class="group-element"><%=link_to assignments_path do %>
       <%= image_tag("Assignments.png", class: "png", size: "314x172") %>
     <% end %>
     </div>
-    <div class="grid-element"><%=link_to students_path do %>
+    <div class="group-element"><%=link_to students_path do %>
       <%= image_tag("Students.png", class: "png", size: "314x172") %>
     <% end %>
     </div>
   
-    <div class="grid-element"><%=link_to "#" do %>
-      <%= image_tag("QuickLinks.png", class: "png", size: "314x172") %>
-    <% end %>
-    </div>
-    <div class="grid-element"><%=link_to submissions_path, data: {turbolinks: 'false'} do %>
+    <!--<div class="grid-element"><%=link_to "#" do %>-->
+    <!--  <%= image_tag("QuickLinks.png", class: "png", size: "314x172") %>-->
+    <!--<% end %>-->
+    <!--</div>-->
+    <div class="group-element"><%=link_to submissions_path, data: {turbolinks: 'false'} do %>
       <%= image_tag("Submissions.png", class: "png", size: "314x172") %>
     <% end %>
     </div>
-    <div class="grid-element"><%=link_to assistant_new_path do %>
+    <div class="group-element"><%=link_to assistant_new_path do %>
       <%= image_tag("TA.png", class: "png", size: "314x172") %>
     <% end %>
     </div>
