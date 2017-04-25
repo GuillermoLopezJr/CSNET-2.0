@@ -1,6 +1,6 @@
 <div class="course-list-content">
   <div style="text-align:center;">
-    <h1>Courses</h1>
+    <h1><b>Courses</b></h1>
   </div>
   
   <% if instructor_signed_in? %>
@@ -42,6 +42,7 @@
         </div>
       </div>
     </div>
+    <br>
   <% end %>
   
   
@@ -49,7 +50,7 @@
     <thead>
       <tr>
         <th>Course Name</th>
-        <th>Course Number</th>
+        <th><%= sortable "number", "Course" %> </th>
         <th>Semester</th>
         <th>Year</th>
         <% if @isInstructor %>
