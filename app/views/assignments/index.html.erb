@@ -1,6 +1,6 @@
 <div id="assign-list-content">
   <div style="text-align:center;">
-    <h1>Listing Assignments</h1>
+    <h1> <b> Assignments </b> </h1> <br>
   </div>
   
   <% if @isInstructor %>
@@ -32,17 +32,6 @@
                   <%= f.label :due_date %><br>
                   <%= datetime_local_field(:assignment, :due_date, id:"due_date", class: 'form-control', :required => true) %>
                 </p>
-                
-              
-              <% if false %>
-                we can add a description that the 
-                professor wants to specify late.
-              
-                <p>
-                  <%= f.label :text %><br>
-                  <%= f.text_area :text %>
-                </p>
-              <% end %> 
               
                 <p>
                   <%= f.submit 'submit', id:"submit",class: "btn btn-primary" %>
@@ -53,58 +42,84 @@
         </div>
       </div>
     </div>
+    <br>
   <% end %>
+  
+  
+
+   
+   
    
   <table class = "sortable">
     <thead >
       <tr>
+         <th>Course</th>
         <th>Assignment</th>
-        <th>Course</th>
         <th>Due Date</th>
         <th>Time Left</th>
         
-        <th>Download Assignment</th>
+        <th>Download Instructions</th>
         
         <% if @isInstructor %>
           <th></th>
+          <th style="text-align:left"> Action</th>
         <% end %>
-        <% if @isInstructor %>
-          <th></th>
-        <% end %>
-        
-        <!--<% if @isInstructor %>-->
-        <!--  <th>Actions</th>-->
-        <!--<% end %>-->
-        
-        
-        
+      
       </tr>
     </thead>
-  
-    <% if (@assignments != nil) %>
-      <% @assignments.each do |assignment| %>
-        <tr onclick="location.href='<%= assignment_path(assignment) %>'">
-          <td><%= assignment.name %></td>
-          <td><%= assignment.course.number %></td>
-          <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
-          <!-- Checks if the time left hasn't passed yet -->
-          <% if  (DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60 + 5*3600 > 0  %>
-            <td style="color: green"><%= humanize ((DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60) + 5*3600 %></td>
-          <% else %>
-            <td style="color: red">Submission date passed</td>
-          <% end %>
-          <td style="text-align:center"><%= link_to "Download", assignment.attachment_url %></td>
-          
-          
-          <% if @isInstructor %>
-          <td><%= button_to "Edit", edit_assignment_path(assignment), method: :get, class: "btn btn-info", data: {confirm: "Are you sure that you wish to edit #{assignment.name}?"} %></td>
-          <td><%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure that you wish to delete #{assignment.name}?"} %></td> 
-          <% end %>
+    
+    <% @courses.each do |course| %>
+        <tr style="background:#DCDCDC;" >
+               <td style="border-color:#000000 #000000; border-width: 1px" id="course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
+               <td style="border-color:#000000 #000000; border-width: 1px"></td>
+               <td style="border-color:#000000 #000000; border-width: 1px"></td>
+                <td style="border-color:#000000 #000000; border-width: 1px"></td>
+               <td style="border-color:#000000 #000000; border-width: 1px"></td>
+               
+                <% if @isInstructor %>
+                  <td style="border-color:#000000 #000000; border-width: 1px"></td>
+                 <td style="border-color:#000000 #000000; border-width: 1px"></td>
+                <% end %>
+   
+            
         </tr>
-      <% end %>
-    <% else %>
-     <% puts 'no assignments' %>
-    <% end %>
+     
+            <% if (@assignments != nil) %>
+            
+              <% course.assignments.each do |assignment| %>
+                  <tr onclick="location.href='<%= assignment_path(assignment) %>'">
+                      <td style="border-color:#000000 #000000; border-width: 1px"></td>
+                      <td style="border-color:#000000 #000000; border-width: 1px"><%= assignment.name %></td>
+                      
+                      <td style="border-color:#000000 #000000; border-width: 1px"><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
+                      <!-- Checks if the time left hasn't passed yet -->
+                      <% if  (DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60 + 5*3600 > 0  %>
+                        <td style="color: green; border-color:#000000 #000000; border-width: 1px"><%= humanize ((DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60) + 5*3600 %></td>
+                      <% else %>
+                        <td style="color: red; border-color:#000000 #000000; border-width: 1px">Submission date passed</td>
+                      <% end %>
+                      
+                      <% if assignment.attachment_url == nil %>
+                        <td style="text-align:center; border-color:#000000 #000000; border-width: 1px"> <b>N/A</b> </td>
+                      <% else %>
+                      
+                        <td style="text-align:center; border-color:#000000 #000000; border-width: 1px"><%= link_to "Download", assignment.attachment_url %></td>
+                      <% end %>
+          
+                      <% if @isInstructor %>
+                          <td style="border-color:#000000 #000000; border-width: 1px"><%= button_to "Edit", edit_assignment_path(assignment), method: :get, class: "btn btn-info", data: {confirm: "Are you sure that you wish to edit #{assignment.name}?"} %></td>
+                          
+                          <td style="border-color:#000000 #000000; border-width: 1px; padding-left:10px" ><%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure that you wish to delete #{assignment.name}?"} %></td> 
+                      <% end %>
+                </tr>
+              <% end %>
+            <% else %>
+               <% puts 'no assignments' %>
+          <% end %>
+        <% end %>
+ 
+    
+    
   </table>
   
   <div style="text-align:center">
@@ -113,4 +128,4 @@
   </p>
   </div>
 
-</div>
+
