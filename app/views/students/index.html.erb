@@ -1,5 +1,5 @@
 <div style="text-align:center;">
-    <h1>All Students</h1>
+    <h1> <b>Students </b></h1>
 </div>
 
 <div class="container">
@@ -51,7 +51,7 @@
     </div>
   </div>
 </div>
-<p></p>
+<br>
 
 <div class="container">
   <div class="row", style="text-align: center">
@@ -81,6 +81,7 @@
     </div>
   </div>
 </div>
+<br>
 
 <div id="subm-show-content">
   <table style = "width: 80%">
@@ -91,18 +92,18 @@
         <th>Student Email</th>
       </tr>
     </thead>
-        <tr>
+        <tr style="background:#DCDCDC;">
            <% @courses.each do |course| %>
-               <td id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
-               <td id="remove_border_line"></td>
-               <td id="remove_border_line"></td>
+               <td style="background:#DCDCDC; border-color:#000000 #000000; border-width: 1px"><%= course.name + (" ") + course.number.to_s %></td>
+               <td style="background:#DCDCDC; border-color:#000000 #000000; border-width: 1px"></td>
+               <td style="background:#DCDCDC; border-color:#000000 #000000; border-width: 1px"></td>
         </tr>
             <% course.students.each do |c| %>
-            <tr>
-               <td id="remove_border_line"></td>
-               <td style = "text-align:center"><%= c.first_name %> <%= c.last_name %></td>
-               <td style = "text-align:center"><%= c.email %></td>
-            </tr>
+              <tr>
+                 <td style="border-color:#000000 #000000; border-width: 1px"></td>
+                 <td style = "text-align:center; border-color:#000000 #000000; border-width: 1px" ><%= c.first_name %> <%= c.last_name %></td>
+                 <td style = "text-align:center;border-color:#000000 #000000; border-width: 1px"><%= c.email %></td>
+              </tr>
             <% end %>
          <% end %>
   </table>

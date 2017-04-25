@@ -214,15 +214,13 @@ class SubmissionsController < ApplicationController
     
     # files downloaded first to local folder in temp dir
     # it will get deleted when this function ends
-    #local_folder = "tmp/submissions"
-    local_folder = Rails.root.join('temp')
+    local_folder = Rails.root.join("temp")
 
     # first check if folder exists. if not make it.
     Dir.mkdir(local_folder) unless File.exists?(local_folder)
 
     # the files to download 
     files = @desired_attachment_names
-
 
     # Download the files from S3 to a local folder
     files.each do |file_name|
@@ -233,7 +231,8 @@ class SubmissionsController < ApplicationController
     end
 
     # after files have been downloaded zip them all
-    zipfile_name = "submissions.zip"
+    randomHash = rand(36**8).to_s(20)
+    zipfile_name = "submissions-#{randomHash}.zip"
 
     # Open a zip file
     Zip::File.open("#{local_folder}/#{zipfile_name}", Zip::File::CREATE) do |zipfile|
@@ -248,7 +247,6 @@ class SubmissionsController < ApplicationController
 
     #download
     send_file "#{local_folder}/#{zipfile_name}"
-
 
     # success
   end
