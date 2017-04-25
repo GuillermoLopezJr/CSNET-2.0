@@ -28,3 +28,30 @@
 .assignButton {
     width: 50%;
 }
+
+.row_border{
+    border-color:#000000 #000000;
+    border-width: 1px;
+}
+
+#ontime{
+  color: green;
+}
+
+
+#late{
+   color: red; 
+}
+
+#assignment{
+    text-align:center;
+}
+
+#course_row_color{
+    background:#DCDCDC;
+}
+
+#delete_button{
+   padding-left:10px;
+}
+

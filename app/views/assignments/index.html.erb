@@ -45,81 +45,66 @@
     <br>
   <% end %>
   
-  
-
-   
-   
-   
   <table class = "sortable">
     <thead >
       <tr>
-         <th>Course</th>
+        <th>Course</th>
         <th>Assignment</th>
         <th>Due Date</th>
         <th>Time Left</th>
-        
         <th>Download Instructions</th>
-        
         <% if @isInstructor %>
           <th></th>
           <th style="text-align:left"> Action</th>
         <% end %>
-      
       </tr>
     </thead>
     
     <% @courses.each do |course| %>
-        <tr style="background:#DCDCDC;" >
-               <td style="border-color:#000000 #000000; border-width: 1px" id="course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
-               <td style="border-color:#000000 #000000; border-width: 1px"></td>
-               <td style="border-color:#000000 #000000; border-width: 1px"></td>
-                <td style="border-color:#000000 #000000; border-width: 1px"></td>
-               <td style="border-color:#000000 #000000; border-width: 1px"></td>
+        <tr id = "course_row_color" >
+            <td class = "row_border" id="course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
+            <td class = "row_border"></td>
+            <td class = "row_border"></td>
+            <td class = "row_border"></td>
+            <td class = "row_border"></td>
                
-                <% if @isInstructor %>
-                  <td style="border-color:#000000 #000000; border-width: 1px"></td>
-                 <td style="border-color:#000000 #000000; border-width: 1px"></td>
-                <% end %>
-   
-            
+            <% if @isInstructor %>
+               <td class = "row_border"></td>
+               <td class = "row_border"></td>
+            <% end %>
         </tr>
      
             <% if (@assignments != nil) %>
-            
               <% course.assignments.each do |assignment| %>
-                  <tr onclick="location.href='<%= assignment_path(assignment) %>'">
-                      <td style="border-color:#000000 #000000; border-width: 1px"></td>
-                      <td style="border-color:#000000 #000000; border-width: 1px"><%= assignment.name %></td>
+                   <tr onclick="location.href='<%= assignment_path(assignment) %>'">
+                      <td class = "row_border"></td>
+                      <td class = "row_border"><%= assignment.name %></td>
+                      <td class = "row_border"><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
                       
-                      <td style="border-color:#000000 #000000; border-width: 1px"><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
                       <!-- Checks if the time left hasn't passed yet -->
                       <% if  (DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60 + 5*3600 > 0  %>
-                        <td style="color: green; border-color:#000000 #000000; border-width: 1px"><%= humanize ((DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60) + 5*3600 %></td>
+                        <td class = "row_border", id = "ontime"><%= humanize ((DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60) + 5*3600 %></td>
                       <% else %>
-                        <td style="color: red; border-color:#000000 #000000; border-width: 1px">Submission date passed</td>
+                        <td class = "row_border", id = "late">Submission date passed</td>
                       <% end %>
                       
                       <% if assignment.attachment_url == nil %>
-                        <td style="text-align:center; border-color:#000000 #000000; border-width: 1px"> <b>N/A</b> </td>
+                        <td class = "row_border", id = "assignment"> <b>N/A</b> </td>
                       <% else %>
                       
-                        <td style="text-align:center; border-color:#000000 #000000; border-width: 1px"><%= link_to "Download", assignment.attachment_url %></td>
+                        <td class = "row_border", id = "assignment"><%= link_to "Download", assignment.attachment_url %></td>
                       <% end %>
           
                       <% if @isInstructor %>
-                          <td style="border-color:#000000 #000000; border-width: 1px"><%= button_to "Edit", edit_assignment_path(assignment), method: :get, class: "btn btn-info", data: {confirm: "Are you sure that you wish to edit #{assignment.name}?"} %></td>
-                          
-                          <td style="border-color:#000000 #000000; border-width: 1px; padding-left:10px" ><%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure that you wish to delete #{assignment.name}?"} %></td> 
+                          <td class = "row_border"><%= button_to "Edit", edit_assignment_path(assignment), method: :get, class: "btn btn-info", data: {confirm: "Are you sure that you wish to edit #{assignment.name}?"} %></td>
+                          <td class = "row_border", id = "delete_button"><%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure that you wish to delete #{assignment.name}?"} %></td> 
                       <% end %>
-                </tr>
-              <% end %>
+                  </tr>
+               <% end %>
             <% else %>
                <% puts 'no assignments' %>
-          <% end %>
+           <% end %>
         <% end %>
- 
-    
-    
   </table>
   
   <div style="text-align:center">
