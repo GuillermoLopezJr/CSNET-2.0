@@ -1,3 +1,5 @@
+require 'aws-sdk' # not 'aws-sdk'
+
 Given(/^I am a student logged in as "(.*?)" with password "(.*?)"$/) do |email, pass|
   visit new_student_registration_path
   fill_in "email", :with => email
@@ -14,8 +16,8 @@ Given(/^Course (\d+) has an assignmnet "(.*?)"$/) do |course_number, assignment|
 end
 
 
-Given(/^Student "(.*?)" is registered for course (\d+)$/) do |email, course| 
- @course = Course.find_by(number: course)
+Given(/^Student "(.*?)" is registered for course (\d+) in "(.*?)" (\d+)$/) do |email, course, semester, year| 
+ @course = Course.find_by(number: course, session: semester, year: year)
  expect( @course ).to be_truthy
  
  @student = Student.find_by(email: email)
@@ -25,10 +27,18 @@ Given(/^Student "(.*?)" is registered for course (\d+)$/) do |email, course|
 end 
 
 
-When(/^I select "(.*?)" and enter select the filepath for my submission and submit$/) do |assignment|
+When(/^I select "(.*?)" and course (\d+) and select the filepath for my submission and submit$/) do |assignment, course_num|
+     # configure aws
+    Aws.config.update({
+      region: 'us-west-2',
+      access_key_id: ENV['ACCESS_KEY_ID'],
+      secret_access_key: ENV['SECRET_ACCESS_KEY']
+    })
+    
  visit submissions_new_path
  fill_in "name", :with => "submission1"
- select assignment, from: @assignments
+ select assignment, from: "assignment_name"
+ select course_num, from: "course_num"
  page.attach_file("submission", Rails.root + 'features/test_assets/test_pdf.pdf')
  click_button "submit"
 end

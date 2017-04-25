@@ -13,16 +13,16 @@
             <%= f.label :assignment %><br>
             <% if @assignments != nil %>
 
-            <%= f.collection_select :assignment, @assignments, :name, :name,{ id:"assignment_name", prompt: true}, {class: 'form-control', :required => true} %>
+            <%= f.collection_select :assignment, @assignments, :name, :name,{  prompt: true}, {id:"assignment_name", class: 'form-control', :required => true} %>
             <% else %>
               <p> Assignment not available for submission, check with your instructor.  </p>
             <% end %>
           
             <%= f.label :course_num %><br>
-            <%= f.collection_select :course_num, @courses.select(:number).uniq, :number, :number,{ id:"course_num", prompt: "Select a Course Number"}, {class: "form-control", :required => true} %>
+            <%= f.collection_select :course_num, @courses.select(:number).distinct, :number, :number,{  prompt: "Select a Course Number"}, {id:"course_num", class: "form-control", :required => true} %>
           
             <!--<%= f.label :course_year %><br>-->
-            <!--<%= f.collection_select :course_year, @courses.select(:year).uniq, :year, :year,{ id:"course_year", prompt: "Select the year of the course"}, {class: "form-control", :required => true} %>-->
+            <!--<%= f.collection_select :course_year, @courses.select(:year).distinct, :year, :year,{ id:"course_year", prompt: "Select the year of the course"}, {class: "form-control", :required => true} %>-->
            
             <!--<%= f.label :course_session %><br>-->
             <!--<%= f.collection_select :course_session, Course.getSessions, :strip, :strip,{ id:"course_session", name:"course_session", prompt: "Select a semester"}, {class: "form-control", :required => true} %>-->
