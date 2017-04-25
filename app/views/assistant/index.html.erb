@@ -35,6 +35,8 @@
       </div>
     </div>
   </div>
+  
+  <br>
     
   <div id="subm-show-content">
     <table style = "width: 80%">
@@ -45,22 +47,24 @@
           <th>Assistant Email</th>
         </tr>
       </thead>
-          <tr style="background:#DCDCDC;">
+      <tbody>
              <% @courses.each do |course| %>
-                 <td id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
-                 <td id="remove_border_line"></td>
-                 <td id="remove_border_line"></td>
-          </tr>
+             <tr class="row_color">
+                 <td class="row_border" id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
+                 <td class="row_border" ></td>
+                 <td class="row_border" ></td>
+             </tr>
               <% course.assistants.each do |c| %>
               <tr>
-                 <td></td>
-                 <td style = "text-align:center"><%= c.first_name %> <%= c.last_name %></td>
-                 <td style = "text-align:center"><%= c.email %></td>
+                 <td class="row_border"></td>
+                 <td id ="center_name" class="row_border" ><%= c.first_name %> <%= c.last_name %></td>
+                 <td id ="center_email" class="row_border" ><%= c.email %></td>
               </tr>
               <% end %>
            <% end %>
+      </tbody>
     </table>
-  <div style="text-align:center">
+  <div id = "bottom_menu">
     <p>  
       <%= link_to 'Home', root_path %>
     </p>
