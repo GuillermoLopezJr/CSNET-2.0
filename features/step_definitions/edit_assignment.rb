@@ -1,25 +1,34 @@
 
-Given(/^An assignment with course (\d+) exists$/) do |number|
-  visit assignments_new_path
-  fill_in "name", :with => "Reading 1"
-  select number, from: @courses
-  fill_in "due_date", with: "2017/01/01"
-  click_button "submit" 
-  expect( Assignment.find_by( course_num: number)).to be_truthy
+Given(/^An assignment "(.*?)" exists for course (\d+) "(.*?)" (\d+) which is due "(.*?)"$/) do |name, course_num, semester, year, due_date|
+  @c1 = Course.find_by( number: course_num, session: semester, year: year)
+  expect( @c1 ).to be_truthy
+  
+  @a1 = @c1.assignments.create(name: name, course_num: course_num, due_date: due_date)
+  expect( @a1 ).to be_truthy
 end
 
-When(/^I submit an edit assignment form on the assignment from (\d+), changing it to course (\d+)$/) do |oldNum, newNum|
-  @assignment = Assignment.find_by( course_num: oldNum)
+
+When(/^I submit an edit assignment form to change the due date for "(.*?)" in (\d+) "(.*?)" (\d+) to "(.*?)"$/) do |name, course_num, semester, year, new_due_date|
+  
+  @course = Course.find_by( number: course_num, session: semester, year: year)
+  expect( @course ).to be_truthy
+  
+  @assignment = @course.assignments.find_by(name: name)
+  expect( @assignment ).to be_truthy
+  
   visit "/assignments/#{@assignment.id}/edit"
-  fill_in "name", :with => "Reading 2"
-  select newNum, from: @courses
-  fill_in "due_date", with: "2017/02/02"
+  fill_in "name", :with => name
+  fill_in "due_date", with: new_due_date
   click_button "submit" 
 end
 
-Then(/^I should change an assignment from course (\d+) to course (\d+) in the database$/)  do |oldNum, newNum|
-    @aOld = Assignment.find_by( course_num: oldNum )
-    @aNew = Assignment.find_by( name: 'Reading 2', course_num: newNum, due_date: "2017/02/02")
-    expect( @aNew ).to be_truthy
-    expect( @aOld ).to be_nil
+
+Then(/^The due date saved in the database for "(.*?)" in (\d+) "(.*?)" (\d+) should be "(.*?)"$/)  do |name, course_num, semester, year, new_due_date|
+  @course = Course.find_by( number: course_num, session: semester, year: year)
+  expect( @course ).to be_truthy
+  
+  @assignment = @course.assignments.find_by(name: name)
+  expect( @assignment ).to be_truthy
+  
+  expect( @assignment.due_date ).to eq(new_due_date)
 end
