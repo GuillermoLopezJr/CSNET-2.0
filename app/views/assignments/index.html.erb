@@ -83,21 +83,21 @@
                       
                       <!-- Checks if the time left hasn't passed yet -->
                       <% if  (DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60 + 5*3600 > 0  %>
-                        <td class = "row_border", id = "ontime"><%= humanize ((DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60) + 5*3600 %></td>
+                        <td class = "row_border" id = "ontime"><%= humanize ((DateTime.parse(assignment.due_date) - DateTime.current) * 24 * 60 * 60) + 5*3600 %></td>
                       <% else %>
-                        <td class = "row_border", id = "late">Submission date passed</td>
+                        <td class = "row_border" id = "late">Submission date passed</td>
                       <% end %>
                       
                       <% if assignment.attachment_url == nil %>
-                        <td class = "row_border", id = "assignment"> <b>N/A</b> </td>
+                        <td class = "row_border" id = "assignment"> <b>N/A</b> </td>
                       <% else %>
                       
-                        <td class = "row_border", id = "assignment"><%= link_to "Download", assignment.attachment_url %></td>
+                        <td class = "row_border" id = "assignment"><%= link_to "Download", assignment.attachment_url %></td>
                       <% end %>
           
                       <% if @isInstructor %>
                           <td class = "row_border"><%= button_to "Edit", edit_assignment_path(assignment), method: :get, class: "btn btn-info", data: {confirm: "Are you sure that you wish to edit #{assignment.name}?"} %></td>
-                          <td class = "row_border", id = "delete_button"><%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure that you wish to delete #{assignment.name}?"} %></td> 
+                          <td class = "row_border" id = "delete_button"><%= button_to "Delete",  assignment, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure that you wish to delete #{assignment.name}?"} %></td> 
                       <% end %>
                   </tr>
                <% end %>

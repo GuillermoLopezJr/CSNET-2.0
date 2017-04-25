@@ -1,142 +1,136 @@
 <% if student_signed_in?%>
-  <h1 style="text-align:center">View My Submissions</h1>
+  <h1 id = "title_style">View My Submissions</h1>
   <div id="subm-show-content">
-  <table style = "width: 80%">
-      <thead>
-        <tr>
-          <th>Course</th>
-          <th>Assignment</th>
-          <th>Due Date</th>
-          <th>Submitted Date</th>
-          <th>Status</th>
-          <th>Submission</th>
-        </tr>
-      </thead>
-    
-      <% if (@submissions != nil) %>
-          <tr style="background:#DCDCDC;" >
-             <% @courses.each do |course| %>
-             <td id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-          </tr>
-              <% course.assignments.each do |assignment| %>
-               <% assignment.submissions.each do |submission| %>
-                 <% if (submission.student.email == current_student.email  )%>
-                  <tr>
-                    <td></td>
-                    <td><%= assignment.name %></td>
-                    <td><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
-                    <td><%= (submission.created_at).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
-
-                  <div id="hidden">
-                    <%= zoned_time = submission.created_at %>
-                    <%= unzoned_time = Time.new(zoned_time.strftime("%Y").to_i,zoned_time.strftime("%m").to_i,zoned_time.strftime("%d").to_i,zoned_time.strftime("%H").to_i,zoned_time.strftime("%M").to_i,zoned_time.strftime("%S").to_i,"+00:00") %>
-                  </div>
-                    
-                    
-                     <% if ( unzoned_time > DateTime.parse(assignment.due_date).in_time_zone("Central Time (US & Canada)") ) %>
-                        <td id="not_on_time">Late</td>
-                     <% else %>
-                        <td id="on_time">On time</td>
-                    <% end %>
-                  <td style="text-align:center"><%= link_to truncate(submission.name, :length => 20, :ommission => true), submission.attachment_url -%></td>
-                  </tr>
-                  <% end %>
-                <% end %>
-                
-                
+      <table style = "width: 80%">
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Assignment</th>
+              <th>Due Date</th>
+              <th>Submitted Date</th>
+              <th>Status</th>
+              <th>Submission</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+              <% if (@submissions != nil) %>
+                 <% @courses.each do |course| %>
+                 <tr class="row_color" >
+                    <td class="row_border" id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
+                    <td class="row_border"></td>
+                    <td class="row_border"></td>
+                    <td class="row_border"></td>
+                    <td class="row_border"></td>
+                    <td class="row_border"></td>
+                    </tr>
+                    <% course.assignments.each do |assignment| %>
+                        <% assignment.submissions.each do |submission| %>
+                           <% if (submission.student.email == current_student.email  )%>
+                        <tr>
+                            <td class="row_border"></td>
+                            <td class="row_border"><%= assignment.name %></td>
+                            <td class="row_border"><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
+                            <td class="row_border"><%= (submission.created_at).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
+        
+                            <div id="hidden">
+                            <%= zoned_time = submission.created_at %>
+                            <%= unzoned_time = Time.new(zoned_time.strftime("%Y").to_i,zoned_time.strftime("%m").to_i,zoned_time.strftime("%d").to_i,zoned_time.strftime("%H").to_i,zoned_time.strftime("%M").to_i,zoned_time.strftime("%S").to_i,"+00:00") %>
+                            </div>
+                            
+                             <% if ( unzoned_time > DateTime.parse(assignment.due_date).in_time_zone("Central Time (US & Canada)") ) %>
+                                <td class="row_border" id="not_on_time">Late</td>
+                             <% else %>
+                                <td class="row_border" id="on_time">On time</td>
+                             <% end %>
+                            <td class="row_border" id = "submission_attachment"><%= link_to truncate(submission.name, :length => 20, :ommission => true), submission.attachment_url -%></td>
+                         </tr>
+                         <% end %>
+                       <% end %>
+                   <% end %>
               <% end %>
-          <% end %>
-      <% end %>
-    </table>
-  
-    <div style="text-align:center;">  
+           <% end %>
+          </tbody>
+     </table>
+    <div id = "bottom_menu">  
       <%= link_to 'Back', :back %> &emsp;
       <%= link_to 'Home', root_path %> 
     </div>
-  
   </div>
 <% end %>
 
 
-
-
 <% if instructor_signed_in? or assistant_signed_in? %>
-  <h1 style="text-align:center">View Student Submissions</h1>
+    <h1 id = "title_style">View Student Submissions</h1>
 
-<div id="subm-show-content">
-  <table style = "width: 80%">
-    <thead >
-      <tr>
-        <th>Course</th>
-        <th>Student Name</th>
-        <th>Student Email</th>
-        <th>Assignment</th>
-        <th>Due Date</th>
-        <th>Submitted Date</th>
-        <th>Status</th>
-        <th>Submission</th>
-      </tr>
-    </thead>
-  
-    <% if (@submissions != nil) %>
-       
-       <!-- First row for each course which has a Download button -->
+    <div id="subm-show-content">
+        <table style = "width: 80%">
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Student Name</th>
+                <th>Student Email</th>
+                <th>Assignment</th>
+                <th>Due Date</th>
+                <th>Submitted Date</th>
+                <th>Status</th>
+                <th>Submission</th>
+              </tr>
+            </thead>
         
-    <% @courses.each do |course| %>
-
-        <tr style="background:#DCDCDC;" >
-               <td style="border-color:#000000 #000000; border-width: 1px" id="course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
-               <td style="border-color:#000000 #000000; border-width: 1px"></td>
-               <td style="border-color:#000000 #000000; border-width: 1px"></td>
-               <td style="border-color:#000000 #000000; border-width: 1px"></td>
-               <td style="border-color:#000000 #000000; border-width: 1px"></td>
-               <td style="border-color:#000000 #000000; border-width: 1px"></td>
-               <td style="border-color:#000000 #000000; border-width: 1px">
-               <%= form_for :submission, :url => url_for(:controller => 'submissions', :action => 'download' ), :method => :get  do |f| %>
-
-                      <div class="col-xs-12">
-                          <%= f.collection_select :assignment, course.assignments.all.map{ |assign| assign.name }, :strip, :strip,{ id:"session", name:"session", prompt: "Select an assignment"}, {class: "form-control", :required => true} %>
-                          <%= f.hidden_field :course_id, :value => course.id %>
-                      </div>
-                   </td>
-                   <td style="border-color:#000000 #000000; border-width: 1px"> <%= f.submit 'Download', id: "submit", class: "btn btn-primary", data: { disable_with: false }  %> </td>
-               <% end %>
-        </tr>
-     
-            <% course.assignments.each do |assignment| %>
-                 <% assignment.submissions.each do |submission| %>
-                    <tr>
-                          <td style="border-color:#000000 #000000; border-width: 1px"></td>
-                          <td style="border-color:#000000 #000000; border-width: 1px"><%= submission.student.first_name %> <%= submission.student.last_name %> </td>
-                          <td style="border-color:#000000 #000000; border-width: 1px"><%= submission.student.email %></td>
-                          <td style="border-color:#000000 #000000; border-width: 1px"><%= assignment.name %></td>
-                          <td style="border-color:#000000 #000000; border-width: 1px"><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p")%></td>
-                          <td style="border-color:#000000 #000000; border-width: 1px"><%= submission.created_at.strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
-                          <div id="hidden">
-                            <%= zoned_time = submission.created_at %>
-                            <%= unzoned_time = Time.new(zoned_time.strftime("%Y").to_i,zoned_time.strftime("%m").to_i,zoned_time.strftime("%d").to_i,zoned_time.strftime("%H").to_i,zoned_time.strftime("%M").to_i,zoned_time.strftime("%S").to_i,"+00:00") %>
-                          </div style="border-color:#000000 #000000; border-width: 1px">
-                           <% if ( unzoned_time > Time.parse(assignment.due_date) ) %>
-                                <td style="border-color:#000000 #000000; border-width: 1px" id="not_on_time">Late</td>
-                           <% else %>
-                              <td style="border-color:#000000 #000000; border-width: 1px" id="on_time">On time</td>
+            <tbody>
+                <% if (@submissions != nil) %>
+           
+                    <!-- First row for each course which has a Download button -->
+                
+                    <% @courses.each do |course| %>
+        
+                        <tr id = "row_color" >
+                           <td class="row_border" id="course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
+                           <td class="row_border"></td>
+                           <td class="row_border"></td>
+                           <td class="row_border"></td>
+                           <td class="row_border"></td>
+                           <td class="row_border"></td>
+                           <td class="row_border">
+                           <%= form_for :submission, :url => url_for(:controller => 'submissions', :action => 'download' ), :method => :get  do |f| %>
+                                  <div class="col-xs-12">
+                                      <%= f.collection_select :assignment, course.assignments.all.map{ |assign| assign.name }, :strip, :strip,{ id:"session", name:"session", prompt: "Select an assignment"}, {class: "form-control", :required => true} %>
+                                      <%= f.hidden_field :course_id, :value => course.id %>
+                                  </div>
+                               </td>
+                               <td class="row_border"> <%= f.submit 'Download', id: "submit", class: "btn btn-primary", data: { disable_with: false }  %> </td>
                            <% end %>
-                          <td style="border-color:#000000 #000000; border-width: 1px" style="text-align:center"><%= link_to truncate(submission.name, :length => 20, :ommission => true), submission.attachment_url -%></td>
-                    </tr>
-                  <% end %> 
-            <% end %>
-        <% end %>
-    <% end %>
-</table>
-    <div style="text-align:center;">  
-      <%= link_to 'Back', :back %> &emsp;
-      <%= link_to 'Home', root_path %> 
+                        </tr>
+                        <% course.assignments.each do |assignment| %>
+                              <% assignment.submissions.each do |submission| %>
+                                <tr>
+                                    <td class="row_border"></td>
+                                    <td class="row_border"><%= submission.student.first_name %> <%= submission.student.last_name %> </td>
+                                    <td class="row_border"><%= submission.student.email %></td>
+                                    <td class="row_border"><%= assignment.name %></td>
+                                    <td class="row_border"><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p")%></td>
+                                    <td class="row_border"><%= submission.created_at.strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
+                                    <div id="hidden">
+                                    <%= zoned_time = submission.created_at %>
+                                    <%= unzoned_time = Time.new(zoned_time.strftime("%Y").to_i,zoned_time.strftime("%m").to_i,zoned_time.strftime("%d").to_i,zoned_time.strftime("%H").to_i,zoned_time.strftime("%M").to_i,zoned_time.strftime("%S").to_i,"+00:00") %>
+                                     </div class="row_border">
+                                      <% if ( unzoned_time > Time.parse(assignment.due_date) ) %>
+                                            <td class="row_border" id="not_on_time">Late</td>
+                                       <% else %>
+                                          <td class="row_border" id="on_time">On time</td>
+                                       <% end %>
+                                      <td class="row_border" id = "submission_attachment"><%= link_to truncate(submission.name, :length => 20, :ommission => true), submission.attachment_url -%></td>
+                                </tr>
+                              <% end %> 
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </tbody>
+        </table>
+        <div id = "bottom_menu">  
+         <%= link_to 'Back', :back %> &emsp;
+         <%= link_to 'Home', root_path %> 
+        </div>
     </div>
-    
-</div>
 <% end %>

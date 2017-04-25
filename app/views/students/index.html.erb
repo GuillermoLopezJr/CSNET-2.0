@@ -92,17 +92,18 @@
         <th>Student Email</th>
       </tr>
     </thead>
-        <tr style="background:#DCDCDC;">
+       
            <% @courses.each do |course| %>
-               <td style="background:#DCDCDC; border-color:#000000 #000000; border-width: 1px"><%= course.name + (" ") + course.number.to_s %></td>
-               <td style="background:#DCDCDC; border-color:#000000 #000000; border-width: 1px"></td>
-               <td style="background:#DCDCDC; border-color:#000000 #000000; border-width: 1px"></td>
+              <tr id = "row_color">
+               <td class = "row_border"><%= course.name + (" ") + course.number.to_s %></td>
+               <td class = "row_border"></td>
+               <td class = "row_border"></td>
         </tr>
             <% course.students.each do |c| %>
               <tr>
-                 <td style="border-color:#000000 #000000; border-width: 1px"></td>
-                 <td style = "text-align:center; border-color:#000000 #000000; border-width: 1px" ><%= c.first_name %> <%= c.last_name %></td>
-                 <td style = "text-align:center;border-color:#000000 #000000; border-width: 1px"><%= c.email %></td>
+                 <td class = "row_border"></td>
+                 <td id ="align_center" class ="row_border" ><%= c.first_name %> <%= c.last_name %></td>
+                 <td id ="align_center" class ="row_border"><%= c.email %></td>
               </tr>
             <% end %>
          <% end %>
