@@ -43,4 +43,24 @@ It allows students to submit homework assignments easily and quickly (a replacem
     * <b>email</b> (Teaching Assistant):     ta1@gmail.com
     * <b>password</b>:  password
     
+##Iteration 4
+* [Report (pdf)](https://docs.google.com/document/d/1lBdV-4knJvmW_dYOLpTPH0ytpXQ28tWWlX9YCOGe0_U/edit?usp=sharing)
+* [Heroku app](https://fast-shore-41666.herokuapp.com/)
+  * Test User Account:
+    * <b>email</b> (ADMIN):     i1@gmail.com
+    * <b>password</b>:  password
+ 
+ 
+    * <b>email</b> (Instructor):     user@gmail.com
+    * <b>password</b>:  password
+
+
+    * <b>email</b> (Student):        s1@gmail.com
+    * <b>password</b>:  password
+    
+    
+    * <b>email</b> (Teaching Assistant):     ta1@gmail.com
+    * <b>password</b>:  password
+    
+    
     
