@@ -19,7 +19,7 @@ class AssistantController < ApplicationController
       
       if !(EmailValidator.valid?(params[:assistant][:email]))
         flash[:danger] = "Invalid Email Address."
-        redirect_to assistant_new_path
+        redirect_to assistant_index_path
         return
       end
       @instructor = current_instructor
@@ -53,7 +53,7 @@ class AssistantController < ApplicationController
         end
       end
       flash[:success] = "Teaching assistant #{@assistant.first_name} has been added for #{@course.name} #{@course.number}"
-      redirect_to root_path
+      redirect_to assistant_index_path
     end
   end
   
