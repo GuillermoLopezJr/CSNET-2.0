@@ -18,10 +18,6 @@
     <% end %>
     </div>
   
-    <!--<div class="grid-element"><%=link_to "#" do %>-->
-    <!--  <%= image_tag("QuickLinks.png", class: "png", size: "314x172") %>-->
-    <!--<% end %>-->
-    <!--</div>-->
     <div class="group-element"><%=link_to submissions_path, data: {turbolinks: 'false'} do %>
       <%= image_tag("Submissions.png", class: "png", size: "314x172") %>
     <% end %>
@@ -30,6 +26,11 @@
       <%= image_tag("TA.png", class: "png", size: "314x172") %>
     <% end %>
     </div>
+    <% if (@instructor.is_admin) %>
+      <div class="group-element"><%=link_to instructor_new_path do %>
+        <%= image_tag("Instructors.png", class: "png", size: "314x172") %>
+      <% end %>
+    <% end %>
   </div>
 
     <!--<li><%= link_to "Create a Course", courses_new_path %> | <%= link_to "View Courses List", courses_path %> </li> -->
@@ -43,11 +44,6 @@
     
     <div class="clear">
       <!--<li><%= link_to "Add a TA to a course", assistant_new_path %></li>-->
-
-      <% if (@instructor.is_admin) %>
-         <li><%= link_to "Add new Instructor", instructor_new_path %></li> 
-      <% end %>
-
     </div>
 </div>
 
