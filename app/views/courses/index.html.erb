@@ -74,14 +74,14 @@
         <% if @isInstructor %>
           <td><%= button_to "Delete",  course, method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure that you wish to delete #{course.name} #{course.number}?"} %> </td>
         <% end %>
-        
-      
+
       </tr>
     <% end %>
   </table>
-
-<div style="text-align:center;">
-    <%= link_to('Home', root_path, :method => :get) %>
-</div>
-
+  
+  <br/> 
+      <div style="text-align:center;">
+          <%= link_to('Home', root_path, :method => :get) %>
+      </div>
+  <br/> 
 </div>

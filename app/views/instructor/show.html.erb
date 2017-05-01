@@ -27,7 +27,7 @@
     <% end %>
     </div>
     <% if (@instructor.is_admin) %>
-      <div class="group-element"><%=link_to instructor_new_path do %>
+      <div class="group-element"><%=link_to instructor_index_path do %>
         <%= image_tag("Instructors.png", class: "png", size: "314x172") %>
       <% end %>
     <% end %>

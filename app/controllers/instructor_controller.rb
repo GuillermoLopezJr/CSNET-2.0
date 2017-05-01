@@ -18,8 +18,8 @@ class InstructorController < ApplicationController
     
     # Checks that the email is in fact an email address
     if !(EmailValidator.valid?(params[:instructor][:email]))
-      flash[:danger] = "Invalid Email Address."
-      redirect_to instructor_new_path
+      flash[:danger] = "Invalid Email Address and/or credentials."
+      redirect_to instructor_index_path
       return
     end
     
@@ -29,14 +29,14 @@ class InstructorController < ApplicationController
     else
       #could not send email
     end
-
-    redirect_to root_path
+    flash[:success] = "Instructor #{@instr.first_name} #{@instr.last_name} has been created"
+    redirect_to instructor_index_path
   end
   
   
   def index
-      redirect_to root_path
-      return
+        # Only an admin has access to this information.  Ohter instructors will not get the link
+        @instructor = Instructor.all
   end
   
   def show

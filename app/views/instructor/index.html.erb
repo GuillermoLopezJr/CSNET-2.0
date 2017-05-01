@@ -1,3 +1,83 @@
-<h1>Instructor#index</h1>
+<div style="text-align:center;">
+    <h1> <b> Instructors </b></h1>
+</div>
 
+<!-- Instructor Creation Form -->
+<div class="container">
+    <div class="row", style="text-align: center">
+        <button type="button" class="btn btn-primary studentButton" data-toggle="collapse" data-target="#instructor-create-content">Add an Instructor </button>
+    </div>
+  <div id="instructor-create-content", class= "collapse">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+
+        <%= form_for :instructor, url: "/instructor" do |f| %>
+
+          <p>
+            <%= f.label :first_name %><br>
+            <%= f.text_field :first_name, id:"first_name", class: 'form-control', value: "",:required => true %>
+          </p>
+
+          <p>
+            <%= f.label :last_name %><br>
+            <%= f.text_field :last_name, id:"last_name", class: 'form-control', value: "",:required => true %>
+          </p>
+
+          <p>
+            <%= f.label :email %><br>
+            <%= f.text_field :email, id:"email", class: 'form-control', value: "",:required => true %>
+          </p>
+          
+          <p>
+            <%= f.submit 'submit', id:"submit", class: "btn btn-primary" %>
+          </p>
+
+          <div style="text-align:center;">
+            <p>  <%= link_to 'Home', root_path %> </p>
+          </div>
+        <% end %>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <br>
+    
+  <div id="subm-show-content">
+    <table style = "width: 80%">
+      <thead >
+        <tr>
+          <th>Instructor Name </th>
+          <th>Instructor Email</th>
+          <th>Administrator</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+             <% @instructor.each do |instr| %>
+              <tr>
+         
+                 <td id ="center_name" class="row_border" ><%= instr.first_name %> <%= instr.last_name %></td>
+                 <td id ="center_email" class="row_border" ><%= instr.email %></td>
+                 <% if instr.is_admin %>
+                     <td style="text-align: center;" class="row_border"> Yes </td>
+                 <% else %> 
+                     <td style="text-align: center;" class="row_border"> No  </td>
+                 <% end %>
+                 <td class="row_border"></td>
+                 
+              </tr>
+           <% end %>
+      </tbody>
+    </table>
+    <br/> 
+      <div id = "bottom_menu">
+            <p>  
+              <%= link_to 'Home', root_path %>
+            </p>
+      </div>
+    <br/> 
+ </div>
 
