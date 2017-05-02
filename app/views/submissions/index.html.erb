@@ -35,10 +35,11 @@
                             <td class="row_border"><%= (submission.created_at).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
         
                             <div id="hidden">
+                            <!--Conberts submission.create_at to local time  -->
                             <%= zoned_time = submission.created_at %>
                             <%= unzoned_time = Time.new(zoned_time.strftime("%Y").to_i,zoned_time.strftime("%m").to_i,zoned_time.strftime("%d").to_i,zoned_time.strftime("%H").to_i,zoned_time.strftime("%M").to_i,zoned_time.strftime("%S").to_i,"+00:00") %>
                             </div>
-                            
+                             <!-- Checks if assignemt is summited on time-->
                              <% if ( unzoned_time > DateTime.parse(assignment.due_date).in_time_zone("Central Time (US & Canada)") ) %>
                                 <td class="row_border" id="not_on_time">Late</td>
                              <% else %>
