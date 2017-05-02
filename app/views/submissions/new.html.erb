@@ -1,3 +1,4 @@
+  <!-- Form for creating submissions-->
 <h1 style="text-align:center">Submit Assignment</h1>
 <div class="container">
   <div id="subm-create-content">
@@ -10,24 +11,18 @@
           </p>
           
           <p>
-            <%= f.label :assignment %><br>
+          
+            <%= f.label :course_number %><br>
+            <%= f.collection_select :course_num, @courses.select(:number).distinct, :number, :number,{  prompt: "Select a Course Number"}, {id:"course_num", class: "form-control", :required => true} %>
+          
+           <%= f.label :assignment %><br>
             <% if @assignments != nil %>
 
             <%= f.collection_select :assignment, @assignments, :name, :name,{  prompt: true}, {id:"assignment_name", class: 'form-control', :required => true} %>
             <% else %>
               <p> Assignment not available for submission, check with your instructor.  </p>
             <% end %>
-          
-            <%= f.label :course_num %><br>
-            <%= f.collection_select :course_num, @courses.select(:number).distinct, :number, :number,{  prompt: "Select a Course Number"}, {id:"course_num", class: "form-control", :required => true} %>
-          
-            <!--<%= f.label :course_year %><br>-->
-            <!--<%= f.collection_select :course_year, @courses.select(:year).distinct, :year, :year,{ id:"course_year", prompt: "Select the year of the course"}, {class: "form-control", :required => true} %>-->
-           
-            <!--<%= f.label :course_session %><br>-->
-            <!--<%= f.collection_select :course_session, Course.getSessions, :strip, :strip,{ id:"course_session", name:"course_session", prompt: "Select a semester"}, {class: "form-control", :required => true} %>-->
           </p>
-          
           
           <p>
             <%= f.label :attachment %>

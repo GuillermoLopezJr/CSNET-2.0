@@ -1,3 +1,6 @@
+
+<!-- Creates submmissions table-->
+
 <% if student_signed_in?%>
   <h1 id = "title_style">View My Submissions</h1>
   <div id="subm-show-content">
@@ -15,6 +18,7 @@
           
           <tbody>
               <% if (@submissions != nil) %>
+               <!-- Prints all submissions associated with each existing course -->
                  <% @courses.each do |course| %>
                  <tr class="row_color" >
                     <td class="row_border" id= "course_name_num"><%= course.name + (" ") + course.number.to_s %></td>
@@ -34,10 +38,11 @@
                             <td class="row_border"><%= (submission.created_at).strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
         
                             <div id="hidden">
+                            <!--Conberts submission.create_at to local time  -->
                             <%= zoned_time = submission.created_at %>
                             <%= unzoned_time = Time.new(zoned_time.strftime("%Y").to_i,zoned_time.strftime("%m").to_i,zoned_time.strftime("%d").to_i,zoned_time.strftime("%H").to_i,zoned_time.strftime("%M").to_i,zoned_time.strftime("%S").to_i,"+00:00") %>
                             </div>
-                            
+                             <!-- Checks if assignemt is summited on time-->
                              <% if ( unzoned_time > DateTime.parse(assignment.due_date).in_time_zone("Central Time (US & Canada)") ) %>
                                 <td class="row_border" id="not_on_time">Late</td>
                              <% else %>
@@ -82,6 +87,7 @@
                 <% if (@submissions != nil) %>
            
                     <!-- First row for each course which has a Download button -->
+                    <!-- Prints all submissions associated with each existing course -->
                 
                     <% @courses.each do |course| %>
         
@@ -93,6 +99,8 @@
                            <td class="row_border"></td>
                            <td class="row_border"></td>
                            <td class="row_border">
+                             
+                           <!--The instructor or TA can dowloand specific submissions -->
                            <%= form_for :submission, :url => url_for(:controller => 'submissions', :action => 'download' ), :method => :get  do |f| %>
                                   <div class="col-xs-12">
                                       <%= f.collection_select :assignment, course.assignments.all.map{ |assign| assign.name }, :strip, :strip,{ id:"session", name:"session", prompt: "Select an assignment"}, {class: "form-control", :required => true} %>
@@ -112,9 +120,11 @@
                                     <td class="row_border"><%= DateTime.parse(assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p")%></td>
                                     <td class="row_border"><%= submission.created_at.strftime("%a, %m/%d/%Y at %I:%M%p") %></td>
                                     <div id="hidden">
+                                    <!--Conberts submission.create_at to local time  -->
                                     <%= zoned_time = submission.created_at %>
                                     <%= unzoned_time = Time.new(zoned_time.strftime("%Y").to_i,zoned_time.strftime("%m").to_i,zoned_time.strftime("%d").to_i,zoned_time.strftime("%H").to_i,zoned_time.strftime("%M").to_i,zoned_time.strftime("%S").to_i,"+00:00") %>
                                      </div class="row_border">
+                                    <!-- Checks if assignemt is summited on time or late-->
                                       <% if ( unzoned_time > Time.parse(assignment.due_date) ) %>
                                             <td class="row_border" id="not_on_time">Late</td>
                                        <% else %>
