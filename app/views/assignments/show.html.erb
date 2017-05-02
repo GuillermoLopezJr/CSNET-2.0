@@ -14,6 +14,8 @@
     <strong>DUE DATE:</strong>
     <%= DateTime.parse(@assignment.due_date).strftime("%a, %m/%d/%Y at %I:%M%p") %>
   </p>
+  
+   <!-- Form for creating a submission-->
   <% if @isStudent %>
     <div class="container">
     <div class="row">
@@ -35,14 +37,8 @@
               
                 <%= f.label :course_num %><br>
                 <%= f.text_field :course_num, id:"course_num", class: 'form-control', :value => @assignment.course.number %>
-              
-                <!--<%= f.label :course_year %><br>-->
-                <!--<%= f.collection_select :course_year, @courses.select(:year).uniq, :year, :year,{ id:"course_year", prompt: "Select the year of the course"}, {class: "form-control", :required => true} %>-->
-               
-                <!--<%= f.label :course_session %><br>-->
-                <!--<%= f.collection_select :course_session, Course.getSessions, :strip, :strip,{ id:"course_session", name:"course_session", prompt: "Select a semester"}, {class: "form-control", :required => true} %>-->
+             
               </p>
-              
               
               <p>
                 <%= f.label :attachment %>
@@ -60,6 +56,7 @@
     </div>
   <% end %>
   
+   <!-- Shows submissions table -->
   <% if @isStudent %>
   <div id="subm-show-content">
   <table style = "width: 80%">
@@ -72,6 +69,7 @@
         </tr>
       </thead>
     
+       <!-- iterates through assignments and shows the submissions that were submited  -->
       <% if (@submissions != nil) %>
         <% @assignment.submissions.each do |submission| %>
          <% if (submission.student.email == current_student.email  )%>
@@ -92,6 +90,8 @@
     </table>
   <% end %>
   
+    <h1> Students Submissions</>
+      
   <% if @isInstructor || @isAssistant%>
   <div id="subm-show-content">
   <table class = "w">
