@@ -52,16 +52,10 @@ class InstructorController < ApplicationController
     end
   end
 
-  def download
-    puts "here"
-  end
-  
-
   private
     def instructor_params
       password_length = 8
       pass = Devise.friendly_token.first(password_length)
-      puts "pass is "
       params.require(:instructor).permit(:first_name, :last_name, :email, :password, :password_confirmation).merge(:password => pass, :password_confirmation => pass)
     end
 

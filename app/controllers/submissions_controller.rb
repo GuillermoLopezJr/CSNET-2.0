@@ -28,18 +28,21 @@ class SubmissionsController < ApplicationController
             @assignments = @assignments + course.assignments.all
           end
         end
-      
-        @assignments.each do |assignment|
-          if (@submissions == nil)
-            @submissions = assignment.submissions.all
-          else
-            @submissions = @submissions + assignment.submissions.all
+  
+        if (@assignments != nil)     
+          @assignments.each do |assignment|
+            if (@submissions == nil)
+              @submissions = assignment.submissions.all
+            else
+              @submissions = @submissions + assignment.submissions.all
+            end
+          end
+          
+          if student_signed_in?
+              @submissions = Submission.where( student_id: current_student )
           end
         end
-        
-        if student_signed_in?
-            @submissions = Submission.where( student_id: current_student )
-        end
+
     end
 
    
