@@ -1,3 +1,6 @@
+ 
+<!-- Form for editing existing assignments-->
+
 <div id="assign-edit-content">
   <div style="text-align:center;">
     <h1>Edit assignment</h1>
@@ -37,11 +40,6 @@
           <%= f.label :due_date %><br>
           <%= datetime_local_field(:assignment, :due_date, id:"due_date", class: 'form-control') %>
         </p>
-        
-        <!-- <p> -->
-        <!--  <%= f.label :course_num %><br>-->
-        <!--  <%= f.collection_select :course_num, @courses, :number, :number,{ id:"course_num", prompt: "Select a Course Number", :include_blank => false}, {class: "form-control"} %>-->
-        <!--</p>-->
        
         <p>
           <%= f.submit 'submit', id:"submit", class: "btn btn-primary" %>
