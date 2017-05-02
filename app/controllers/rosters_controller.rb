@@ -2,7 +2,9 @@ require 'spreadsheet'
 require 'aws/s3'
 class RostersController < ApplicationController
   
+  # Used to read a new roster and enroll students accordingly
   def index
+      # only an instructor should upload rosters
       if not instructor_signed_in?
         redirect_to root_path
         return
@@ -11,29 +13,24 @@ class RostersController < ApplicationController
       @rosters = Roster.all
       @roster = session[:roster]
       Spreadsheet.client_encoding = 'UTF-8'
-      # book = Spreadsheet.open( @roster["attachment"]["url"])
-      # book = Spreadsheet.open('public' + @roster["attachment"]["url"])
 
       # Establish a connection with AWS
       connection = AWS::S3::new(:aws_access_key_id => ENV['AWS_ACCESS_KEY_ID'],       
               :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY'])
       
       # Instead of reading the contents of f, pass f (an IO object) to Spreadsheet.open
-        book = nil
-        open @roster["attachment"]["url"] do |f|
-          book = Spreadsheet.open f
-        end
+      book = nil
+      open @roster["attachment"]["url"] do |f|
+        book = Spreadsheet.open f
+      end
       
       @sheet1 = book.worksheet 0
-      #render :inline => "<%= @sheet1.row(3)[0] %> <br></br> <%= @sheet1.row(3)[2] %>"
-      #newStudent = Student.create!(:email => @sheet1.row(1)[2], :password => "password")
-      #newStudent.save!
       @instructor = current_instructor
+      
+      # find course to add student to
       @course =  @instructor.courses.find_by( id: @roster["course_id"])
       
       for i in 1..(@sheet1.row_count-1) do
-          
-          # find course to add student to 
           
           # student with this email ( if they exist already ) 
           @student = Student.find_by( email: @sheet1.row(i)[2] )
@@ -52,17 +49,14 @@ class RostersController < ApplicationController
               
               @student = @course.students.create!(:first_name => @firstName, :last_name => @lastName, :email => @sheet1.row(i)[2], :password => pass)
 
-              #puts "passworld"
-              #puts @student.password
               if @student.save
                 UserMailer.welcome_email(@student, @student.password).deliver_later
               else
                 #could not send email
               end
-
-
             end
-            #The student already exists
+          
+          #The student already exists
           else
               #Ensure students arent enrolled twice
               if @course.students.where( id: @student ).empty? 
@@ -73,12 +67,16 @@ class RostersController < ApplicationController
       redirect_to students_path
   end
   
+  
+  # used for new roster form
   def new
     @instructor = current_instructor
     @courses = @instructor.courses
     @roster = Roster.new
   end
 
+
+  # used after submittint a new roster
   def create
     if not instructor_signed_in?
       redirect_to root_path
@@ -105,6 +103,7 @@ class RostersController < ApplicationController
       end
     end
   end
+  
   
   private
     def roster_params

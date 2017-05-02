@@ -1,6 +1,6 @@
 class AssistantController < ApplicationController
   
-
+  # used for the new assistant form
   def new
     if not instructor_signed_in?
       redirect_to root_path
@@ -11,6 +11,8 @@ class AssistantController < ApplicationController
     @courses = @instructor.courses
   end
 
+
+  # used after submitting a new assistant form
   def create
     if not instructor_signed_in?
       redirect_to root_path
@@ -57,6 +59,8 @@ class AssistantController < ApplicationController
     end
   end
   
+  
+  # shows all assistances for an instructos courses
   def index
     if instructor_signed_in?
       @submissions = Submission.all
@@ -75,6 +79,8 @@ class AssistantController < ApplicationController
     end
   end
   
+  
+  # shows a single assistant
   def show
     if assistant_signed_in?
       @assistant = current_assistant
@@ -85,6 +91,7 @@ class AssistantController < ApplicationController
       return
     end
   end
+  
   
   private
     def assistant_params

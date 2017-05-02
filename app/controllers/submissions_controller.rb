@@ -3,70 +3,84 @@ require 'zip'
 require 'aws-sdk' # not 'aws-sdk'
 class SubmissionsController < ApplicationController
    
-    def index
-      @isInstructor  = false
-      @isAssistant   = false
-      @isStudent     = false
-      if(instructor_signed_in?)
-        @courses = current_instructor.courses
-        @isInstructor = true
-      elsif (assistant_signed_in?)
-        @courses = current_assistant.courses
-        @isAssistant = true
-      elsif (student_signed_in?)
-        @courses = current_student.courses
-        @isStudent = true
-      else 
-        redirect_to root_path
-        return
-      end
-      
-        @courses.each do |course|
-          if (@assignments == nil)
-            @assignments = course.assignments.all
-          else
-            @assignments = @assignments + course.assignments.all
-          end
-        end
-      
-        @assignments.each do |assignment|
-          if (@submissions == nil)
-            @submissions = assignment.submissions.all
-          else
-            @submissions = @submissions + assignment.submissions.all
-          end
-        end
-        
-        if student_signed_in?
-            @submissions = Submission.where( student_id: current_student )
-        end
+  # This function is to display submissions
+  def index
+    #check which type of user is signed in
+    @isInstructor  = false
+    @isAssistant   = false
+    @isStudent     = false
+    if(instructor_signed_in?)
+      @courses = current_instructor.courses
+      @isInstructor = true
+    elsif (assistant_signed_in?)
+      @courses = current_assistant.courses
+      @isAssistant = true
+    elsif (student_signed_in?)
+      @courses = current_student.courses
+      @isStudent = true
+    else 
+      redirect_to root_path
+      return
     end
-
-   
-   def new
-       if not student_signed_in?
-          redirect_to root_path
-          return
-       end
-      @student = current_student
-      @isInstructor  = false
-      @isAssistant   = false
-      @isStudent     = true
-
-      @submission = Submission.new
-      @courses = @student.courses
-      @assignments = nil
-      @courses.each do |course|
-        if (@assignments == nil)
-          @assignments = course.assignments.all
-        else
-          @assignments = @assignments + course.assignments.all
-        end
+    
+    # create a list of assignments that correspond to the current user
+    # [this could be reimplemented as a helper function]
+    @courses.each do |course|
+      if (@assignments == nil)
+        @assignments = course.assignments.all
+      else
+        @assignments = @assignments + course.assignments.all
       end
-   end
+    end
+  
+    # create a list of submissions that correspond to the current user
+    # [this could be reimplemented as a helper function]
+    @assignments.each do |assignment|
+      if (@submissions == nil)
+        @submissions = assignment.submissions.all
+      else
+        @submissions = @submissions + assignment.submissions.all
+      end
+    end
+    
+    # if a student is signed in, they should only be able to view their own submissions
+    if student_signed_in?
+        @submissions = Submission.where( student_id: current_student )
+    end
+  end
+
+
+  # This function is used for the new submission form
+  def new
+    # only students should be able to submit assignments
+    if not student_signed_in?
+      redirect_to root_path
+      return
+    end
+    @student = current_student
+    @isInstructor  = false
+    @isAssistant   = false
+    @isStudent     = true
+    
+    @submission = Submission.new
+    @courses = @student.courses
+    @assignments = nil
+    
+    # create a list of assignments that correspond to the current user
+    # [this could be reimplemented as a helper function]
+    @courses.each do |course|
+      if (@assignments == nil)
+        @assignments = course.assignments.all
+      else
+        @assignments = @assignments + course.assignments.all
+      end
+    end
+  end
    
    
+ # This function is used when the new submission form is submitted
  def create
+  # only a student should be able to submit assignments
   if not student_signed_in?
      redirect_to root_path
      return
@@ -74,10 +88,10 @@ class SubmissionsController < ApplicationController
   
   @student = current_student
   
+  # Figure out current semester/year
   @currentTime = Time.now
   @currentMonth = @currentTime.month
   @currentYear = @currentTime.year
-  
   if( @currentMonth >= 1 && @currentMonth <= 5 )
     @session = "SPRING"
   elsif( @currentMonth >= 6 && (@currentMonth < 8 || (@currentMonth == 8 && @currentDay <= 11)) ) 
@@ -86,7 +100,7 @@ class SubmissionsController < ApplicationController
     @session = "FALL"
   end 
   
-  # Check if that course exists
+  # Check if a course with that number/semester/year exists
   @course = current_student.courses.where( number: params[:submission][:course_num], year: @currentYear.to_s, session: @session ).first
   if (@course == nil) 
     flash[:danger] = "Could not submit because the corresponding course was not found."
@@ -94,6 +108,7 @@ class SubmissionsController < ApplicationController
     return
   end 
   
+  # Check if an assignment with that name exists for the corresponding course
   @assignment = @course.assignments.find_by(name: params[:submission][:assignment])
   if (@assignment == nil) 
     flash[:danger] = "Could not submit because the corresponding assignment was not found."
@@ -113,6 +128,7 @@ class SubmissionsController < ApplicationController
   end
   params[:submission][:attachment].original_filename = "#{@student.last_name}_#{@student.first_name}_#{@student.id}_#{subCount}_#{orig_name}"
   
+  # Create submission record and assosciate it with the current student
   @submission = @student.submissions.create(name: params[:submission][:name], 
                                         attachment: params[:submission][:attachment],
                                         assignment: @assignment)
@@ -129,23 +145,27 @@ class SubmissionsController < ApplicationController
   end
  end
    
-   def destroy
-       if not student_signed_in?
-           redirect_to root_path
-           return
-       end
-      @submission = Submission.find(params[:id])
-      
-      # make sure student who made submission is one destroying it
-      if not (@submission.student == current_student)
-          redirect_to root_path
-          return
-      end
-      
-      @submission.destroy
-      redirect_to submissions_path, notice:  "The submission #{@submission.name} has been deleted."
-   end
+
+ # This function is used to destroy submissions
+ def destroy
+     if not student_signed_in?
+         redirect_to root_path
+         return
+     end
+    @submission = Submission.find(params[:id])
+    
+    # make sure student who made submission is one destroying it
+    if not (@submission.student == current_student)
+        redirect_to root_path
+        return
+    end
+    
+    @submission.destroy
+    redirect_to submissions_path, notice:  "The submission #{@submission.name} has been deleted."
+ end
   
+  
+  # This function is used to download the zip folder 
   def download
 
     # first find the course that we want to download the submissions for
@@ -252,7 +272,8 @@ class SubmissionsController < ApplicationController
   end
 
 
-    helper_method :download 
+  helper_method :download 
+
 
    private
     def submission_params

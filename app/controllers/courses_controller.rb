@@ -1,10 +1,14 @@
 class CoursesController < ApplicationController
   helper_method :sort_column, :sort_direction
-
+  
+  
+  # shows a single course
   def show
     @course = Course.find(params[:id])
   end
 
+
+  # used for the new course form
   def new
     if not instructor_signed_in?
       redirect_to root_path
@@ -13,7 +17,10 @@ class CoursesController < ApplicationController
     @course = Course.new
   end
 
+
+  # used after submitting a new course form 
   def create
+    
     #only instructors can create courses
     if not instructor_signed_in?
       redirect_to root_path
@@ -47,6 +54,8 @@ class CoursesController < ApplicationController
     end
   end
   
+  
+  # Used to delete courses
   def destroy
     if not instructor_signed_in?
       redirect_to root_path
@@ -58,6 +67,8 @@ class CoursesController < ApplicationController
     redirect_to courses_path
   end
 
+
+  # used to display all courses
   def index
     #need to distinguish between student and instructor
     @isInstructor = false
@@ -85,6 +96,7 @@ class CoursesController < ApplicationController
   end
 
 
+  # used to display one course
   def show
     @course = Course.find(params[:id])
     if instructor_signed_in?
@@ -93,6 +105,7 @@ class CoursesController < ApplicationController
       @isInstructor = false
     end
   end
+
 
   private
     def course_params

@@ -1,4 +1,6 @@
 class AssignmentsController < ApplicationController
+  
+  # used for create assignment form
   def new
     if not instructor_signed_in?
       redirect_to root_path
@@ -9,12 +11,16 @@ class AssignmentsController < ApplicationController
   end
 
 
+  # used when submitting a new assignment form
   def create
+     
+    # Only instructors should be able to create assignments
     if not instructor_signed_in?
       redirect_to root_path
       return
     end
     
+    # Get semester and year of current due date
     @currentTime = params[:assignment][:due_date].to_time#Time.now
     @currentMonth = @currentTime.month
     @currentYear = @currentTime.year
@@ -27,7 +33,7 @@ class AssignmentsController < ApplicationController
       @session = "FALL"
     end 
   
-    # Check if that course exists
+    # Check if that course exists for year and semester of due date
     @course = current_instructor.courses.where( number: params[:assignment][:course_num], year: @currentYear, session: @session ).first
     if (@course == nil) 
       flash[:danger] = "Could not create #{params[:assignment][:name]} because the course was not found."
@@ -43,7 +49,7 @@ class AssignmentsController < ApplicationController
       return
     end
     
-    
+    # attempt to create the assignment
     @assignment = Assignment.new(assignment_params)    
     if @assignment.new_record?  
       # The assignment was created
@@ -64,9 +70,10 @@ class AssignmentsController < ApplicationController
   end
   
   
+  # used to show current assignments
   def index
-    #need to distinguish between student and instructor
     
+    #need to distinguish between student and instructor
     @isInstructor = false
     @isStudent    = false
     @isAssistant  = false
@@ -90,6 +97,7 @@ class AssignmentsController < ApplicationController
       return
     end
     
+    # find all assignments belonging to current user
     @courses = @user.courses
     @courses.each do |course|
       if (@assignments == nil)
@@ -101,10 +109,11 @@ class AssignmentsController < ApplicationController
   end
 
 
-
+  # used to show a single assignemnt 
   def show
     @assignment = Assignment.find(params[:id])
     
+    # figure out what type of user is signed in 
     @isInstructor = false
     @isStudent    = false
     @isAssistant  = false
@@ -130,10 +139,12 @@ class AssignmentsController < ApplicationController
     end
     
     @courses = @user.courses
-  
   end
 
+
+  # used for the edit assignment form
   def edit
+    # only an instructor should be able to edit an assignment
     if not instructor_signed_in?
       redirect_to root_path
       return
@@ -143,7 +154,10 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.find(params[:id])
   end
   
+  
+  # used to update an existing assignment
   def update
+    # only an instructor should be able to edit an assignment
     if not instructor_signed_in?
       redirect_to root_path
       return
@@ -158,6 +172,8 @@ class AssignmentsController < ApplicationController
     end
   end
     
+  
+  # used to destroy an assignment  
   def destroy
     if not instructor_signed_in?
       redirect_to root_path
@@ -167,6 +183,7 @@ class AssignmentsController < ApplicationController
     @assignment.destroy
     redirect_to assignments_path, notice:  "The assignment #{@assignment.name} has been deleted."
   end
+
 
   private
     def assignment_params

@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
 
+  # used for the new student form
   def new
     if not instructor_signed_in?
       redirect_to root_path
@@ -9,6 +10,8 @@ class StudentsController < ApplicationController
     @courses = @instructor.courses
   end
   
+  
+  # used when showing an individual student's home page
   def show
     if student_signed_in?
       @student = current_student
@@ -21,6 +24,7 @@ class StudentsController < ApplicationController
   end
 
 
+  # Used when an instructor submits a new student form
   def create
     if not instructor_signed_in?
       redirect_to root_path
@@ -35,9 +39,6 @@ class StudentsController < ApplicationController
     end
     
     @instructor = current_instructor
-    
-    
-    
     @course =  @instructor.courses.find_by( number: params[:student][:course_num] )
     
     # Check if that course exists
@@ -81,6 +82,7 @@ class StudentsController < ApplicationController
   end
   
   
+  # used to show all students 
   def index
     @students = Student.all
     @instructor = current_instructor
@@ -92,7 +94,8 @@ class StudentsController < ApplicationController
     if student_signed_in?
       @isInstructor = false
       @isAssistant = false
-
+      
+      redirect_to root_path
       @submissions = Submission.all
       @student = current_student
       @courses = @student.courses
@@ -113,6 +116,8 @@ class StudentsController < ApplicationController
     end
   end
 
+
+  
   private
     def student_params
       #change password to something random initally

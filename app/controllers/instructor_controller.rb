@@ -1,8 +1,9 @@
 #require 'roo'
 class InstructorController < ApplicationController
 
+  # used for the new instructor form 
   def new
-    if instructor_signed_in?
+    if instructor_signed_in? and current_instructor.is_admin
       @instructor = current_instructor
       @courses = @instructor.courses
       @isInstructor = true
@@ -14,8 +15,9 @@ class InstructorController < ApplicationController
     end
   end
 
+
+  # used when submitting a new instructor form
   def create
-    
     # Checks that the email is in fact an email address
     if !(EmailValidator.valid?(params[:instructor][:email]))
       flash[:danger] = "Invalid Email Address and/or credentials."
@@ -34,11 +36,19 @@ class InstructorController < ApplicationController
   end
   
   
+  # Used to show all instructors
   def index
-        # Only an admin has access to this information.  Ohter instructors will not get the link
-        @instructor = Instructor.all
+    if instructor_signed_in? and current_instructor.is_admin
+      # Only an admin has access to this information.  Ohter instructors will not get the link
+      @instructor = Instructor.all
+    else 
+      redirect_to root_path
+      return
+    end
   end
   
+  
+  # Used to display home page for one instructor
   def show
     if instructor_signed_in?
       @instructor = current_instructor
@@ -52,10 +62,6 @@ class InstructorController < ApplicationController
     end
   end
 
-  def download
-    puts "here"
-  end
-  
 
   private
     def instructor_params
