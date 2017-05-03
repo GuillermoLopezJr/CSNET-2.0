@@ -82,7 +82,7 @@ It allows students to submit homework assignments easily and quickly (a replacem
       * The relevant uploaders are here <b>/app/uploaders</b>
     * How to configure: 
       * Once you have created your Amazon S3 account, navigate to 'My Security Credentials' and keep note of your secret access keys.
-      * When deploying to Heroku, be sure to change your Configuration Variables (Config Vars under settings) so it knows what keys to use.  Add the following variables and input your AWS credentials in its corresponding field. 
+      * If and when deploying to Heroku, be sure to change your Configuration Variables (Config Vars under settings) so it knows what keys to use.  Add the following variables and input your AWS credentials in its corresponding field. 
         * AWS_ACCESS_KEY_ID
         * AWS_DEFAULT_REGION
         * AWS_SECRET_ACCESS_KEY
