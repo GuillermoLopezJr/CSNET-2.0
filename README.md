@@ -80,6 +80,10 @@ It allows students to submit homework assignments easily and quickly (a replacem
 
  ##Services Used
   * Aws
-  * Send-grid
+  * Setting up Send-Grid (for sending emails)
+   run the command
+   ```ruby
+   heroku addons:create sendgrid:starter
+   ```
     
     
