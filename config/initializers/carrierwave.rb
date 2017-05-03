@@ -9,8 +9,8 @@ config.cache_dir = 'carrierwave'
 
 config.fog_credentials = {
   # Configuration for Amazon S3
-  :provider               => 'AWS',                        # change var's name
-  :aws_access_key_id      => ENV['AWS_ACCESS_KEY_ID'],         # change var's name
+  :provider               => 'AWS',                            # change var's name
+  :aws_access_key_id      => ENV['AWS_ACCESS_KEY_ID'],         # SEE /config/application.yml TO CHANGE YOUR ACCESS KEYS!!!!!
   :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY'],
   :region                 => 'us-west-2',
 }

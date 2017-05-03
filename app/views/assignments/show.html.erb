@@ -130,11 +130,14 @@
     </table>
   <% end %>
   
+  <br> 
   <div style="text-align:center;">
     <%= link_to 'Back', assignments_path %> &emsp;
     <%= link_to 'Home', root_path %> &emsp;
     <% if @isInstructor %>
       <%= link_to 'Edit', edit_assignment_path(@assignment) %>
     <% end %>
+  
   </div>
+  <br>
 </div>
