@@ -62,5 +62,16 @@ It allows students to submit homework assignments easily and quickly (a replacem
     * <b>email</b> (Teaching Assistant):     ta1@gmail.com
     * <b>password</b>:  password
     
+  
+ ##Configuration
+ 
+ ##Instructions to run 
+
+ ##Database commands
+  *clear database
+ 
+ ##Services Used
+  * Aws
+  * Send-grid
     
     
