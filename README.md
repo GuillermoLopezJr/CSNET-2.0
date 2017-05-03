@@ -66,24 +66,29 @@ It allows students to submit homework assignments easily and quickly (a replacem
  ##Configuration
  
  ##Instructions to run 
+  * Running locally (Cloud9)
+  ``` ruby 
+  rails s -p $PORT -b $IP 
+  ```
 
  ##Database commands
-  * Reset Heroku database
-  ```ruby
-  heroku pg:reset DATABASE
-  heroku run rake db:migrate
-  ```
-  * Seed the database
-  ```ruby
-  heroku run rake db:seed
-  ```
-
+  *clear database
+ 
  ##Services Used
-  * Aws
-  * Setting up Send-Grid (for sending emails)
-  * run the command
-   ```ruby
-   heroku addons:create sendgrid:starter
-   ```
+  * Amazon Web Services (S3)
+    * Associated files for configuration:
+      * <b>/config/application.yml</b>
+      * <b>/config/initializers/carrierwave.rb</b>
+      * The relevant uploaders are here <b>/app/uploaders</b>
+    * How to configure: 
+      * Once you have created your Amazon S3 account, navigate to 'My Security Credentials' and keep note of your secret access keys.
+      * When deploying to Heroku, be sure to change your Configuration Variables (Config Vars under settings) so it knows what keys to use.  These will be changed:
+        * AWS_ACCESS_KEY_ID
+        * AWS_DEFAULT_REGION
+        * AWS_SECRET_ACCESS_KEY
+    
+  
+  * Send-grid
+
     
     
