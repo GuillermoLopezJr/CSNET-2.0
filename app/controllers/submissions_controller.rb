@@ -226,12 +226,6 @@ class SubmissionsController < ApplicationController
     # the bucket where submissions are stored
     bucket = s3.bucket("431storage")
   
-    # These are all the files in the bucket - for testing purposes
-    #files_in_bucket = bucket.objects(prefix: '').collect(&:key)
-    #puts "putting "
-    #puts files_in_bucket
-
-    
     # files downloaded first to local folder in temp dir
     # it will get deleted when this function ends
     local_folder = Rails.root.join("temp")
@@ -268,7 +262,6 @@ class SubmissionsController < ApplicationController
     #download
     send_file "#{local_folder}/#{zipfile_name}"
 
-    # success
   end
 
 
