@@ -72,7 +72,17 @@ It allows students to submit homework assignments easily and quickly (a replacem
  ```
 
 ##Database commands
- *clear database
+ * Reset Heroku database
+ 
+   ```ruby
+   heroku pg:reset DATABASE
+   heroku run rake db:migrate
+   ```
+ * Seed the database
+ 
+   ```ruby
+   heroku run rake db:seed
+   ```
 
 ##Services Used
  * Amazon Web Services (S3)
