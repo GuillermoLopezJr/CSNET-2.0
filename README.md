@@ -70,7 +70,8 @@ It allows students to submit homework assignments easily and quickly (a replacem
  ``` ruby 
  rails s -p $PORT -b $IP 
  ```
- ##Deploying to Heroku
+ 
+##Deploying to Heroku
 
 ##Database commands
  * Reset Heroku database
