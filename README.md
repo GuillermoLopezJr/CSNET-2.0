@@ -62,16 +62,12 @@ It allows students to submit homework assignments easily and quickly (a replacem
     * <b>email</b> (Teaching Assistant):     ta1@gmail.com
     * <b>password</b>:  password
     
-  
-##Configuration
-
+ 
 ##Instructions to run 
  * Running locally (Cloud9)
  ``` ruby 
  rails s -p $PORT -b $IP 
  ```
- 
-##Deploying to Heroku
 
 ##Database commands
  * Reset Heroku database
@@ -99,7 +95,7 @@ It allows students to submit homework assignments easily and quickly (a replacem
         * AWS_DEFAULT_REGION
         * AWS_SECRET_ACCESS_KEY
 
-   * Setting up Send-Grid (for sending emails)
+ * Setting up Send-Grid (for sending emails)
     run the command
     ```ruby
     heroku addons:create sendgrid:starter
