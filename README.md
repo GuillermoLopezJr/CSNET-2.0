@@ -8,7 +8,7 @@ It allows students to submit homework assignments easily and quickly (a replacem
 
 administrator Home screen    | Student Home Screen
 :------------------------:|:-------------------------:
-<img src="https://github.com/GuillermoLopezJr/CSNET-2.0/blob/master/screenshots/instr-home.PNG" width="425"/>  | <img src="https://github.com/GuillermoLopezJr/CSNET-2.0/blob/master/screenshots/student-home.PNG" width="425" />
+<kbd> <img src="https://github.com/GuillermoLopezJr/CSNET-2.0/blob/master/screenshots/instr-home.PNG" width="425"/> </kbd> | <kbd> <img src="https://github.com/GuillermoLopezJr/CSNET-2.0/blob/master/screenshots/student-home.PNG" width="425" /> </kbd>
 
 
 ## Final Iteration
