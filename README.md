@@ -3,7 +3,7 @@ A course assignment submission system for Texas A&M University.
 It allows students to submit homework assignments easily and quickly (a replacement for the current CSNET course assignment submissions).
 
 ## Final Iteration
-* [Report (pdf)](https://docs.google.com/document/d/1lBdV-4knJvmW_dYOLpTPH0ytpXQ28tWWlX9YCOGe0_U/edit?usp=sharing)
+* [Report (pdf)](https://drive.google.com/file/d/0B8h8VfncuV6LMExiaFQzYjhJeW8/view?usp=sharing)
 * [CSNET-2.0 App](https://csnet-2.herokuapp.com/)
   * Seeded User Accounts
   
