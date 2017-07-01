@@ -4,7 +4,7 @@ It allows students to submit homework assignments easily and quickly (a replacem
   
 <h1 align="center"> Screenshots </h2>
 
-<b>Login Screen</b> <img src="https://github.com/GuillermoLopezJr/CSNET-2.0/blob/master/screenshots/sign-in-instructor.PNG"/>
+<kbd> <b>Login Screen</b> <img src="https://github.com/GuillermoLopezJr/CSNET-2.0/blob/master/screenshots/sign-in-instructor.PNG"/> </kdb>
 
 Instructor Home screen    | Student Home Screen
 :------------------------:|:-------------------------:
